@@ -26,6 +26,7 @@ Nếu Yahoo Finance tạm thời không truy cập được, notebook chuyển s
 ## Liên kết
 
 - GitHub: https://github.com/jellalaz/RAG_HTTM
+- Web demo: https://temporary-quick-flurry-thaqp5a.vercel.app
 - Vercel account: https://vercel.com/trng-giang
 
 > Dữ liệu tài chính và y tế trong dự án phục vụ mục đích học tập.
