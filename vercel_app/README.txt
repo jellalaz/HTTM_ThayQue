@@ -1,2 +1,2 @@
-Cách deploy: mở terminal tại thư mục này và chạy `npx vercel --prod`.
-Hoặc đặt VERCEL_TOKEN rồi chạy ô triển khai cuối notebook.
+Dashboard tĩnh được tạo bởi Tieuluan02_06_Nhom2_Giangkt.ipynb.
+Production: https://rag-httm.vercel.app

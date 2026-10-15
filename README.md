@@ -7,7 +7,7 @@ Bài tiểu luận Chương 4 của **Kiều Trường Giang - B23DCCN254**, h�
 Mở `Tieuluan02_06_Nhom2_Giangkt.ipynb` và chọn **Run All**. Notebook tự thực hiện toàn bộ quy trình:
 
 1. tải và xử lý dữ liệu tiểu đường, cổ phiếu FPT.VN và vàng GC=F;
-2. tuning mô hình Random Forest bằng GridSearchCV 5-fold;
+2. so sánh và tuning mô hình cho cả ba miền: K-fold cho tiểu đường, TimeSeriesSplit cho FPT và vàng;
 3. xây Knowledge Graph cho ba miền;
 4. chạy Vector RAG và GraphRAG;
 5. tạo bảng, biểu đồ, ảnh code và dashboard;
@@ -26,7 +26,7 @@ Nếu Yahoo Finance tạm thời không truy cập được, notebook chuyển s
 ## Liên kết
 
 - GitHub: https://github.com/jellalaz/RAG_HTTM
-- Web demo: https://temporary-quick-flurry-thaqp5a.vercel.app
+- Web demo: https://rag-httm.vercel.app
 - Vercel account: https://vercel.com/trng-giang
 
 > Dữ liệu tài chính và y tế trong dự án phục vụ mục đích học tập.
