@@ -15,12 +15,15 @@ Mở `Tieuluan02_06_Nhom2_Giangkt.ipynb` và chọn **Run All**. Notebook tự t
 
 Nếu Yahoo Finance tạm thời không truy cập được, notebook đọc snapshot đã lưu và ghi rõ ngày/nguồn. Không tự thay dữ liệu thật bằng giá mô phỏng. Nếu không có snapshot, notebook dừng và yêu cầu chạy lại khi có mạng.
 
-## Insight Lab 2.0
+## Insight Lab 2.1
 
 - Ba tab **Tiểu đường / FPT / Vàng** cùng khu Dự đoán; chatbot sức khỏe nằm riêng. Kết quả chỉ được đưa sang chatbot khi người dùng chọn chia sẻ.
-- So sánh 7 họ mô hình sức khỏe và 5 cấu hình thị trường, có baseline; lựa chọn bằng CV MAE. Thị trường có mô hình dự báo lợi suất, shrinkage và `TimeSeriesSplit(gap=1)`.
+- So sánh 8 họ mô hình sức khỏe và 9 họ mô hình thị trường, gồm SVR RBF, Huber, Ridge, Random Forest, Gradient Boosting và baseline; lựa chọn bằng CV MAE. Thị trường tải lịch sử 5 năm, thử cửa sổ học gần nhất, shrinkage và `TimeSeriesSplit(gap=1, test_size=63)`.
 - Train, calibration, test tách riêng. Khoảng dự báo mục tiêu 90%, công bố độ bao phủ thực tế; không dùng R² làm phần trăm chính xác.
+- Giữ nguyên giai đoạn test của bản 2.0: FPT 04/06–13/10/2026, vàng 09/06–13/10/2026. Không chọn cấu hình theo điểm test. Bản web fit lại với cấu hình đã chọn, giữ riêng 63 phiên gần nhất để hiệu chỉnh; chỉ số test lịch sử và khoảng dự báo bản refit được phân biệt rõ.
+- Trên cùng test, vàng giảm MAE từ 50,47 còn 49,44 USD/oz nhưng chưa thắng baseline 48,27. FPT vẫn chọn Persistence (MAE 728,13 VND), sức khỏe vẫn chọn Ridge (MAE 42,94). Không ép mô hình phức tạp nếu CV kém hơn. Bootstrap theo khối cho biết độ bất định của mức cải thiện; không dùng khoảng này để tuning.
 - Chatbot trích xuất dựa trên BM25 + bằng chứng KG: nhớ thông số trong phiên, hỏi tiếp đơn vị/thời điểm đo, quy đổi mmol/L, nhận xét HbA1c/BMI, phân biệt sau ăn và OGTT, xử lý đường huyết thấp trước.
+- Khi nhập số vượt giới hạn như 150 mmol/L, chatbot giữ số đo để sửa đơn vị hoặc nhập lại, không tự đổi thành 150 mg/dL hay 15 mmol/L.
 - Kiểm tra đầu vào, cảnh báo ngoài phạm vi train, không thực thi HTML từ câu hỏi. Không dùng API key hoặc LLM bên ngoài.
 - Dữ liệu không cập nhật trực tiếp trên web; chạy lại notebook để cập nhật.
 

@@ -16,6 +16,7 @@ function infer(model,x){
  switch(model.type){
  case 'pipeline':return infer(model.estimator,x.map((v,i)=>(v-model.mean[i])/model.scale[i]));
  case 'linear':return model.intercept+model.coef.reduce((s,c,i)=>s+c*x[i],0);
+ case 'svr':return model.intercept+model.support_vectors.reduce((s,v,j)=>s+model.dual_coef[j]*Math.exp(-model.gamma*v.reduce((d,a,i)=>d+(a-x[i])**2,0)),0);
  case 'constant':return model.value;
  case 'persistence':return x[0];
  case 'return':{const z=x.slice();[1,4,5].forEach(i=>z[i]=z[i]/x[0]-1);z[0]=0;return x[0]*(1+model.shrinkage*infer(model.estimator,z));}
@@ -26,7 +27,7 @@ function infer(model,x){
 }
 function treePredict(t,x){let i=0;while(t.left[i]!==-1)i=Math.fround(x[t.feature[i]])<=t.threshold[i]?t.left[i]:t.right[i];return t.value[i]}
 function predictModel(m,values){return infer(m.estimator,m.features.map(k=>values[k]))}
-function outOfRange(m,values){return m.features.filter(k=>values[k]<m.inputs[k].min||values[k]>m.inputs[k].max)}
+function outOfRange(m,values){const v={...values},stats=m.ood_inputs||m.inputs;if(m.ood_space==='relative'){for(const k of ['Close_Lag1','MA20','MA60'])v[k]=v[k]/values.Close-1;v.Close=0;}return m.features.filter(k=>v[k]<stats[k].min||v[k]>stats[k].max)}
 function glucoseAssessment(g,context='unknown',special=false){
  if(g<55)return {level:'high',title:'Đường huyết rất thấp',text:'Cần người hỗ trợ và trợ giúp y tế ngay. Nếu lú lẫn, bất tỉnh, co giật hoặc không nuốt được, không cho ăn uống.',source:'low',low:true};
  if(g<70)return {level:'high',title:'Đường huyết thấp',text:'Nếu là người lớn, còn tỉnh và nuốt được: dùng 15 g carbohydrate hấp thu nhanh, chờ 15 phút rồi đo lại; lặp lại nếu vẫn dưới 70 mg/dL. Nếu không cải thiện hoặc có triệu chứng nặng, cần trợ giúp y tế.',source:'low',low:true};
@@ -90,13 +91,18 @@ class HealthChat{
    const p=this.pending;
    if(!Number.isFinite(p.value)||p.value<=0){this.pending=null;return makeReply('<p>Giá trị đường huyết phải lớn hơn 0. Bạn nhập lại số đo và đơn vị giúp mình.</p>')}
    if(!p.unit)return makeReply(`<p>Mình đã ghi nhận <b>${fmt(p.value,2)}</b>${p.context?' · '+contextNames[p.context]:''}. Đơn vị trên máy hoặc phiếu xét nghiệm là <b>mg/dL hay mmol/L</b>?</p>`,[],['mg/dL','mmol/L']);
-   if(!validGlucose(p.value,p.unit)){this.pending=null;return makeReply('<p>Giá trị nằm ngoài khoảng đầu vào hỗ trợ. Hãy kiểm tra đơn vị và dấu thập phân. Nếu máy hiện HI/LO hoặc đang có triệu chứng nặng, liên hệ y tế ngay.</p>',['low'])}
+   if(!validGlucose(p.value,p.unit)){
+    p.needsCorrection=true;
+    return makeReply(`<h4>Cần kiểm tra lại số đo và đơn vị</h4><p>Bạn vừa nhập <b>${fmt(p.value,2)} ${p.unit}</b>${p.unit==='mmol/L'?`, tương đương khoảng <b>${fmt(p.value*18.0182,0)} mg/dL</b>`:''}. Đây là giá trị cực cao, ngoài khoảng chatbot có thể phân tích; có thể nhầm đơn vị hoặc dấu thập phân.</p><p>Mình vẫn giữ số đo để bạn sửa tiếp. Hãy đối chiếu màn hình máy/phiếu xét nghiệm rồi gửi đơn vị đúng hoặc nhập lại cả số đo; mình không tự đổi 150 thành 15. Nếu số đo được xác nhận đúng, máy hiện HI, hoặc bạn đang nôn, khó thở, lú lẫn, hãy tìm trợ giúp y tế ngay.</p>`,['diagnosis'],['Đổi sang mg/dL','Nhập lại số đo']);
+   }
    const g=p.unit==='mmol/L'?p.value*18.0182:p.value;
    if(!p.context&&g>=70)return makeReply(`<p><b>${fmt(p.value,2)} ${p.unit}</b> đã được ghi nhận. Bạn đo vào thời điểm nào?</p>`,['diagnosis'],['Lúc đói ít nhất 8 giờ','Sau bữa ăn','2 giờ sau nghiệm pháp glucose','Đo ngẫu nhiên']);
    this.profile.glucose=g;this.profile.context=p.context||'unknown';this.profile.originalUnit=p.unit;this.profile.score=null;this.pending=null;this.lastTopic='testing';
    let extra='';if(am&&this.profile.a1c>=3&&this.profile.a1c<=20)extra=assessmentHTML(a1cAssessment(this.profile.a1c,this.profile.pregnant),`HbA1c ${fmt(this.profile.a1c)}%`);
    return this.glucoseReply(extra);
   }
+  if(this.pending&&/nhap lai so do/.test(n)){this.pending=null;return makeReply('<p>Bạn gửi lại số đo kèm đơn vị và thời điểm đo nhé. Ví dụ: “Đường huyết 150 mg/dL lúc đói”.</p>')}
+  if(this.pending?.needsCorrection&&/xac nhan|dung roi|dung la|chinh xac/.test(n))return makeReply('<h4>Cần trợ giúp y tế ngay</h4><p>Nếu số đo rất cao này đã được xác nhận đúng, bạn cần được cơ sở y tế đánh giá ngay. Không tự chỉnh liều thuốc theo chatbot. Nhờ người hỗ trợ; không tự lái xe nếu đang mệt hoặc có triệu chứng.</p>',['diagnosis']);
   if(ctx&&this.profile.glucose){this.profile.context=ctx;return this.glucoseReply()}
   if(am){const a=parseNumber(am[1]);if(a<3||a>20)return makeReply('<p>Hãy kiểm tra lại HbA1c; nhập số theo %, ví dụ 6,2%. Khoảng nhập hỗ trợ là 3–20%.</p>');this.profile.a1c=a;this.lastTopic='a1c';return makeReply(`<h4>HbA1c ${fmt(a)}%</h4>${assessmentHTML(a1cAssessment(a,this.profile.pregnant))}<p>Đây là ngưỡng xét nghiệm, không phải mục tiêu điều trị dành riêng cho bạn.</p>`,['diagnosis'],['HbA1c là gì?','Tôi nên theo dõi thế nào?'])}
   if(bm){const b=parseNumber(bm[1]);if(b<10||b>80)return makeReply('<p>Hãy kiểm tra lại BMI, đơn vị kg/m². Khoảng nhập hỗ trợ là 10–80.</p>');this.profile.bmi=b;this.profile.score=null;return makeReply(`<h4>BMI ${fmt(b)} kg/m²</h4>${this.profile.pregnant||this.profile.age<18?'<p>Cần đánh giá BMI theo tuổi hoặc thai kỳ; không dùng ngưỡng người lớn thông thường.</p>':assessmentHTML(bmiAssessment(b))}`,[],['Gợi ý một bữa ăn','Tôi nên vận động bao nhiêu?'])}

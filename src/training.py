@@ -2,6 +2,7 @@
 from sklearn.base import BaseEstimator, RegressorMixin, clone
 from sklearn.dummy import DummyRegressor
 from sklearn.linear_model import ElasticNet, HuberRegressor
+from sklearn.svm import SVR
 
 class PersistenceRegressor(RegressorMixin, BaseEstimator):
     def fit(self, X, y):
@@ -13,9 +14,10 @@ class PersistenceRegressor(RegressorMixin, BaseEstimator):
 
 class ReturnForecaster(RegressorMixin, BaseEstimator):
     """Học lợi suất thay vì mức giá; scaler chỉ fit trên phần train của mỗi fold."""
-    def __init__(self, estimator=None, shrinkage=1.0):
+    def __init__(self, estimator=None, shrinkage=1.0, window=None):
         self.estimator = estimator
         self.shrinkage = shrinkage
+        self.window = window
 
     @staticmethod
     def transform(X):
@@ -28,6 +30,9 @@ class ReturnForecaster(RegressorMixin, BaseEstimator):
 
     def fit(self, X, y):
         self.n_features_in_ = X.shape[1]
+        X, y = np.asarray(X), np.asarray(y)
+        if self.window is not None:
+            X, y = X[-self.window:], y[-self.window:]
         self.estimator_ = clone(self.estimator)
         self.estimator_.fit(self.transform(X), np.asarray(y) / np.asarray(X)[:, 0] - 1)
         return self
@@ -48,7 +53,11 @@ def select_model(candidates, X, y, cv, domain):
         search.fit(X, y)
         searches[name] = search
         rows.append({"Miền": domain, "Mô hình": name,
-                     "CV_MAE": float(-search.best_score_), "Tham số": str(search.best_params_)})
+                     "CV_MAE": float(-search.best_score_),
+                     "CV_STD":float(search.cv_results_["std_test_score"][search.best_index_]),
+                     "Cấu hình đã thử":len(search.cv_results_["params"]),
+                     "Tham số": str(search.best_params_)})
+        print(f"{domain}: {name} · CV MAE {-search.best_score_:.3f}",flush=True)
     name = min(searches, key=lambda k: -searches[k].best_score_)
     return name, searches[name], rows
 
@@ -63,6 +72,17 @@ def calibrate(model, X_cal, y_cal, X_test, y_test, relative=False):
     return {"nominal": 0.90, "radius": radius, "relative": relative,
             "calibration_size": len(y_cal), "test_coverage": coverage}
 
+def paired_block_interval(actual,prediction,baseline):
+    """Khoảng bootstrap mô tả độ bất định; không tham gia chọn mô hình."""
+    actual,prediction,baseline=map(np.asarray,(actual,prediction,baseline))
+    err,base=np.abs(actual-prediction),np.abs(actual-baseline)
+    rng=np.random.default_rng(RANDOM_SEED);values=[];n=len(err)
+    for _ in range(2000):
+        starts=rng.integers(0,n-4,size=int(np.ceil(n/5)))
+        idx=(starts[:,None]+np.arange(5)).ravel()[:n]
+        values.append(100*(1-err[idx].mean()/base[idx].mean()))
+    return np.quantile(values,[.025,.975]).tolist()
+
 X, y = diabetes_df.drop(columns="target"), diabetes_df["target"]
 X_dev, X_test, y_dev, y_test = train_test_split(X, y, test_size=.2, random_state=RANDOM_SEED)
 X_train, X_cal, y_train, y_cal = train_test_split(X_dev, y_dev, test_size=.2, random_state=RANDOM_SEED)
@@ -75,6 +95,8 @@ diabetes_candidates = {
                    {"model__alpha": [.05,.5,2], "model__l1_ratio": [.1,.5,.9]}),
     "Huber": (Pipeline([("scale", StandardScaler()), ("model", HuberRegressor(max_iter=2000))]),
               {"model__epsilon": [1.35,1.75,2.0]}),
+    "SVR RBF": (Pipeline([("scale", StandardScaler()), ("model", SVR())]),
+                {"model__C": [10,30,100,300], "model__gamma": [.01,.03,.1], "model__epsilon": [1,5]}),
     "Random Forest": (RandomForestRegressor(n_estimators=160, random_state=RANDOM_SEED, n_jobs=1),
                       {"min_samples_leaf": [4,8,12], "max_features": [.7,1.0]}),
     "Gradient Boosting": (GradientBoostingRegressor(random_state=RANDOM_SEED),
@@ -120,21 +142,38 @@ market_details = {}
 def train_market_model(df, domain_label):
     supervised, cols, latest = prepare_market_supervised(df)
     # Purge 1 quan sát tại mỗi ranh giới: nhãn t+1 không vượt vào block kế tiếp.
-    a, b = int(len(supervised)*.64), int(len(supervised)*.80)
-    train, cal, test = supervised.iloc[:a-1], supervised.iloc[a:b-1], supervised.iloc[b:]
+    # Mốc đã khóa trước khi mở rộng dữ liệu: không đổi test để làm đẹp số liệu.
+    cal_start, test_start = (("2026-02-13","2026-06-04") if domain_label=="Chứng khoán FPT"
+                            else ("2026-02-26","2026-06-09"))
+    train = supervised.loc[supervised.index < cal_start].iloc[:-1]
+    cal = supervised.loc[(supervised.index >= cal_start)&(supervised.index < test_start)].iloc[:-1]
+    test = supervised.loc[(supervised.index >= test_start)&(supervised.index < "2026-10-14")]
+    if min(len(train),len(cal),len(test)) < 30:
+        raise ValueError("Không đủ dữ liệu cho các mốc đánh giá cố định; cần snapshot lịch sử đầy đủ.")
     Xtr,ytr = train[cols],train.Target_Next_Close
     Xte,yte = test[cols],test.Target_Next_Close
     ridge = Pipeline([("scale",StandardScaler()),("model",Ridge())])
     candidates = {
         "Persistence": (PersistenceRegressor(), {}),
         "Ridge price": (ridge, {"model__alpha":[.01,1,10,100]}),
-        "Ridge return": (ReturnForecaster(ridge), {"estimator__model__alpha":[1,10,100,1000],"shrinkage":[.1,.35,1.0]}),
+        "Median return": (ReturnForecaster(DummyRegressor(strategy="median")),
+                          {"window":[126,252,504,None], "shrinkage":[.25,1.0]}),
+        "Ridge return": (ReturnForecaster(ridge), {"estimator__model__alpha":[10,100,1000],"shrinkage":[.1,.35,1.0],"window":[252,504]}),
+        "Huber return": (ReturnForecaster(Pipeline([("scale",StandardScaler()),("model",HuberRegressor(max_iter=2000))])),
+                          {"estimator__model__epsilon":[1.1,1.35],"shrinkage":[.25,1.0],"window":[252,504]}),
+        "SVR return": (ReturnForecaster(Pipeline([("scale",StandardScaler()),("model",SVR())])),
+                       {"estimator__model__C":[.001,.01,.1],"estimator__model__gamma":[.03,.1],
+                        "estimator__model__epsilon":[.001,.005],"shrinkage":[.25,1.0],"window":[504]}),
         "Forest return": (ReturnForecaster(RandomForestRegressor(n_estimators=120,random_state=RANDOM_SEED,n_jobs=1)),
                           {"estimator__min_samples_leaf":[8,20],"shrinkage":[.1,.35]}),
         "Boost return": (ReturnForecaster(GradientBoostingRegressor(n_estimators=80,max_depth=1,min_samples_leaf=15,learning_rate=.03,random_state=RANDOM_SEED)),
                          {"shrinkage":[.1,.35,1.0]}),
+        "Median boost return": (ReturnForecaster(GradientBoostingRegressor(loss="quantile",alpha=.5,n_estimators=100,max_depth=2,min_samples_leaf=25,learning_rate=.03,random_state=RANDOM_SEED)),
+                                {"shrinkage":[.1,.35,1.0],"window":[252,504]}),
     }
-    name,search,rows = select_model(candidates,Xtr,ytr,TimeSeriesSplit(n_splits=5,gap=1),domain_label)
+    # Cùng 5 block validation gần nhất (63 phiên), không xáo trộn; gap=1.
+    fold_size=min(63,(len(train)-80)//5)
+    name,search,rows = select_model(candidates,Xtr,ytr,TimeSeriesSplit(n_splits=5,gap=1,test_size=fold_size),domain_label)
     model = search.best_estimator_
     pred,base = model.predict(Xte),Xte.Close.to_numpy()
     metrics = dict(Model=name, **metric_values(yte,pred), CV_MAE=float(-search.best_score_),
@@ -142,12 +181,27 @@ def train_market_model(df, domain_label):
                    Direction_Accuracy=float(np.mean(np.sign(np.asarray(yte)-base)==np.sign(pred-base))*100),
                    Direction_Coverage=float(np.mean(np.abs(pred-base)>1e-8)*100),
                    Persistence_MAE=float(mean_absolute_error(yte,base)),best_params=search.best_params_,
-                   train_size=len(train),calibration_size=len(cal),test_size=len(test))
+                   train_size=len(train),calibration_size=len(cal),test_size=len(test),
+                   test_start=str(test.index[0].date()),test_end=str(test.index[-1].date()),
+                   train_end=str(train.index[-1].date()),cv_fold_size=fold_size)
     metrics["Improvement_vs_Persistence_pct"]=(1-metrics["MAE"]/metrics["Persistence_MAE"])*100
+    metrics["Improvement_CI95_pct"]=paired_block_interval(yte,pred,base)
     interval = calibrate(model,cal[cols],cal.Target_Next_Close,Xte,yte,relative=True)
     predictions = pd.DataFrame({"Actual":yte,"Prediction":pred,"Persistence":base},index=yte.index)
-    market_details[domain_label] = {"interval":interval,"train":Xtr,"test":Xte,"rows":rows}
-    return metrics,predictions,rows,model,cols,latest
+    # Cấu hình đã chọn được fit lại cho web; giữ 63 quan sát gần nhất để hiệu chỉnh.
+    # Không thay kết quả historical test bằng kết quả in-sample của bản fit mới.
+    live_train,live_cal = supervised.iloc[:-64],supervised.iloc[-63:]
+    live_model=clone(model).fit(live_train[cols],live_train.Target_Next_Close)
+    live_interval=calibrate(live_model,live_cal[cols],live_cal.Target_Next_Close,Xte,yte,relative=True)
+    live_interval.pop("test_coverage")  # Test chồng lấn dữ liệu refit: không công bố coverage giả.
+    live_interval["historical_test_coverage"]=interval["test_coverage"]
+    live_interval["calibration_start"]=str(live_cal.index[0].date())
+    live_interval["calibration_end"]=str(live_cal.index[-1].date())
+    market_details[domain_label] = {"interval":interval,"live_interval":live_interval,
+        "train":live_train[cols],"test":Xte,"rows":rows,
+        "deployment":{"train_end":str(live_train.index[-1].date()),"train_size":len(live_train),
+                      "window":getattr(live_model,"window",None),"refit":True}}
+    return metrics,predictions,rows,live_model,cols,latest
 
 stock_summary = market_summary(stock_df,stock_meta.get("currency","VND"))
 gold_summary = market_summary(gold_df,gold_meta.get("currency","USD"))
@@ -164,5 +218,5 @@ data_profile_df = pd.DataFrame([
       for key,label,df,summary in [("stock","Chứng khoán",stock_df,stock_summary),("gold","Giá vàng",gold_df,gold_summary)]]])
 summary_table = pd.DataFrame([{"Miền":label,**metrics} for label,metrics in
                               [("Tiểu đường",diabetes_metrics),("FPT",stock_model_info),("Vàng",gold_model_info)]])
-display(summary_table[["Miền","Model","CV_MAE","MAE","R2"]].round(4))
+print(summary_table[["Miền","Model","CV_MAE","MAE","R2"]].round(4).to_string(index=False))
 print("Khoảng dự báo hiệu chỉnh riêng, mục tiêu 90%; coverage test được báo cáo thực tế.")

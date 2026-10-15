@@ -1,5 +1,5 @@
 # Dữ liệu thật; nếu mất mạng chỉ đọc snapshot đã lưu, không thay bằng giá mô phỏng.
-def yahoo_chart(symbol, range_="2y", interval="1d"):
+def yahoo_chart(symbol, range_="5y", interval="1d"):
     url=f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
     response=requests.get(url,params={"range":range_,"interval":interval,"events":"history"},
                           timeout=25,headers={"User-Agent":"Mozilla/5.0"})

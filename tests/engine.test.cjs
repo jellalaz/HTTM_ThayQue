@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
-const {HealthChat,glucoseAssessment,a1cAssessment,parseNumber,esc,infer,retrieve}=require('../src/engine.js');
+const {HealthChat,glucoseAssessment,a1cAssessment,parseNumber,esc,infer,retrieve,outOfRange}=require('../src/engine.js');
 let count=0;
 function test(name,fn){fn();count++;console.log('PASS',name)}
 test('Hạ đường huyết phải ưu tiên trước nhãn bình thường',()=>{
@@ -37,6 +37,18 @@ test('Số thập phân tiếng Việt và quy đổi mmol/L',()=>{
  assert.ok(Number.isNaN(parseNumber('')));
  assert.ok(Number.isNaN(parseNumber('15abc')));
 });
+test('Số đo sai đơn vị được giữ để sửa tiếp, không tự đoán số',()=>{
+ const c=new HealthChat();c.respond('Đường huyết 150');
+ assert.match(c.respond('mmol/L').html,/kiểm tra lại/);
+ assert.equal(c.pending.value,150);assert.equal(c.profile.glucose,undefined);
+ assert.match(c.respond('Đổi sang mg/dL').html,/thời điểm nào/);
+ assert.match(c.respond('Lúc đói ít nhất 8 giờ').html,/Đạt ngưỡng/);
+ assert.equal(c.profile.glucose,150);
+ const d=new HealthChat();d.respond('Đường huyết 150 mmol/L lúc đói');
+ assert.match(d.respond('Đúng rồi').html,/trợ giúp y tế ngay/);
+ d.respond('Nhập lại số đo');assert.equal(d.pending,null);
+ d.respond('Đường huyết 15 mmol/L lúc đói');assert.ok(d.profile.glucose>270&&d.profile.glucose<271);
+});
 test('Không áp ngưỡng người lớn cho thai kỳ và trẻ em',()=>{
  const c=new HealthChat();
  assert.match(c.respond('Tôi đang mang thai, đường huyết 150 mg/dL lúc đói').html,/ngưỡng đánh giá riêng/);
@@ -72,6 +84,29 @@ test('Truy xuất theo chủ đề có bằng chứng phù hợp',()=>{
  for(const [q,id] of [['Nên ăn tinh bột thế nào?','carb'],['Tập thể dục bao nhiêu phút?','activity'],['HbA1c là gì?','a1c'],['Có nên tự tăng liều insulin?','medicine']])assert.equal(retrieve(q)[0].id,id);
 });
 const configPath='artifacts_giangkt/data/web_model_config.json';
+test('Kernel SVR RBF đúng công thức',()=>{
+ assert.ok(Math.abs(infer({type:'svr',intercept:2,gamma:.5,support_vectors:[[1,2],[3,4]],dual_coef:[.4,-.2]},[1,2])-(2+.4-.2*Math.exp(-4)))<1e-12);
+});
+if(fs.existsSync(configPath))test('Tách provenance test và refit; chọn mô hình chỉ theo CV',()=>{
+ const config=JSON.parse(fs.readFileSync(configPath));
+ for(const key of ['stock','gold']){
+  const m=config.models[key];
+  assert.equal(m.metrics.test_end,'2026-10-13');
+  assert.equal(m.metrics.test_start,key==='stock'?'2026-06-04':'2026-06-09');
+  assert.ok(m.metrics.train_end<m.metrics.test_start);
+  assert.ok(m.deployment.train_end<m.interval.calibration_start);
+  assert.equal(m.interval.calibration_size,63);
+  assert.equal(m.interval.test_coverage,undefined);
+  assert.ok(Number.isFinite(m.evaluation_interval.test_coverage));
+  assert.equal(m.metrics.CV_MAE,Math.min(...m.comparison.map(r=>r.CV_MAE)));
+  assert.ok(m.metrics.Improvement_CI95_pct.every(Number.isFinite));
+  if(m.ood_space==='relative'){
+   const values={...m.latest},scaled={...values};
+   for(const f of ['Close','Close_Lag1','MA20','MA60'])scaled[f]*=2;
+   assert.deepEqual(outOfRange(m,values),outOfRange(m,scaled));
+  }
+ }
+});
 if(fs.existsSync(configPath))test('Suy luận JavaScript khớp Python trên 36 vector giữ lại',()=>{
  const config=JSON.parse(fs.readFileSync(configPath));
  const samples=JSON.parse(fs.readFileSync('artifacts_giangkt/data/model_parity.json'));

@@ -12,6 +12,9 @@ def setcell(i,source):
 def src(name):return (ROOT/'src'/name).read_text()
 setcell(3,src('data.py'))
 setcell(4,src('training.py'))
+ragcode=''.join(n['cells'][8]['source'])
+ragcode=ragcode.replace('Random Forest trên phép chia 80/20 đạt MAE', '{diabetes_model_name} trên tập test giữ riêng đạt MAE')
+setcell(8,ragcode)
 template=src('web.html').replace('__STYLES__',src('styles.css')).replace('__ENGINE__',src('engine.js')).replace('__APP__',src('app.js'))
 webcode=src('export_models.py')+'\nhtml_template = '+repr(template)+'\n'
 webcode+='''html=html_template.replace("__MODEL_CONFIG__",json.dumps(web_config,ensure_ascii=False,allow_nan=False))
@@ -47,26 +50,26 @@ updates='''# INSIGHT_LAB_REPORT_UPDATES
 page_updates = {
 "4.4. KB VÀ RAG CHO BỆNH TIỂU ĐƯỜNG": [
     "Dữ liệu diabetes gồm 442 người đã mắc bệnh, 10 thuộc tính nền và điểm tiến triển sau một năm. Đầu ra là hồi quy nghiên cứu, không phải xác suất mắc tiểu đường.",
-    f"Dữ liệu được chia thành {len(X_train)} mẫu train, {len(X_cal)} mẫu hiệu chỉnh khoảng dự báo và {len(X_test)} mẫu test. K-fold 5 phần chỉ chạy trên train; so sánh Median baseline, Linear, Ridge, ElasticNet, Huber, Random Forest và Gradient Boosting.",
+    f"Dữ liệu được chia thành {len(X_train)} mẫu train, {len(X_cal)} mẫu hiệu chỉnh khoảng dự báo và {len(X_test)} mẫu test. K-fold 5 phần chỉ chạy trên train; so sánh Median baseline, Linear, Ridge, ElasticNet, Huber, SVR RBF, Random Forest và Gradient Boosting. Thêm mô hình phi tuyến không đồng nghĩa chắc chắn tốt hơn; quyết định vẫn dựa trên CV MAE.",
     f"Mô hình được chọn theo CV: {diabetes_model_name}; CV MAE {diabetes_metrics['CV_MAE']:.2f}; test MAE {diabetes_metrics['MAE']:.2f}; R² {diabetes_metrics['R2']:.3f}. MAE của dự báo trung vị là {diabetes_metrics['Baseline_MAE']:.2f}. Khoảng dự báo mục tiêu 90% có độ bao phủ test {diabetes_interval['test_coverage']:.1%}."],
 "4.5.2. HUẤN LUYỆN VÀ ĐÁNH GIÁ MÔ HÌNH FPT": [
-    "So sánh Persistence, Ridge dự báo mức giá và ba mô hình dự báo lợi suất: Ridge, Random Forest, Gradient Boosting. Các cấu hình co dự báo lợi suất về 0 giúp hạn chế biến động quá mức. Lựa chọn theo CV MAE bằng TimeSeriesSplit 5 phần, gap=1.",
+    "Lịch sử tải được mở rộng từ 2 năm lên 5 năm. Chín họ cấu hình gồm Persistence, Ridge giá, Median lợi suất, Ridge lợi suất, Huber, SVR RBF, Random Forest và hai dạng Gradient Boosting. Tuning độ co lợi suất, cửa sổ học gần nhất và siêu tham số trên TimeSeriesSplit 5 phần, mỗi phần xác nhận 63 phiên, gap=1. Tập test giữ nguyên mốc của bản 2.0.",
     f"Chia theo thời gian: {stock_model_info['train_size']} train, {stock_model_info['calibration_size']} hiệu chỉnh, {stock_model_info['test_size']} test; bỏ một quan sát tại mỗi ranh giới. Mô hình {stock_model_info['Model']} đạt MAE {stock_model_info['MAE']:.2f}, R² {stock_model_info['R2']:.3f}; baseline MAE {stock_model_info['Persistence_MAE']:.2f}. Cải thiện trên test {stock_model_info['Improvement_vs_Persistence_pct']:.2f}%.",
-    f"Khoảng sai số tương đối được hiệu chỉnh trên block riêng, không dùng test. Bao phủ thực tế: {market_details['Chứng khoán FPT']['interval']['test_coverage']:.1%}. Dữ liệu chuỗi thời gian không thỏa giả định trao đổi như mẫu độc lập nên mức 90% chỉ là mục tiêu, không phải bảo đảm cho tương lai."],
+    f"Test lịch sử từ {stock_model_info['test_start']} đến {stock_model_info['test_end']}; MAE bản trước 728.13 VND. Bao phủ khoảng dự báo lịch sử: {market_details['Chứng khoán FPT']['interval']['test_coverage']:.1%}. Kết quả hiện tại chưa cho thấy mô hình học máy thắng Persistence. Dữ liệu chuỗi thời gian không thỏa giả định trao đổi như mẫu độc lập nên mức 90% chỉ là mục tiêu, không phải bảo đảm cho tương lai."],
 "4.6.2. HUẤN LUYỆN VÀ ĐÁNH GIÁ MÔ HÌNH VÀNG": [
     "Vàng dùng cùng quy trình lựa chọn có baseline và mô hình lợi suất như FPT. Không ép chọn mô hình phức tạp nếu Persistence có CV MAE thấp hơn. Train, hiệu chỉnh và test nằm theo đúng thứ tự thời gian, có khoảng cách một phiên ở ranh giới.",
     f"Mô hình được chọn: {gold_model_info['Model']}; CV MAE {gold_model_info['CV_MAE']:.3f}; test MAE {gold_model_info['MAE']:.3f}; R² {gold_model_info['R2']:.3f}. Baseline MAE {gold_model_info['Persistence_MAE']:.3f}; cải thiện {gold_model_info['Improvement_vs_Persistence_pct']:.2f}%.",
-    f"Độ bao phủ của khoảng dự báo trên test: {market_details['Giá vàng GC=F']['interval']['test_coverage']:.1%}. Nếu chọn Persistence, dự báo bằng giá đóng cửa đầu vào và không tạo tín hiệu chiều tăng/giảm. GC=F là hợp đồng vàng quốc tế, không phải vàng SJC."],
+    f"Test từ {gold_model_info['test_start']} đến {gold_model_info['test_end']}; bản trước có MAE 50.4701. Mức giảm sai số so với bản trước là {(1-gold_model_info['MAE']/50.47005460824505)*100:.2f}%, nhưng vẫn cần đối chiếu baseline. Khoảng bootstrap khối 5 phiên, 2.000 lần lặp cho mức cải thiện so với baseline: {gold_model_info['Improvement_CI95_pct'][0]:.2f}% đến {gold_model_info['Improvement_CI95_pct'][1]:.2f}%. Khoảng chứa 0 chưa chứng minh cải thiện rõ ràng. GC=F không phải vàng SJC."],
 "4.7. DEPLOYMENT": [
     "Insight Lab 2.0 chia thành khu Dự đoán với ba tab Tiểu đường, FPT, Vàng và khu Trợ lý sức khỏe riêng. Người dùng xem kết quả tại từng tab; khi muốn thảo luận, chủ động chọn chia sẻ kết quả sức khỏe cho chatbot.",
     "Web hiển thị biểu đồ lịch sử giá, dự báo điểm, khoảng sai số hiệu chỉnh và so sánh baseline. Đầu vào trống, sai đơn vị hoặc vượt giới hạn được kiểm tra trước suy luận. Giá trị ngoài phạm vi train được đánh dấu để tránh hiểu sai mức tin cậy.",
     f"Web: <link href='{DEPLOY_URL}' color='black'>{DEPLOY_URL}</link>. GitHub: <link href='{GITHUB_URL}' color='black'>{GITHUB_URL}</link>. Sơ đồ dưới đây minh họa bố cục, không phải ảnh chụp màn hình."],
 "4.7.1. SUY LUẬN MÔ HÌNH TRÊN TRÌNH DUYỆT": [
-    "Notebook xuất cấu trúc estimator được chọn: scaler và hệ số tuyến tính, cây Random Forest/Gradient Boosting, hoặc công thức Persistence/lợi suất. JavaScript dùng cùng thứ tự đặc trưng và tham số, không hard-code kết quả dự báo. Các vector đối chiếu Python/JavaScript được lưu để kiểm tra sai số đóng gói.",
+    "Notebook xuất cấu trúc estimator được chọn: scaler, hệ số tuyến tính, vector hỗ trợ và kernel RBF của SVR, cấu trúc cây hoặc công thức Persistence/lợi suất. JavaScript dùng cùng đặc trưng và tham số. Các vector đối chiếu Python/JavaScript được lưu để kiểm tra sai số đóng gói.",
     "Mô hình sức khỏe có sáu trường chính và bốn trường bổ sung. Trường bổ sung trống dùng trung vị tập train và được công bố ở kết quả. HbA1c và bối cảnh đo dùng cho nhận xét xét nghiệm riêng, không bị đưa nhầm vào mô hình chưa học chúng. Điểm tiến triển không được dùng quyết định chẩn đoán hoặc cấp cứu.",
-    "Mô hình thị trường dùng đủ 11 đặc trưng. Lợi suất hiện tại tính nhất quán từ hai giá đóng cửa; biểu mẫu tách đơn vị tiền và phần trăm. Ngày dữ liệu được hiển thị rõ; chỉ cập nhật khi chạy notebook. Web không gửi thông số sức khỏe đến dịch vụ bên ngoài."],
+    "Cấu hình thị trường được chọn trên dữ liệu trước test rồi fit lại cho web, chừa 63 phiên gần nhất để hiệu chỉnh khoảng dự báo và bỏ cách một phiên. Chỉ số test lịch sử thuộc bản fit trước đó, không phải đánh giá ngoài mẫu của bản refit. Web hiển thị riêng hai giai đoạn. Cảnh báo ngoài miền của mô hình lợi suất xét đặc trưng tương đối, không chỉ mức giá tuyệt đối. Web không gửi hồ sơ sức khỏe ra ngoài."],
 "4.7.2. CHATBOT DỰ ĐOÁN, TƯ VẤN VÀ HỎI ĐÁP": [
-    "Chatbot hoạt động độc lập với biểu mẫu. Người dùng có thể nhập đường huyết, HbA1c, BMI trực tiếp. Bộ nhớ trong phiên giữ các thông số và câu hỏi đang chờ; nếu thiếu đơn vị hoặc thời điểm đo, chatbot hỏi tiếp rồi mới nhận xét. mg/dL và mmol/L được quy đổi minh bạch.",
+    "Chatbot hoạt động độc lập với biểu mẫu. Người dùng nhập đường huyết, HbA1c, BMI trực tiếp; bộ nhớ trong phiên giữ các thông số và câu hỏi đang chờ. Nếu nhập 150 mmol/L, trợ lý nêu số quy đổi, yêu cầu kiểm tra lại và giữ dữ liệu để sửa đơn vị hoặc nhập lại. Không tự suy đoán thành 150 mg/dL hay 15 mmol/L. Thiếu thời điểm đo được hỏi tiếp trước khi phân loại.",
     "Các ngưỡng xét nghiệm tham khảo NIDDK/ADA. Đường huyết thấp được xử lý trước bảng phân loại đường cao. Sau bữa ăn thông thường không bị đánh đồng với nghiệm pháp 75 g glucose. Thai kỳ và trẻ em cần bối cảnh riêng. Câu hỏi kê liều thuốc được chuyển thành hướng dẫn trao đổi với bác sĩ.",
     "Kho tri thức sức khỏe gồm 12 chủ đề. BM25 xếp hạng đoạn văn, bổ sung điểm cụm từ và đường quan hệ KG tương ứng. Câu trả lời dạng trích xuất có dẫn nguồn; không kết nối LLM bên ngoài. Câu hỏi không đủ bằng chứng được thông báo rõ thay vì trả lời một đoạn bất kỳ. Hội thoại bị xóa khi tải lại trang hoặc chọn cuộc trò chuyện mới."],
 }
@@ -77,6 +80,7 @@ report=report.replace('"[14] Vercel Documentation, Static Deployments and CLI.",
 setcell(14,report)
 # Cập nhật ảnh code để khớp triển khai thực tế.
 figcode=''.join(n['cells'][11]['source'])
+figcode=figcode.replace('range_="2y"','range_="5y"')
 figcode=figcode.replace('lines = source.splitlines()', 'lines = [part for line in source.splitlines() for part in (textwrap.wrap(line, width=86, subsequent_indent="    ", replace_whitespace=False, drop_whitespace=False) or [""])]')
 figcode=figcode.replace('0.31 * len(lines) + 1.25','0.28 * len(lines) + 1.0').replace('max(5.0,','max(3.0,')
 figcode=figcode.replace('figsize=(12.8, height)','figsize=(10.0, height)').replace('fontsize=8.6, linespacing=1.35','fontsize=11.0, linespacing=1.25')
@@ -94,9 +98,10 @@ interval = calibrate(model, X_cal, y_cal, X_test, y_test)
 pred = model.predict(X_test)
 \'\'\')
 render_code_card("code_market_training.png", "TimeSeriesSplit có gap và mô hình baseline", r\'\'\'
-a, b = int(len(data)*.64), int(len(data)*.80)
-train, cal, test = data.iloc[:a-1], data.iloc[a:b-1], data.iloc[b:]
-cv = TimeSeriesSplit(n_splits=5, gap=1)
+train = data.loc[data.index < cal_start].iloc[:-1]
+cal = data.loc[(data.index >= cal_start) & (data.index < test_start)].iloc[:-1]
+test = data.loc[(data.index >= test_start) & (data.index < "2026-10-14")]
+cv = TimeSeriesSplit(n_splits=5, gap=1, test_size=63)
 name, search, rows = select_model(candidates, Xtr, ytr, cv, domain)
 model = search.best_estimator_
 interval = calibrate(model, Xcal, ycal, Xte, yte, relative=True)
