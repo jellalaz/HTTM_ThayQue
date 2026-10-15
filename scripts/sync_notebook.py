@@ -46,6 +46,26 @@ fig.tight_layout();fig.savefig(FIG_DIR/"web_app_preview.png",dpi=240,bbox_inches
 setcell(13,webcode)
 setcell(12,'## 5. Sinh ứng dụng và báo cáo PDF\n\nBa mô hình dùng chung khu Dự đoán. Chatbot sức khỏe có khu vực riêng, truy xuất BM25, bằng chứng KG và bộ nhớ hội thoại trong phiên. Mô hình, pipeline tiền xử lý và khoảng dự báo được xuất từ Python sang JavaScript. Notebook chứa toàn bộ HTML/CSS/JS nên không cần chạy tệp khác.\n')
 report=''.join(n['cells'][14]['source'])
+# Bìa có khung riêng đối xứng, không thay đổi lề hay căn chữ ở phần nội dung.
+if 'id="cover"' not in report:
+    report=report.replace('self.addPageTemplates(PageTemplate(id="body", frames=frame, onPage=self._header_footer))', '''cover_frame = Frame(2*cm, self.bottomMargin, PAGE_W-4*cm, self.height, id="cover")
+        self.addPageTemplates([
+            PageTemplate(id="cover", frames=cover_frame, onPage=self._header_footer, autoNextPageTemplate="body"),
+            PageTemplate(id="body", frames=frame, onPage=self._header_footer),
+        ])''')
+if 'name="VNCoverBody"' not in report:
+    report=report.replace('story = []', '''styles.add(ParagraphStyle(name="VNCoverBody", parent=styles["VNBody"], alignment=TA_CENTER))
+styles.add(ParagraphStyle(name="VNCoverHeading", parent=styles["VNHeading"], alignment=TA_CENTER))
+story = []''')
+    cover_start=report.index('# Bìa')
+    cover_end=report.index('story.append(P("MỤC LỤC"',cover_start)
+    cover=report[cover_start:cover_end].replace('"VNHeading"','"VNCoverHeading"')
+    cover=cover.replace('{COURSE}")','{COURSE}", "VNCoverBody")')
+    cover=cover.replace('Thầy Trần Đình Quế")','Thầy Trần Đình Quế", "VNCoverBody")')
+    cover=cover.replace('{STUDENT_NAME}")','{STUDENT_NAME}", "VNCoverBody")')
+    cover=cover.replace('{STUDENT_ID}")','{STUDENT_ID}", "VNCoverBody")')
+    cover=cover.replace('</link>")','</link>", "VNCoverBody")')
+    report=report[:cover_start]+cover+report[cover_end:]
 # Loại phần chèn cũ khi chạy lại script.
 marker='# INSIGHT_LAB_REPORT_UPDATES'
 if marker in report:
