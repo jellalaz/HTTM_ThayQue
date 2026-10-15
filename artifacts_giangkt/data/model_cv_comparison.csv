@@ -1,11 +1,18 @@
 Miền,Mô hình,CV_MAE,Tham số
-Tiểu đường,Linear Regression,45.04819964235477,{}
-Tiểu đường,Ridge,44.99887949243905,{'model__alpha': 1.0}
-Tiểu đường,Random Forest,47.48368654656981,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 6, 'n_estimators': 300}"
-Tiểu đường,Gradient Boosting,47.62663280503451,"{'learning_rate': 0.03, 'max_depth': 2, 'min_samples_leaf': 8, 'n_estimators': 220}"
-Chứng khoán FPT,Ridge,1898.4171034640694,{'model__alpha': 0.01}
-Chứng khoán FPT,Random Forest,3155.989125260254,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 2, 'n_estimators': 300}"
-Chứng khoán FPT,Gradient Boosting,3184.635873279255,"{'learning_rate': 0.03, 'max_depth': 2, 'n_estimators': 220}"
-Giá vàng GC=F,Ridge,61.83664867294815,{'model__alpha': 0.1}
-Giá vàng GC=F,Random Forest,300.8857752080629,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 2, 'n_estimators': 300}"
-Giá vàng GC=F,Gradient Boosting,293.9508203222087,"{'learning_rate': 0.05, 'max_depth': 2, 'n_estimators': 220}"
+Tiểu đường,Median baseline,65.89436090225564,{}
+Tiểu đường,Linear,44.47909549516262,{}
+Tiểu đường,Ridge,44.442606227087346,{'model__alpha': 1}
+Tiểu đường,ElasticNet,44.44655684929047,"{'model__alpha': 0.05, 'model__l1_ratio': 0.1}"
+Tiểu đường,Huber,44.45261031348066,{'model__epsilon': 1.35}
+Tiểu đường,Random Forest,46.35064211285323,"{'max_features': 1.0, 'min_samples_leaf': 8}"
+Tiểu đường,Gradient Boosting,46.07909405262151,"{'learning_rate': 0.05, 'max_depth': 2, 'min_samples_leaf': 10, 'n_estimators': 160}"
+Chứng khoán FPT,Persistence,1273.026388888889,{}
+Chứng khoán FPT,Ridge price,1511.603397185443,{'model__alpha': 10}
+Chứng khoán FPT,Ridge return,1274.6887092713805,"{'estimator__model__alpha': 1000, 'shrinkage': 0.1}"
+Chứng khoán FPT,Forest return,1275.7797715617812,"{'estimator__min_samples_leaf': 20, 'shrinkage': 0.1}"
+Chứng khoán FPT,Boost return,1277.5906249836123,{'shrinkage': 0.1}
+Giá vàng GC=F,Persistence,46.99112196180556,{}
+Giá vàng GC=F,Ridge price,54.568374542419726,{'model__alpha': 1}
+Giá vàng GC=F,Ridge return,46.22486942510924,"{'estimator__model__alpha': 1000, 'shrinkage': 1.0}"
+Giá vàng GC=F,Forest return,46.763338782168866,"{'estimator__min_samples_leaf': 20, 'shrinkage': 0.35}"
+Giá vàng GC=F,Boost return,46.63148410221142,{'shrinkage': 0.35}

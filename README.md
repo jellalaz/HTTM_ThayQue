@@ -13,7 +13,18 @@ Mở `Tieuluan02_06_Nhom2_Giangkt.ipynb` và chọn **Run All**. Notebook tự t
 5. xuất tham số mô hình sang ứng dụng web, tạo ba biểu mẫu dự đoán và chatbot RAG sức khỏe;
 6. sinh báo cáo `Tieuluan02_06_Nhom2_Giangkt.pdf`.
 
-Nếu Yahoo Finance tạm thời không truy cập được, notebook chuyển sang dữ liệu dự phòng có seed cố định và ghi rõ nguồn trong báo cáo.
+Nếu Yahoo Finance tạm thời không truy cập được, notebook đọc snapshot đã lưu và ghi rõ ngày/nguồn. Không tự thay dữ liệu thật bằng giá mô phỏng. Nếu không có snapshot, notebook dừng và yêu cầu chạy lại khi có mạng.
+
+## Insight Lab 2.0
+
+- Ba tab **Tiểu đường / FPT / Vàng** cùng khu Dự đoán; chatbot sức khỏe nằm riêng. Kết quả chỉ được đưa sang chatbot khi người dùng chọn chia sẻ.
+- So sánh 7 họ mô hình sức khỏe và 5 cấu hình thị trường, có baseline; lựa chọn bằng CV MAE. Thị trường có mô hình dự báo lợi suất, shrinkage và `TimeSeriesSplit(gap=1)`.
+- Train, calibration, test tách riêng. Khoảng dự báo mục tiêu 90%, công bố độ bao phủ thực tế; không dùng R² làm phần trăm chính xác.
+- Chatbot trích xuất dựa trên BM25 + bằng chứng KG: nhớ thông số trong phiên, hỏi tiếp đơn vị/thời điểm đo, quy đổi mmol/L, nhận xét HbA1c/BMI, phân biệt sau ăn và OGTT, xử lý đường huyết thấp trước.
+- Kiểm tra đầu vào, cảnh báo ngoài phạm vi train, không thực thi HTML từ câu hỏi. Không dùng API key hoặc LLM bên ngoài.
+- Dữ liệu không cập nhật trực tiếp trên web; chạy lại notebook để cập nhật.
+
+`src/` và `scripts/sync_notebook.py` chỉ phục vụ bảo trì. Notebook phát hành chứa toàn bộ mã nguồn và không phụ thuộc các tệp đó khi Run All. `node tests/engine.test.cjs` kiểm tra logic hội thoại và đối chiếu suy luận JavaScript/Python.
 
 ## Cấu trúc
 
@@ -21,7 +32,7 @@ Nếu Yahoo Finance tạm thời không truy cập được, notebook chuyển s
 - `Tieuluan02_06_Nhom2_Giangkt.pdf`: báo cáo được sinh từ notebook.
 - `artifacts_giangkt/data/`: dữ liệu sau xử lý và bộ ba tri thức.
 - `artifacts_giangkt/figures/`: biểu đồ, đồ thị và ảnh code.
-- `vercel_app/`: ứng dụng web tương tác để triển khai Vercel. Chatbot nhận thông số sức khỏe, chạy mô hình tiểu đường, giải thích kết quả, đưa gợi ý và tiếp tục hỏi đáp từ kho tri thức WHO/CDC/ADA; FPT và vàng có khu dự báo riêng.
+- `vercel_app/`: ứng dụng Insight Lab để triển khai Vercel. Ba mô hình dùng chung khu dự đoán; chatbot sức khỏe độc lập dùng nguồn NIDDK, WHO và CDC.
 
 ## Liên kết
 

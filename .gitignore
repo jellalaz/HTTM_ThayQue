@@ -1,0 +1,8 @@
+.vercel/
+__pycache__/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+node_modules/
+tmp/
