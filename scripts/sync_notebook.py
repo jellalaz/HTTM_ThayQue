@@ -1,10 +1,12 @@
 """Đóng gói mã bảo trì vào notebook; notebook được phát hành luôn tự chứa mọi mã nguồn."""
 from pathlib import Path
 import json
+import subprocess
 ROOT=Path(__file__).resolve().parents[1]
 path=ROOT/'Tieuluan02_06_Nhom2_Giangkt.ipynb'
 n=json.loads(path.read_text())
 def setcell(i,source):
+    if ''.join(n['cells'][i]['source'])==source:return
     n['cells'][i]['source']=source.splitlines(keepends=True)
     if n['cells'][i]['cell_type']=='code':
         n['cells'][i]['outputs']=[]
@@ -15,8 +17,11 @@ setcell(4,src('training.py'))
 ragcode=''.join(n['cells'][8]['source'])
 ragcode=ragcode.replace('Random Forest trên phép chia 80/20 đạt MAE', '{diabetes_model_name} trên tập test giữ riêng đạt MAE')
 setcell(8,ragcode)
-template=src('web.html').replace('__STYLES__',src('styles.css')).replace('__ENGINE__',src('engine.js')).replace('__APP__',src('app.js'))
-webcode=src('export_models.py')+'\nhtml_template = '+repr(template)+'\n'
+template=src('web.html').replace('__STYLES__',src('styles.css')).replace('__ENGINE__',src('clinical.js')+'\n'+src('engine.js')).replace('__APP__',src('app.js'))
+health_bundle=json.loads(subprocess.check_output(['node','-e',"const {KB,sourceLinks}=require('./src/engine.js'); console.log(JSON.stringify({version:'2.2',reviewed_at:'2026-10-16',documents:KB,sources:sourceLinks}));"],cwd=ROOT,text=True))
+webcode=src('export_models.py')+'\nhealth_knowledge = json.loads('+repr(json.dumps(health_bundle,ensure_ascii=False))+')\n'
+webcode+='(DATA_DIR/"health_knowledge.json").write_text(json.dumps(health_knowledge,ensure_ascii=False,indent=2),encoding="utf-8")\n'
+webcode+='\nhtml_template = '+repr(template)+'\n'
 webcode+='''html=html_template.replace("__MODEL_CONFIG__",json.dumps(web_config,ensure_ascii=False,allow_nan=False))
 (WEB_DIR/"index.html").write_text(html,encoding="utf-8")
 (WEB_DIR/"vercel.json").write_text(json.dumps({"rewrites":[{"source":"/(.*)","destination":"/index.html"}],"headers":[{"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"}]}]},indent=2),encoding="utf-8")
@@ -69,14 +74,20 @@ page_updates = {
     "Mô hình sức khỏe có sáu trường chính và bốn trường bổ sung. Trường bổ sung trống dùng trung vị tập train và được công bố ở kết quả. HbA1c và bối cảnh đo dùng cho nhận xét xét nghiệm riêng, không bị đưa nhầm vào mô hình chưa học chúng. Điểm tiến triển không được dùng quyết định chẩn đoán hoặc cấp cứu.",
     "Cấu hình thị trường được chọn trên dữ liệu trước test rồi fit lại cho web, chừa 63 phiên gần nhất để hiệu chỉnh khoảng dự báo và bỏ cách một phiên. Chỉ số test lịch sử thuộc bản fit trước đó, không phải đánh giá ngoài mẫu của bản refit. Web hiển thị riêng hai giai đoạn. Cảnh báo ngoài miền của mô hình lợi suất xét đặc trưng tương đối, không chỉ mức giá tuyệt đối. Web không gửi hồ sơ sức khỏe ra ngoài."],
 "4.7.2. CHATBOT DỰ ĐOÁN, TƯ VẤN VÀ HỎI ĐÁP": [
-    "Chatbot hoạt động độc lập với biểu mẫu. Người dùng nhập đường huyết, HbA1c, BMI trực tiếp; bộ nhớ trong phiên giữ các thông số và câu hỏi đang chờ. Nếu nhập 150 mmol/L, trợ lý nêu số quy đổi, yêu cầu kiểm tra lại và giữ dữ liệu để sửa đơn vị hoặc nhập lại. Không tự suy đoán thành 150 mg/dL hay 15 mmol/L. Thiếu thời điểm đo được hỏi tiếp trước khi phân loại.",
+    "Chatbot nhận đường huyết, HbA1c, BMI, tuổi, huyết áp tâm thu/tâm trương, huyết áp trung bình, cholesterol toàn phần, LDL, HDL, triglyceride và các đặc trưng nghiên cứu s4/s5. Câu ‘huyết áp 90’ được hỏi lại loại số đo; thiếu đơn vị thì hỏi tiếp. Một tin nhắn có thể chứa nhiều chỉ số, đơn vị được gắn riêng với từng giá trị để tránh lấy nhầm mmol/L của HDL cho glucose.",
     "Các ngưỡng xét nghiệm tham khảo NIDDK/ADA. Đường huyết thấp được xử lý trước bảng phân loại đường cao. Sau bữa ăn thông thường không bị đánh đồng với nghiệm pháp 75 g glucose. Thai kỳ và trẻ em cần bối cảnh riêng. Câu hỏi kê liều thuốc được chuyển thành hướng dẫn trao đổi với bác sĩ.",
-    "Kho tri thức sức khỏe gồm 12 chủ đề. BM25 xếp hạng đoạn văn, bổ sung điểm cụm từ và đường quan hệ KG tương ứng. Câu trả lời dạng trích xuất có dẫn nguồn; không kết nối LLM bên ngoài. Câu hỏi không đủ bằng chứng được thông báo rõ thay vì trả lời một đoạn bất kỳ. Hội thoại bị xóa khi tải lại trang hoặc chọn cuộc trò chuyện mới."],
+    "Kho tri thức mở rộng thành 20 chủ đề, bổ sung nguồn AHA về huyết áp, MedlinePlus về mỡ máu và Mayo Clinic về xét nghiệm cholesterol. Nội dung, đường quan hệ KG và danh mục nguồn được xuất ra health_knowledge.json. BM25 truy xuất kết hợp bộ nhận diện số đo; chưa kết nối LLM ngoài. Khi chia sẻ form, chatbot nhận đủ các trường đã nhập, nhưng loại giá trị trung vị thay thế khỏi nhận xét y khoa. Mã giới tính 1/2 không tự dùng chọn ngưỡng HDL; s5 không tự quy đổi thành xét nghiệm triglyceride. Hồ sơ chỉ giữ trong phiên."],
 }
 pages = [(title,page_updates.get(title,paras),fig) for title,paras,fig in pages]
 '''
 report=report.replace('for title, paragraphs, figure in pages:',updates+'\nfor title, paragraphs, figure in pages:')
 report=report.replace('"[14] Vercel Documentation, Static Deployments and CLI.",','"[14] Vercel Documentation, Static Deployments and CLI.",\n    "[17] NIDDK, Diabetes Tests and Diagnosis, https://www.niddk.nih.gov/health-information/diabetes/overview/tests-diagnosis.",') if '[17] NIDDK' not in report else report
+if '[18] American Heart Association' not in report:
+    report=report.replace('"[14] Vercel Documentation, Static Deployments and CLI.",','"[14] Vercel Documentation, Static Deployments and CLI.",\n    "[18] American Heart Association, Understanding Blood Pressure Readings (2025), https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings.",\n    "[19] MedlinePlus, Cholesterol Levels: What You Need to Know, https://medlineplus.gov/cholesterollevelswhatyouneedtoknow.html.",\n    "[20] Mayo Clinic, Cholesterol test, https://www.mayoclinic.org/tests-procedures/cholesterol-test/about/pac-20384601.",')
+report=report.replace('story += [P(ref) for ref in references]', '''references.append("[21] ACOG, Preeclampsia and High Blood Pressure During Pregnancy, https://www.acog.org/womens-health/faqs/preeclampsia-and-high-blood-pressure-during-pregnancy.")
+references.sort(key=lambda value:int(value.split("]")[0][1:]))
+styles.add(ParagraphStyle(name="VNReference",parent=styles["VNBody"],fontSize=10.5,leading=14,spaceAfter=5,alignment=TA_LEFT))
+story += [P(ref,"VNReference") for ref in references]''')
 setcell(14,report)
 # Cập nhật ảnh code để khớp triển khai thực tế.
 figcode=''.join(n['cells'][11]['source'])

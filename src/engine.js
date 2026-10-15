@@ -1,4 +1,5 @@
 'use strict';
+const clinical=typeof module!=='undefined'?require('./clinical.js'):ClinicalSupport;
 const fmt=(n,d=1)=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:d});
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
@@ -9,7 +10,13 @@ const sourceLinks={
  meal:{label:'CDC · Lập kế hoạch bữa ăn',url:'https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html'},
  who:{label:'WHO · Diabetes',url:'https://www.who.int/news-room/fact-sheets/detail/diabetes'},
  care:{label:'NIDDK · Quản lý bệnh tiểu đường',url:'https://www.niddk.nih.gov/health-information/diabetes/overview/managing-diabetes'},
- dataset:{label:'scikit-learn · Dữ liệu diabetes',url:'https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset'}
+ dataset:{label:'scikit-learn · Dữ liệu diabetes',url:'https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html'}
+ ,pressure:{label:'AHA · Hiểu số đo huyết áp',url:'https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings'}
+ ,lowpressure:{label:'AHA · Huyết áp thấp',url:'https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/low-blood-pressure-when-blood-pressure-is-too-low'}
+ ,pregnancyPressure:{label:'ACOG · Huyết áp trong thai kỳ',url:'https://www.acog.org/womens-health/faqs/preeclampsia-and-high-blood-pressure-during-pregnancy'}
+ ,lipids:{label:'MedlinePlus · Các chỉ số cholesterol',url:'https://medlineplus.gov/cholesterollevelswhatyouneedtoknow.html'}
+ ,cholesterol:{label:'Mayo Clinic · Xét nghiệm cholesterol',url:'https://www.mayoclinic.org/tests-procedures/cholesterol-test/about/pac-20384601'}
+ ,triglycerides:{label:'MedlinePlus · Triglyceride',url:'https://medlineplus.gov/triglycerides.html'}
 };
 const contextNames={fasting:'lúc đói ≥ 8 giờ',postmeal:'sau bữa ăn thông thường',ogtt:'2 giờ sau nghiệm pháp glucose',random:'đo ngẫu nhiên',unknown:'chưa rõ thời điểm đo'};
 function infer(model,x){
@@ -45,6 +52,7 @@ function bmiAssessment(b){return b<18.5?{level:'watch',title:'BMI thấp',text:'
 function assessmentHTML(item,subtitle=''){return `<div class="assessment-row"><span class="signal ${item.level}"></span><div><strong>${esc(item.title)}</strong>${subtitle?`<small>${esc(subtitle)}</small>`:''}<small>${esc(item.text)}</small></div></div>`}
 function sourcesHTML(keys){const valid=[...new Set(keys)].filter(k=>sourceLinks[k]);return valid.length?`<div class="sources">Tham khảo: ${valid.map(k=>`<a href="${sourceLinks[k].url}" target="_blank" rel="noopener">${sourceLinks[k].label} ↗</a>`).join(' ')}</div>`:''}
 const KB=[
+ ...clinical.knowledge,
  {id:'plate',title:'Một bữa ăn cân bằng',terms:['bữa ăn','ăn gì','thực đơn','ăn sáng','ăn trưa','ăn tối','rau','đạm','đĩa ăn'],text:'Gợi ý minh họa: nửa đĩa rau luộc hoặc salad không ngọt; một phần tư cá, thịt nạc hoặc đậu phụ; phần tư còn lại là cơm hoặc thực phẩm chứa tinh bột. Chọn nước lọc. Điều chỉnh khẩu phần theo nhu cầu, thuốc và mục tiêu cá nhân.',source:'meal',triples:[['Bữa ăn','chia theo','phương pháp chiếc đĩa'],['Chiếc đĩa','ưu tiên','rau không tinh bột']]},
  {id:'carb',title:'Có cần bỏ hoàn toàn tinh bột?',terms:['tinh bột','carb','carbohydrate','cơm','gạo','bún','phở','bánh mì','kiêng'],text:'Không cần tự bỏ toàn bộ tinh bột. Chú ý khẩu phần, phân bố bữa ăn đều và kết hợp đạm, rau. Ưu tiên thực phẩm ít chế biến. Lượng carbohydrate phù hợp cần xem cùng thuốc, mức hoạt động và chỉ số sau bữa ăn.',source:'meal',triples:[['Carbohydrate','ảnh hưởng','đường huyết'],['Khẩu phần','cần điều chỉnh theo','nhu cầu cá nhân']]},
  {id:'fruit',title:'Trái cây và đồ uống',terms:['trái cây','hoa quả','nước ép','sữa','trà sữa','nước ngọt','uống gì','chuối'],text:'Ưu tiên trái cây nguyên quả theo khẩu phần, nước lọc hoặc đồ uống không thêm đường. Nước ép và đồ uống có đường có thể làm đường huyết tăng nhanh. Không có một loại trái cây phù hợp vô hạn cho mọi người.',source:'meal',triples:[['Nước ép','có thể làm tăng nhanh','đường huyết']]},
@@ -69,21 +77,34 @@ function extractUnit(n){if(/mmol\s*\/?\s*l/.test(n))return 'mmol/L';if(/mg\s*\/?
 function validGlucose(v,unit){return Number.isFinite(v)&&v>0&&(unit==='mmol/L'?v<=55.5:v<=1000)}
 class HealthChat{
  constructor(){this.reset()}
- reset(){this.profile={};this.pending=null;this.lastTopic=null;this.shared=false}
- share(profile){this.profile={...profile};this.pending=null;this.shared=true}
+ reset(){this.profile={};this.pending=null;this.pendingClinical=[];this.pressureAwaiting=null;this.lastClinicalKeys=[];this.lastTopic=null;this.shared=false}
+ share(profile){this.reset();this.profile=clinical.fromForm(profile);this.shared=true}
+ helpers(){return {fmt,esc,makeReply,assessmentHTML}}
  respond(question){
+  this.extraReply=null;
+  let reply=this.respondCore(question);
+  if(this.extraReply)reply={html:reply.html+this.extraReply.html,suggestions:[...new Set([...reply.suggestions,...this.extraReply.suggestions])].slice(0,5)};
+  if(!this.pending&&this.pendingClinical.length&&!reply.clinicalPrompt){const next=clinical.ask(this.pendingClinical[0],this.helpers());reply={html:reply.html+next.html,suggestions:next.suggestions}}
+  return reply;
+ }
+ respondCore(question){
   const n=norm(question).trim();
   const educational=/khi nao|dau hieu|la gi|neu bi|neu co|trieu chung nao/.test(n);
-  const emergency=['bat tinh','co giat','kho tho','khong the nuot','khong nuot duoc','lu lan'].some(term=>{const i=n.indexOf(term);if(i<0)return false;return !/khong(?: bi| he| con)?\s*$/.test(n.slice(Math.max(0,i-15),i))});
-  if(emergency&&!educational){this.pending=null;return makeReply('<h4>Cần trợ giúp y tế ngay</h4><p>Hãy nhờ người bên cạnh liên hệ cấp cứu địa phương hoặc đưa đến cơ sở y tế ngay. Không tự lái xe; không cho ăn uống khi bất tỉnh hoặc không nuốt được.</p>',['low'])}
+  const emergency=['bat tinh','co giat','kho tho','khong the nuot','khong nuot duoc','lu lan','dau nguc','yeu liet','noi kho'].some(term=>{const i=n.indexOf(term);if(i<0)return false;return !/khong(?: bi| he| con)?\s*$/.test(n.slice(Math.max(0,i-15),i))});
+  if(emergency&&!educational){this.pending=null;this.pendingClinical=[];return makeReply('<h4>Cần trợ giúp y tế ngay</h4><p>Hãy nhờ người bên cạnh liên hệ cấp cứu địa phương hoặc đưa đến cơ sở y tế ngay. Không tự lái xe; không cho ăn uống khi bất tỉnh hoặc không nuốt được.</p>',['pressure','low'])}
   if(/mang thai|thai ky|co bau/.test(n)&&!/khong (mang thai|co bau)/.test(n)){this.profile.pregnant=true;this.profile.score=null;}
   if(/khong (mang thai|co bau)/.test(n))this.profile.pregnant=false;
-  const age=n.match(/(?:toi|be|tre)\s*(?:nam nay\s*)?(\d+)\s*tuoi/);if(age)this.profile.age=+age[1];
+  const glucoseFollowup=this.pending&&!clinical.extract(n).length&&/^(?:\d|mg\s*\/?\s*dl|mmol\s*\/?\s*l|doi sang|luc doi|sau an|sau bua|2 gio sau|do ngau nhien)/.test(n);
+  const clinicalReply=glucoseFollowup?null:clinical.handle(this,n,this.helpers());
+  if(clinicalReply){if(/(?:duong huyet|glucose|duong mau|hba1c|a1c|bmi).*\d/.test(n))this.extraReply=clinicalReply;else return clinicalReply}
+  if(/nhan xet tong the|danh gia tong the|ket qua cua toi|chi so cua toi|danh gia lai/.test(n))return this.summaryReply();
   const gm=n.match(/(?:duong huyet|glucose|duong mau)(?:\s+(?:cua toi|cua em|la|bang|do duoc|luc doi|sau an))*\s*[:=]?\s*(\d+(?:[.,]\d+)?)/);
   const am=n.match(/(?:hba1c|a1c)\s*(?:la|bang|cua toi)?\s*[:=]?\s*(\d+(?:[.,]\d+)?)/);
   const bm=n.match(/bmi\s*(?:la|bang)?\s*[:=]?\s*(\d+(?:[.,]\d+)?)/);
-  const ctx=extractContext(n),unit=extractUnit(n),bare=n.match(/^(\d+(?:[.,]\d+)?)\s*(?:mmol\/?l|mg\/?dl)?$/);
-  if(gm||(bare&&unit)||(this.pending&&(ctx||unit||bare))){
+  // Đơn vị phải thuộc chính số glucose, không lấy mmol/L của HDL trong cùng tin nhắn.
+  const localUnit=gm?n.slice(gm.index+gm[0].length).match(/^\s*(mmol\s*\/?\s*l|mg\s*\/?\s*dl)/):null;
+  const ctx=extractContext(n),unit=gm?extractUnit(localUnit?.[0]||''):extractUnit(n),bare=n.match(/^(\d+(?:[.,]\d+)?)\s*(?:mmol\/?l|mg\/?dl)?$/);
+  if(gm||(bare&&unit&&!this.pendingClinical.length)||(this.pending&&(ctx||unit||bare))){
    if(gm)this.pending={value:parseNumber(gm[1]),unit:unit,context:ctx};
    else if(bare&&unit&&!this.pending)this.pending={value:parseNumber(bare[1]),unit,context:ctx};
    else {if(bare)this.pending.value=parseNumber(bare[1]);if(unit)this.pending.unit=unit;if(ctx)this.pending.context=ctx}
@@ -107,19 +128,28 @@ class HealthChat{
   if(am){const a=parseNumber(am[1]);if(a<3||a>20)return makeReply('<p>Hãy kiểm tra lại HbA1c; nhập số theo %, ví dụ 6,2%. Khoảng nhập hỗ trợ là 3–20%.</p>');this.profile.a1c=a;this.lastTopic='a1c';return makeReply(`<h4>HbA1c ${fmt(a)}%</h4>${assessmentHTML(a1cAssessment(a,this.profile.pregnant))}<p>Đây là ngưỡng xét nghiệm, không phải mục tiêu điều trị dành riêng cho bạn.</p>`,['diagnosis'],['HbA1c là gì?','Tôi nên theo dõi thế nào?'])}
   if(bm){const b=parseNumber(bm[1]);if(b<10||b>80)return makeReply('<p>Hãy kiểm tra lại BMI, đơn vị kg/m². Khoảng nhập hỗ trợ là 10–80.</p>');this.profile.bmi=b;this.profile.score=null;return makeReply(`<h4>BMI ${fmt(b)} kg/m²</h4>${this.profile.pregnant||this.profile.age<18?'<p>Cần đánh giá BMI theo tuổi hoặc thai kỳ; không dùng ngưỡng người lớn thông thường.</p>':assessmentHTML(bmiAssessment(b))}`,[],['Gợi ý một bữa ăn','Tôi nên vận động bao nhiêu?'])}
   if(/^(chao|xin chao|hello|hi|cam on|cảm ơn)/.test(n))return makeReply('<p>Chào bạn! Mình có thể giải thích đường huyết, HbA1c và gợi ý ăn uống, vận động. Bạn muốn bắt đầu từ chỉ số hay một câu hỏi về sinh hoạt?</p>',[],['Đường huyết 150 mg/dL lúc đói','Gợi ý một bữa ăn']);
-  if(/ket qua cua toi|chi so cua toi|danh gia lai/.test(n)){if(this.profile.glucose)return this.glucoseReply();return makeReply('<p>Mình chưa nhận thông số. Bạn có thể gửi số đo trong tin nhắn hoặc chọn “Dùng kết quả đã phân tích” ở bên cạnh.</p>')}
   if(/^(vay |the |con |nen lam gi|toi nen lam gi)/.test(n)&&this.profile.glucose&&/lam gi|an gi|the nao|on khong/.test(n)&&this.profile.glucose<70)return this.glucoseReply();
   if(/lam gi|an gi|the nao/.test(n)&&this.profile.glucose<70)return this.glucoseReply();
   let query=question;
   if(/^(noi ro hon|giai thich them|chi tiet hon)$/.test(n)&&this.lastTopic){const d=KB.find(d=>d.id===this.lastTopic);query=d?.terms.join(' ')||query}
   const ranked=retrieve(query),top=ranked[0];
-  if(!top||top.score<3||!top.matches)return makeReply('<p>Mình chưa tìm được bằng chứng đủ phù hợp trong kho sức khỏe hiện có. Bạn có thể hỏi cụ thể về đường huyết, HbA1c, dinh dưỡng, vận động hoặc thuốc. Với FPT/vàng, hãy dùng khu Dự đoán phía trên.</p>',[],['HbA1c là gì?','Nên ăn tinh bột thế nào?']);
+  if(!top||top.score<3||!top.matches)return makeReply('<p>Mình chưa tìm được bằng chứng đủ phù hợp. Bạn có thể hỏi về huyết áp, cholesterol, HDL, LDL, triglyceride, đường huyết, HbA1c, BMI, ăn uống hoặc vận động. Với FPT/vàng, hãy dùng khu Dự đoán phía trên.</p>',[],['Huyết áp 90 có cao không?','HDL là gì?']);
   this.lastTopic=top.id;
   const docs=[top];
   if(ranked[1].matches&&ranked[1].score>=Math.max(5,top.score*.65)&&ranked[1].id!==top.id)docs.push(ranked[1]);
   let html=docs.map(d=>`<h4>${esc(d.title)}</h4><p>${esc(d.text)}</p>`).join('');
   if(['plate','carb','activity'].includes(top.id)&&this.profile.glucose){html+=`<p class="hint">Mình đang dùng bối cảnh bạn cung cấp: glucose ${fmt(this.profile.glucose)} mg/dL, ${contextNames[this.profile.context]||contextNames.unknown}. ${this.profile.pregnant?'Bạn đang mang thai, cần kế hoạch cá nhân với nhân viên y tế.':'Gợi ý trên là điểm bắt đầu; khẩu phần và mục tiêu cần cá nhân hóa.'}</p>`}
   return makeReply(html,docs.map(d=>d.source),['Tôi nên theo dõi thế nào?','Gợi ý một bữa ăn'],docs);
+ }
+ summaryReply(){
+  const p=this.profile,keys=Object.keys(clinical.fields).filter(k=>Number.isFinite(p[k])),c=clinical.cards(p,keys,this.helpers());
+  let html=c.html,refs=c.sources;
+  if(Number.isFinite(p.bmi))html+=p.pregnant||p.age<18?'<p>BMI cần đánh giá theo tuổi hoặc thai kỳ.</p>':assessmentHTML(bmiAssessment(p.bmi),`BMI ${fmt(p.bmi)} kg/m²`);
+  if(Number.isFinite(p.a1c)){html+=assessmentHTML(a1cAssessment(p.a1c,p.pregnant||p.age<18),`HbA1c ${fmt(p.a1c)}%`);refs.push('diagnosis')}
+  if(Number.isFinite(p.glucose)){const g=this.glucoseReply();html=g.html+html;}
+  if(!html)return makeReply('<p>Mình chưa nhận thông số. Gửi số đo kèm đơn vị hoặc chọn “Dùng kết quả đã phân tích”.</p>');
+  if(p.missing?.length)html+='<p class="hint">Chưa cung cấp: '+p.missing.map(k=>esc(clinical.fields[k]?.label||k)).join(', ')+'. Giá trị trung vị dùng cho mô hình không được coi là xét nghiệm của bạn.</p>';
+  return makeReply('<h4>Tổng hợp hồ sơ đã chia sẻ</h4>'+html,refs,['Huyết áp của tôi thế nào?','HDL của tôi thế nào?','Gợi ý một bữa ăn'],c.docs);
  }
  glucoseReply(extra=''){
   const p=this.profile,g=p.glucose,item=glucoseAssessment(g,p.context,p.pregnant||p.age<18);
@@ -128,4 +158,4 @@ class HealthChat{
   return makeReply(html,[item.source],item.low?['Khi nào cần cấp cứu?']:['Gợi ý một bữa ăn','Tôi nên theo dõi thế nào?']);
  }
 }
-if(typeof module!=='undefined')module.exports={infer,predictModel,outOfRange,HealthChat,glucoseAssessment,a1cAssessment,parseNumber,esc,retrieve};
+if(typeof module!=='undefined')module.exports={infer,predictModel,outOfRange,HealthChat,glucoseAssessment,a1cAssessment,parseNumber,esc,retrieve,KB,sourceLinks};

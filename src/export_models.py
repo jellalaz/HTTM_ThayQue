@@ -31,7 +31,7 @@ def feature_stats(frame):
     return {k:{"min":float(frame[k].min()),"max":float(frame[k].max()),
                "value":float(frame[k].median())} for k in frame.columns}
 
-web_config = {"version":"2.1","generated_at":RUN_AT.isoformat(),"student":{"name":STUDENT_NAME,"id":STUDENT_ID},"models":{}}
+web_config = {"version":"2.2","generated_at":RUN_AT.isoformat(),"student":{"name":STUDENT_NAME,"id":STUDENT_ID},"models":{}}
 web_config["models"]["diabetes"] = {
     "estimator":export_estimator(diabetes_model),"features":list(X.columns),"name":diabetes_model_name,
     "metrics":diabetes_metrics,"inputs":feature_stats(X_train),"interval":diabetes_interval,
