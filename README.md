@@ -21,12 +21,12 @@ Nếu Yahoo Finance tạm thời không truy cập được, notebook chuyển s
 - `Tieuluan02_06_Nhom2_Giangkt.pdf`: báo cáo được sinh từ notebook.
 - `artifacts_giangkt/data/`: dữ liệu sau xử lý và bộ ba tri thức.
 - `artifacts_giangkt/figures/`: biểu đồ, đồ thị và ảnh code.
-- `vercel_app/`: ứng dụng web tương tác để triển khai Vercel. Ba mô hình suy luận ngay trên trình duyệt; chatbot tiểu đường truy xuất kho tri thức có nguồn WHO/CDC/ADA.
+- `vercel_app/`: ứng dụng web tương tác để triển khai Vercel. Chatbot nhận thông số sức khỏe, chạy mô hình tiểu đường, giải thích kết quả, đưa gợi ý và tiếp tục hỏi đáp từ kho tri thức WHO/CDC/ADA; FPT và vàng có khu dự báo riêng.
 
 ## Liên kết
 
 - GitHub: https://github.com/jellalaz/RAG_HTTM
-- Web demo: https://rag-httm-ai.vercel.app
+- Web demo: https://rag-httm-chatbot.vercel.app
 - Vercel account: https://vercel.com/trng-giang
 
 > Dữ liệu tài chính và y tế trong dự án phục vụ mục đích học tập.

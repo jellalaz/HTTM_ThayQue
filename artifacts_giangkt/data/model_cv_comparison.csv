@@ -1,8 +1,8 @@
 Miền,Mô hình,CV_MAE,Tham số
-Tiểu đường,Linear Regression,45.04819964235476,{}
+Tiểu đường,Linear Regression,45.04819964235477,{}
 Tiểu đường,Ridge,44.99887949243905,{'model__alpha': 1.0}
-Tiểu đường,Random Forest,47.47328550341174,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 6, 'n_estimators': 300}"
-Tiểu đường,Gradient Boosting,47.70052615015013,"{'learning_rate': 0.03, 'max_depth': 2, 'min_samples_leaf': 8, 'n_estimators': 220}"
+Tiểu đường,Random Forest,47.48368654656981,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 6, 'n_estimators': 300}"
+Tiểu đường,Gradient Boosting,47.62663280503451,"{'learning_rate': 0.03, 'max_depth': 2, 'min_samples_leaf': 8, 'n_estimators': 220}"
 Chứng khoán FPT,Ridge,1898.4171034640694,{'model__alpha': 0.01}
 Chứng khoán FPT,Random Forest,3155.989125260254,"{'max_depth': 8, 'max_features': 1.0, 'min_samples_leaf': 2, 'n_estimators': 300}"
 Chứng khoán FPT,Gradient Boosting,3184.635873279255,"{'learning_rate': 0.03, 'max_depth': 2, 'n_estimators': 220}"
