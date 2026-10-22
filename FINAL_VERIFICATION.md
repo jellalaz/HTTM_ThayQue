@@ -21,7 +21,7 @@ Ngày kiểm chứng: 23/10/2026, múi giờ Asia/Ho_Chi_Minh.
 | API production | Đã kiểm tra thật | GET frontend/health; 5 POST trả 200; dữ liệu CNN sai kích thước trả 400; `production_verified.json` |
 | Giao diện production | Đã kiểm tra qua trình duyệt | CNN ảnh test nhãn 7 dự đoán 7; chatbot hỏi lại loại huyết áp cho câu mẫu; ảnh chụp trong `artifacts_tl03/figures` |
 | Responsive | Đã kiểm tra cơ bản | Viewport 390 × 844: document/body scrollWidth không vượt viewport; đã trả về viewport mặc định |
-| GitHub | Đang chốt đồng bộ | Nhánh làm việc `tieuluan03-giangkt`, xuất phát từ `0b4447b`; trạng thái push sẽ ghi ở mục cuối |
+| GitHub | Đã commit và push thành công | Commit sản phẩm `bd31893`, nhánh `tieuluan03-giangkt` và `main`; cập nhật fast-forward từ `0b4447b`, không force-push |
 
 Các file bắt buộc bổ sung đã có: `README.md`, `CHANGELOG.md`, `EXPERIMENT_RESULTS.md`, file kiểm chứng này và mã nguồn web/API.
 
@@ -59,3 +59,5 @@ Không còn bước xác thực bên ngoài đang chặn deploy: phiên Vercel v
 ## An toàn repository
 
 Thư mục `.git` tại workspace không phải checkout Git sử dụng được, nên đồng bộ thông qua bản clone riêng tại `/tmp/httm_tl03_remote`, giữ nguyên workspace và các file nguồn. Không force-push. Tệp gốc trên remote được giữ lại. Raw dataset tải tự động, font Microsoft dùng render, `.env*`, `.vercel`, cache và `tmp` không được commit. Model lớn nhất khoảng 16 MB; bundle deploy nén khoảng 5,1 MB.
+
+GitHub đã xác nhận nhận nhánh sản phẩm và cập nhật main `0b4447b..bd31893`. Các bản ghi kiểm chứng được chốt bằng commit tiếp theo, không sửa lịch sử commit sản phẩm. Quét các mẫu credential phổ biến trong 59 tệp text thay đổi không phát hiện token; đây là kiểm tra bổ sung, không phải bảo đảm phát hiện mọi dạng secret. Không có file bị xóa khỏi lịch sử đầu vào. Lần kiểm tra HTTPS cuối vẫn nhận 200 cho cả năm ca inference và 400 cho input không hợp lệ.
