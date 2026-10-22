@@ -32,7 +32,7 @@
   "notebook_cells": 27,
   "executed_code_cells": 17,
   "notebook_error_outputs": 0,
-  "staged_text_files_scanned": 0,
+  "changed_text_files_scanned": 59,
   "known_secret_patterns_found": false,
   "note": "Pattern scan supplements manual inspection; not a guarantee against every possible secret."
 }
