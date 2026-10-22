@@ -1,0 +1,313 @@
+{
+  "pages": 58,
+  "chapters": [
+    "CHƯƠNG 1. LỊCH SỬ VÀ PHÁT TRIỂN AI",
+    "CHƯƠNG 2. CÁC KỸ THUẬT MACHINE LEARNING CƠ BẢN",
+    "CHƯƠNG 3. MẠNG NƠ-RON TÍCH CHẬP CNN",
+    "CHƯƠNG 4. MẠNG NƠ-RON HỒI QUY RNN",
+    "CHƯƠNG 5. KNOWLEDGE GRAPH VÀ RAG"
+  ],
+  "toc_entries": 91,
+  "toc_matches_pdf": true,
+  "explicit_run_colors": {
+    "000000": 1659,
+    "FF0000": 564
+  },
+  "native_equations": 27,
+  "page_bounds_errors": [],
+  "low_text_density_pages": [],
+  "page_colors": [
+    {
+      "page": 1,
+      "red_characters": 0,
+      "text_characters": 295
+    },
+    {
+      "page": 2,
+      "red_characters": 0,
+      "text_characters": 4348
+    },
+    {
+      "page": 3,
+      "red_characters": 0,
+      "text_characters": 4496
+    },
+    {
+      "page": 4,
+      "red_characters": 0,
+      "text_characters": 1838
+    },
+    {
+      "page": 5,
+      "red_characters": 190,
+      "text_characters": 2024
+    },
+    {
+      "page": 6,
+      "red_characters": 120,
+      "text_characters": 1217
+    },
+    {
+      "page": 7,
+      "red_characters": 0,
+      "text_characters": 2364
+    },
+    {
+      "page": 8,
+      "red_characters": 0,
+      "text_characters": 2371
+    },
+    {
+      "page": 9,
+      "red_characters": 91,
+      "text_characters": 2161
+    },
+    {
+      "page": 10,
+      "red_characters": 230,
+      "text_characters": 1250
+    },
+    {
+      "page": 11,
+      "red_characters": 0,
+      "text_characters": 2071
+    },
+    {
+      "page": 12,
+      "red_characters": 0,
+      "text_characters": 1908
+    },
+    {
+      "page": 13,
+      "red_characters": 432,
+      "text_characters": 2135
+    },
+    {
+      "page": 14,
+      "red_characters": 354,
+      "text_characters": 356
+    },
+    {
+      "page": 15,
+      "red_characters": 292,
+      "text_characters": 1597
+    },
+    {
+      "page": 16,
+      "red_characters": 0,
+      "text_characters": 1800
+    },
+    {
+      "page": 17,
+      "red_characters": 196,
+      "text_characters": 1966
+    },
+    {
+      "page": 18,
+      "red_characters": 0,
+      "text_characters": 1124
+    },
+    {
+      "page": 19,
+      "red_characters": 226,
+      "text_characters": 1815
+    },
+    {
+      "page": 20,
+      "red_characters": 140,
+      "text_characters": 1707
+    },
+    {
+      "page": 21,
+      "red_characters": 39,
+      "text_characters": 1687
+    },
+    {
+      "page": 22,
+      "red_characters": 1640,
+      "text_characters": 1719
+    },
+    {
+      "page": 23,
+      "red_characters": 1410,
+      "text_characters": 1412
+    },
+    {
+      "page": 24,
+      "red_characters": 890,
+      "text_characters": 892
+    },
+    {
+      "page": 25,
+      "red_characters": 637,
+      "text_characters": 639
+    },
+    {
+      "page": 26,
+      "red_characters": 688,
+      "text_characters": 865
+    },
+    {
+      "page": 27,
+      "red_characters": 127,
+      "text_characters": 983
+    },
+    {
+      "page": 28,
+      "red_characters": 903,
+      "text_characters": 1216
+    },
+    {
+      "page": 29,
+      "red_characters": 1747,
+      "text_characters": 1749
+    },
+    {
+      "page": 30,
+      "red_characters": 238,
+      "text_characters": 240
+    },
+    {
+      "page": 31,
+      "red_characters": 1233,
+      "text_characters": 1235
+    },
+    {
+      "page": 32,
+      "red_characters": 270,
+      "text_characters": 946
+    },
+    {
+      "page": 33,
+      "red_characters": 878,
+      "text_characters": 1125
+    },
+    {
+      "page": 34,
+      "red_characters": 2015,
+      "text_characters": 2017
+    },
+    {
+      "page": 35,
+      "red_characters": 1007,
+      "text_characters": 1009
+    },
+    {
+      "page": 36,
+      "red_characters": 1107,
+      "text_characters": 1109
+    },
+    {
+      "page": 37,
+      "red_characters": 323,
+      "text_characters": 1641
+    },
+    {
+      "page": 38,
+      "red_characters": 0,
+      "text_characters": 2171
+    },
+    {
+      "page": 39,
+      "red_characters": 0,
+      "text_characters": 1458
+    },
+    {
+      "page": 40,
+      "red_characters": 0,
+      "text_characters": 1262
+    },
+    {
+      "page": 41,
+      "red_characters": 0,
+      "text_characters": 1453
+    },
+    {
+      "page": 42,
+      "red_characters": 0,
+      "text_characters": 1608
+    },
+    {
+      "page": 43,
+      "red_characters": 0,
+      "text_characters": 749
+    },
+    {
+      "page": 44,
+      "red_characters": 0,
+      "text_characters": 1309
+    },
+    {
+      "page": 45,
+      "red_characters": 0,
+      "text_characters": 1407
+    },
+    {
+      "page": 46,
+      "red_characters": 0,
+      "text_characters": 1039
+    },
+    {
+      "page": 47,
+      "red_characters": 0,
+      "text_characters": 1167
+    },
+    {
+      "page": 48,
+      "red_characters": 0,
+      "text_characters": 613
+    },
+    {
+      "page": 49,
+      "red_characters": 0,
+      "text_characters": 1447
+    },
+    {
+      "page": 50,
+      "red_characters": 0,
+      "text_characters": 1284
+    },
+    {
+      "page": 51,
+      "red_characters": 0,
+      "text_characters": 787
+    },
+    {
+      "page": 52,
+      "red_characters": 0,
+      "text_characters": 768
+    },
+    {
+      "page": 53,
+      "red_characters": 0,
+      "text_characters": 1540
+    },
+    {
+      "page": 54,
+      "red_characters": 151,
+      "text_characters": 1446
+    },
+    {
+      "page": 55,
+      "red_characters": 0,
+      "text_characters": 1725
+    },
+    {
+      "page": 56,
+      "red_characters": 0,
+      "text_characters": 1220
+    },
+    {
+      "page": 57,
+      "red_characters": 0,
+      "text_characters": 980
+    },
+    {
+      "page": 58,
+      "red_characters": 1849,
+      "text_characters": 2140
+    }
+  ],
+  "no_bibliography_or_numeric_citations": true,
+  "A4": true
+}

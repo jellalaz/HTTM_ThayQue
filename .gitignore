@@ -6,3 +6,7 @@ __pycache__/
 !.env.example
 node_modules/
 tmp/
+artifacts_tl03/data/raw/
+# Font Microsoft chỉ dùng để render cục bộ, không phân phối font trong repository.
+*.TTF
+*.ttf

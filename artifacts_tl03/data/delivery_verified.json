@@ -1,0 +1,38 @@
+{
+  "required_files": {
+    "tieuluan03_06_02_giangkt.254.docx": {
+      "bytes": 6215616,
+      "sha256": "61762d40630bbbbe755e83a970d1e47c9e3269f7b9159cd9df7cb97e0358dbd3"
+    },
+    "tieuluan03_06_02_giangkt.254.pdf": {
+      "bytes": 3711179,
+      "sha256": "dd10d5419c8855e7e38f3e26f7ec74a50209e85a6161f99ddc27e6fe80c4b8bc"
+    },
+    "main.ipynb": {
+      "bytes": 494424,
+      "sha256": "63f871ccfc50a43cbd3220074a549704541beace0aca7a84cec1916008d10111"
+    },
+    "README.md": {
+      "bytes": 6902,
+      "sha256": "3badf2997fea5765d3fb277429f7721d31fe36fba90ba1d50541a3ccda4398c7"
+    },
+    "CHANGELOG.md": {
+      "bytes": 4776,
+      "sha256": "4045c50ea897eef8a721212de6e87e5b660773bb6b183912c7950b1208c77441"
+    },
+    "EXPERIMENT_RESULTS.md": {
+      "bytes": 7597,
+      "sha256": "7b9626c14d92f681c9136ad8ebae39601a749135ddd3d5abe12471bdd288c498"
+    },
+    "FINAL_VERIFICATION.md": {
+      "bytes": 6575,
+      "sha256": "c972f402806ce949f6ca08129a632b303a3035cd0fbe5754fd9fa96e4c36ba50"
+    }
+  },
+  "notebook_cells": 27,
+  "executed_code_cells": 17,
+  "notebook_error_outputs": 0,
+  "staged_text_files_scanned": 57,
+  "known_secret_patterns_found": false,
+  "note": "Pattern scan supplements manual inspection; not a guarantee against every possible secret."
+}

@@ -1,0 +1,3443 @@
+[
+  {
+    "kind": "paragraph",
+    "chapter": 0,
+    "color": "000000",
+    "source": null,
+    "text": "Học phần: Phát triển các hệ thống thông minh"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 0,
+    "color": "000000",
+    "source": null,
+    "text": "Giảng viên hướng dẫn: Thầy Trần Đình Quế"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 0,
+    "color": "000000",
+    "source": null,
+    "text": "Sinh viên thực hiện: Kiều Trường Giang"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 0,
+    "color": "000000",
+    "source": null,
+    "text": "Mã sinh viên: B23DCCN254"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 0,
+    "color": "000000",
+    "source": null,
+    "text": "Hà Nội - 2026"
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "CHƯƠNG 1. LỊCH SỬ VÀ PHÁT TRIỂN AI"
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.1. AI là gì? Bản chất của Trí tuệ Nhân tạo"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 11",
+    "text": "Trí tuệ nhân tạo (Artificial Intelligence – AI) là một phân ngành khoa học máy tính chuyên sâu, nghiên cứu và xây dựng các hệ thống tính toán có khả năng thực thi những tác vụ vốn dĩ đòi hỏi năng lực nhận thức và trí tuệ của con người: nhận thức không gian thị giác, phân tích quy nạp, suy luận logic, hiểu ngôn ngữ tự nhiên, học hỏi kinh nghiệm từ quá khứ và giải quyết vấn đề trong môi trường bất định."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 11",
+    "text": "Hội thảo Dartmouth năm 1956 đánh dấu sự hình thành của AI như một lĩnh vực nghiên cứu. John McCarthy dùng tên gọi Artificial Intelligence cho hướng xây dựng các hệ thống máy tính thông minh."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 11",
+    "text": "Trong giáo trình kinh điển thế giới Artificial Intelligence: A Modern Approach, hai tác giả Stuart Russell và Peter Norvig đã tổng hợp và phân loại các cách tiếp cận AI trong lịch sử theo hai chiều kích: Tư duy vs. Hành động và Mô phỏng con người vs. Tính duy lý (Hợp lý):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 1.1. Bốn hướng tiếp cận trí tuệ nhân tạo"
+  },
+  {
+    "kind": "table",
+    "chapter": 1,
+    "color": "000000",
+    "caption": "Bốn hướng tiếp cận trí tuệ nhân tạo",
+    "rows": 2
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 11",
+    "text": "Cách tiếp cận hiện đại chủ đạo: Ngày nay, cộng đồng AI toàn cầu chọn cách tiếp cận Tác tử hợp lý (Rational Agent) làm nền tảng. Thay vì cố gắng sao chép từng hành vi"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "text": "cảm tính của con người, hệ thống AI được thiết kế để nhận tri giác (Percepts) thông qua cảm biến, xử lý thông tin bằng thuật toán toán học và đưa ra hành động (Actions) thông qua cơ cấu chấp hành nhằm tối đa hóa thước đo hiệu năng (Performance Measure)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "text": "Phân biệt mối quan hệ giữa các khái niệm cốt lõi:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "text": "• AI (Trí tuệ nhân tạo): Chiếc ô rộng nhất, bao gồm cả AI dựa trên luật (Rule-based), logic hình thức, hệ chuyên gia và học máy."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "text": "• Machine Learning (Học máy): Nhánh con trọng yếu của AI, tập trung vào việc tự động rút ra quy luật thống kê từ dữ liệu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "text": "• Deep Learning (Học sâu): Nhánh con của học máy, sử dụng mạng nơ-ron nhiều lớp (Deep Neural Networks) để tự động học biểu diễn đặc trưng phân cấp từ dữ liệu thô."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.2. Biên niên sử phát triển AI qua các kỷ nguyên"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 12",
+    "text": "Lịch sử phát triển gần 8 thập kỷ của AI là một chuỗi hành trình kỳ vĩ, đan xen giữa những thời kỳ lạc quan tột độ và những đợt suy thoái đóng băng tài trợ (\"Mùa đông AI\"). Nhiều bước tiến công nghệ bắt nguồn từ sự thôi thúc vượt qua những rào cản kỹ thuật của thế hệ đi trước."
+  },
+  {
+    "kind": "figure",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 12",
+    "path": "artifacts_tl03/source/tl01_p12_img18.png",
+    "caption": "Các giai đoạn và quan hệ giữa các kỹ thuật AI"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "Giai đoạn 1: Khởi nguồn và Những nền tảng tiền đề (1936 – 1956)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 13",
+    "text": "• 1936 — Máy Turing (Alan Turing): Alan Turing công bố công trình lịch sử \"On Computable Numbers\", hình thức hóa khái niệm \"thuật toán\" và \"tính toán\" thông qua cỗ máy trừu tượng Turing Machine. Đây là nền móng toán học khẳng định khái niệm tính được bằng thuật toán có thể được mô hình hóa chặt chẽ; điều này không chứng minh mọi hoạt động tư duy đều tính được."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1943 — Mô hình nơ-ron nhân tạo đầu tiên (Warren McCulloch & Walter Pitts): Đề xuất mô hình toán học nhị phân mô phỏng tế bào thần kinh sinh học, chứng minh rằng một mạng lưới các nơ-ron logic có thể tính toán bất kỳ hàm logic nào."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1949 — Quy tắc học Hebb (Donald Hebb): Cuốn sách \"The Organization of Behavior\" chỉ ra rằng khi hai tế bào thần kinh được kích hoạt đồng thời, liên kết giữa chúng sẽ mạnh lên (\"Cells that fire together, wire together\"). Đây là nguồn gốc của việc điều chỉnh trọng số liên kết trong mạng nơ-ron."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1950 — Phép thử Turing & Câu hỏi lịch sử: Alan Turing công bố bài báo \"Computing Machinery and Intelligence\", đặt ra câu hỏi bất hủ: \"Máy móc có thể suy nghĩ được không?\" và giới thiệu phép thử Turing (Imitation Game)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1956 — Hội thảo Dartmouth — Điểm khởi đầu chính thức: John McCarthy, Marvin Minsky, Nathaniel Rochester và Claude Shannon đồng tổ chức hội thảo 2 tháng tại Đại học Dartmouth. Thuật ngữ \"Artificial Intelligence\" chính thức ra đời, đánh dấu sự hình thành của một ngành khoa học độc lập."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "Giai đoạn 2: Kỷ nguyên Vàng son của AI Biểu tượng & Mùa đông AI lần 1 (1956 – 1980)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1956 — Logic Theorist (Newell & Simon): Chương trình AI đầu tiên có khả năng chứng minh 38 trong 52 định lý của chương 2 cuốn sách Principia Mathematica, thậm chí tìm ra cách chứng minh ngắn gọn hơn cả các tác giả gốc."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1957 — Perceptron (Frank Rosenblatt): Phát minh ra thuật toán Perceptron – mô hình học máy đầu tiên có thể học trọng số từ dữ liệu để phân loại nhị phân trên phần cứng Mark I Perceptron. Rosenblatt tuyên bố máy sẽ sớm có thể nhìn, nói và tự sinh sản."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 13",
+    "text": "• 1959 — Khái niệm \"Machine Learning\" (Arthur Samuel): Viết chương trình chơi cờ đam (checkers) tự cải thiện năng lực qua từng ván đấu và định nghĩa Machine Learning: \"Khoa học giúp máy tính có khả năng tự học mà không cần được lập trình chi tiết từng bước\"."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1965 — DENDRAL & ELIZA (1966): Hệ thống DENDRAL phân tích cấu trúc phân tử hóa học (tiền thân của hệ chuyên gia); Joseph Weizenbaum phát triển chatbot ELIZA mô phỏng nhà tâm lý học giao tiếp qua khớp mẫu từ khóa."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1969 — Cuốn sách \"Perceptrons\" (Minsky & Papert): Cuốn sách toán học chỉ ra giới hạn chết người của Perceptron đơn lớp: hoàn toàn không thể giải quyết bài toán XOR (bài toán phân tách phi tuyến). Kết luận bi quan này khiến làn sóng nghiên cứu mạng nơ-ron bị đình trệ nghiêm trọng suốt hơn một thập kỷ."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1974–1980 — Mùa đông AI thứ nhất (The First AI Winter): Báo cáo Lighthill (1973) tại Anh và các đánh giá của DARPA tại Mỹ kết luận AI đã hứa hẹn quá mức so với thực tế (\"Bùng nổ tổ hợp\", máy tính không đủ bộ nhớ để giải bài toán ngoài \"thế giới đồ chơi\"). Tài trợ bị cắt giảm ồ ạt, các dự án AI bước vào giai đoạn thoái trào sâu rộng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "Giai đoạn 3: Sự trỗi dậy của Hệ chuyên gia & Mùa đông AI lần 2 (1980 – 1993)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1980 — Sự bùng nổ của Hệ chuyên gia (Expert Systems): AI chuyển hướng sang AI tri thức biểu tượng. Hệ thống mã hóa tri thức chuyên gia dưới dạng hàng nghìn luật \"NẾU... THÌ...\". Hệ thống XCON của Digital Equipment Corporation (DEC) giúp tiết kiệm 40 triệu USD/năm; MYCIN chẩn đoán nhiễm trùng máu chính xác ngang chuyên gia hàng đầu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1982 — Mạng Hopfield (John Hopfield): Giới thiệu mạng nơ-ron hồi quy có khả năng lưu trữ thông tin như bộ nhớ liên kết (Associative Memory), làm bừng tỉnh lại cộng đồng nghiên cứu mạng nơ-ron."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1986 — Thuật toán Lan truyền ngược (Backpropagation): David Rumelhart, Geoffrey Hinton và Ronald Williams xuất bản bài báo kinh điển trên tạp chí Nature, tái khám phá và phổ biến giải thuật Lan truyền ngược lỗi cho mạng nơ- ron nhiều lớp. Giới hạn hàm XOR của Minsky chính thức bị đập tan."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1989 — LeNet-1 (Yann LeCun): Yann LeCun sáng tạo ra mạng nơ-ron tích chập (CNN) kết hợp lan truyền ngược, ứng dụng thành công trong việc nhận dạng chữ số viết tay trên séc ngân hàng bưu điện Mỹ."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 14",
+    "text": "• 1987–1993 — Mùa đông AI thứ hai (The Second AI Winter): Các hệ chuyên gia bộc lộ điểm nghẽn nghiêm trọng: chi phí bảo trì khổng lồ, \"nút thắt thu thập tri thức\" (Knowledge Acquisition Bottleneck), hệ thống giòn giã (brittle) – thất bại hoàn toàn khi gặp tình huống ngoại lệ. Thị trường phần cứng chuyên biệt LISP sụp đổ trước sự vươn lên của PC thương mại. AI một lần nữa rơi vào khủng hoảng lòng tin."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "Giai đoạn 4: Sự trỗi dậy của Học máy Thống kê (1993 – 2010)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "Từ bỏ tham vọng giải quyết trí tuệ tổng quát bằng các luật cứng nhắc, AI chuyển dịch trọng tâm sang phương pháp thống kê, xác suất và tối ưu hóa lồi:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "• 1995 — Máy vector hỗ trợ (Support Vector Machine – SVM): Vladimir Vapnik và Corinna Cortes công bố thuật toán SVM với nguyên lý tối đa hóa biên phân cách (Margin Maximization) và kỹ thuật Kernel Trick. SVM nhanh chóng trở thành công cụ phân loại thống trị nhờ cơ sở lý thuyết toán học vững chắc và tránh được cực tiểu địa phương."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "• 1997 — Deep Blue đánh bại Garry Kasparov: Siêu máy tính Deep Blue của IBM đánh bại nhà vô địch cờ vua thế giới Garry Kasparov, tạo cơn địa chấn toàn cầu về năng lực tính toán của máy tính."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 15",
+    "text": "• 1997 — Mạng LSTM ra đời (Hochreiter & Schmidhuber): Sepp Hochreiter và Jürgen Schmidhuber phát minh kiến trúc Long Short-Term Memory (LSTM), giảm khó khăn học phụ thuộc dài hạn do biến mất gradient trong mạng RNN, đặt nền móng cho xử lý chuỗi thời gian và NLP hiện đại."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "• 2001 — Random Forest (Leo Breiman): Đề xuất thuật toán Rừng ngẫu nhiên kết hợp Bagging và lựa chọn ngẫu nhiên tập đặc trưng, trở thành thuật toán mạnh mẽ và bền bỉ hàng đầu cho dữ liệu dạng bảng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 15",
+    "text": "• 2006 — Geoffrey Hinton và \"Deep Learning\": Hinton cùng các cộng sự công bố kỹ thuật tiền huấn luyện từng lớp (Layer-wise Pre-training) cho mạng Deep Belief Networks, góp phần khôi phục quan tâm đến huấn luyện mạng sâu và nhen nhóm ngọn lửa cách mạng học sâu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "Giai đoạn 5: Cuộc cách mạng Học sâu (Deep Learning Revolution) (2010 – 2020)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "• 2012 — AlexNet và bước ngoặt ImageNet: Alex Krizhevsky, Ilya Sutskever và Geoffrey Hinton giành chiến thắng áp đảo tại cuộc thi ILSVRC với mạng CNN 8 lớp mang tên AlexNet, huấn luyện song song trên 2 GPU NVIDIA GTX 580. Tỉ lệ lỗi Top-5 giảm sốc từ 26% xuống 15.3%. Khoảnh khắc này đánh dấu sự thống trị tuyệt đối của Deep Learning trước các phương pháp kỹ nghệ đặc trưng thủ công."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 15",
+    "text": "• 2013 — Word2Vec (Tomas Mikolov / Google): Ánh xạ từ ngữ thành vector ngữ nghĩa trong không gian liên tục (Vector Embedding), nắm bắt quan hệ ngữ nghĩa tinh tế."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2014 — Mạng sinh đối kháng GAN (Ian Goodfellow): Đề xuất kiến trúc hai mạng Generator và Discriminator thi đấu đối kháng, khai sinh lĩnh vực tạo sinh hình ảnh chân thực."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2015 — Mạng ResNet (Kaiming He et al.): Sáng tạo cơ chế kết nối tắt (Residual Skip Connections), cho phép huấn luyện thành công các mạng nơ-ron sâu tới 152 lớp mà không bị suy thoái gradient, vượt qua độ chính xác của con người trên ImageNet."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2016 — AlphaGo đánh bại Lee Sedol: Mô hình AlphaGo (DeepMind) kết hợp Deep RL và tìm kiếm cây Monte Carlo hạ gục kỳ thủ cờ vây hàng đầu thế giới 4- 1, phá vỡ định kiến rằng cờ vây nằm ngoài khả năng của AI."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2017 — Kiến trúc Transformer (\"Attention Is All You Need\"): Đội ngũ nghiên cứu Google đề xuất kiến trúc Transformer dựa thuần túy trên cơ chế tự chú ý (Self-Attention), loại bỏ hoàn toàn cấu trúc tuần tự của RNN, tạo bước ngoặt khai sinh các mô hình nền tảng như BERT, GPT."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "Giai đoạn 6: Kỷ nguyên AI Tạo sinh, LLM và Multimodal Agents (2020 – Hiện tại)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2020 — GPT-3 (OpenAI): Mô hình ngôn ngữ với 175 tỉ tham số thể hiện năng lực học vài ví dụ (Few-shot In-context Learning) phi thường mà không cần tái huấn luyện trọng số."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 16",
+    "text": "• 2022 — ChatGPT & Bùng nổ AI Đại chúng: Kết hợp tinh chỉnh chỉ dẫn (Instruction Tuning) và Học tăng cường từ phản hồi của con người (RLHF), ChatGPT cán mốc 100 triệu người dùng chỉ sau 2 tháng, mở màn cuộc cách mạng AI tạo sinh thương mại hóa toàn cầu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 16",
+    "text": "• Từ 2023: Mô hình nền tảng đa phương thức kết hợp văn bản, hình ảnh và âm thanh. Các tác tử dùng mô hình ngôn ngữ để lựa chọn công cụ và thực hiện chuỗi thao tác, đồng thời cần kiểm soát quyền, đánh giá lỗi và giám sát con người."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.3. Bản đồ phân loại toàn cảnh các kỹ thuật AI"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 17",
+    "text": "Dưới đây là sơ đồ kiến trúc phân cấp toàn cảnh, thể hiện mối quan hệ hữu cơ giữa các trường phái Trí tuệ Nhân tạo từ cổ điển đến hiện đại:"
+  },
+  {
+    "kind": "figure",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 17",
+    "path": "artifacts_tl03/source/tl01_p17_img31.png",
+    "caption": "Các giai đoạn và quan hệ giữa các kỹ thuật AI"
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.4. Ba trụ cột tạo nên sự bùng nổ của Deep Learning sau 2012"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 17",
+    "text": "Tại sao các ý tưởng mạng nơ-ron đã xuất hiện từ thập niên 1980 nhưng phải đợi tới sau năm 2012 mới tạo nên cuộc cách mạng công nghệ bùng nổ? Câu trả lời nằm ở sự hội tụ đồng thời của ba trụ cột nền tảng:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 1.2. Ba trụ cột phát triển của học sâu"
+  },
+  {
+    "kind": "table",
+    "chapter": 1,
+    "color": "000000",
+    "caption": "Ba trụ cột phát triển của học sâu",
+    "rows": 3
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.5. Phân loại AI theo mức độ năng lực và Trường phái tiếp cận"
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.5.1. Phân loại theo cấp độ năng lực"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 18",
+    "text": "• AI Hẹp (Artificial Narrow AI – ANI): Hệ thống AI được tối ưu hóa xuất sắc cho một nhiệm vụ duy nhất cụ thể (chơi cờ vây, nhận dạng khuôn mặt, dịch máy, phân loại ảnh). Mặc dù thể hiện sự vượt trội so với con người trong miền hẹp, ANI hoàn toàn không có nhận thức hay khả năng tự thích ứng ngoài phạm vi được huấn luyện. Toàn bộ các hệ thống AI ứng dụng hiện nay đều thuộc cấp độ này."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 18",
+    "text": "• AI Tổng quát (Artificial General Intelligence – AGI): Hệ thống trí tuệ nhân tạo giả định có năng lực tư duy, suy luận, tự học và giải quyết vấn đề linh hoạt tương đương trí tuệ con người trên mọi lĩnh vực tri thức. Hiện nay, các mô hình nền tảng đa phương thức (Foundation Models) đang từng bước tiệm cận các khía cạnh nhận thức của AGI nhưng vẫn chưa đạt tới mục tiêu này."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 18",
+    "text": "• Siêu trí tuệ nhân tạo (Artificial Superintelligence – ASI): Khái niệm giả thuyết về một hệ thống AI sở hữu năng lực trí tuệ vượt xa những bộ não xuất sắc nhất của nhân loại ở mọi lĩnh vực khoa học, sáng tạo nghệ thuật và kỹ năng xã hội."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.5.2. Hai trường phái tư tưởng lớn trong AI"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 18",
+    "text": "• Trường phái Biểu tượng (Symbolic AI / Good Old-Fashioned AI – GOFAI): Tiếp cận theo hướng \"từ trên xuống\" (Top-down). Trí tuệ được mô hình hóa bằng các biểu tượng rõ ràng và các phép toán logic hình thức. Ưu điểm là tính minh"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "bạch và suy luận chặt chẽ; nhược điểm là không thể xử lý tốt sự nhiễu loạn và tính liên tục của thế giới thực."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "• Trường phái Kết nối (Connectionist AI / Neural Networks): Tiếp cận theo hướng \"từ dưới lên\" (Bottom-up). Trí tuệ nảy sinh từ sự tương tác phức tạp của hàng triệu nơ-ron đơn giản kết nối với nhau, học hỏi trực tiếp từ mẫu dữ liệu số. Ưu điểm là khả năng thích ứng phi thường với dữ liệu phi cấu trúc; nhược điểm là tính chất \"hộp đen\" khó diễn giải tường minh."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.6. Xu hướng AI tại Việt Nam và Những thách thức đương đại"
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.6.1. Bức tranh phát triển AI tại Việt Nam"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "Việt Nam đang có những bước tiến vượt bậc trong nghiên cứu và ứng dụng trí tuệ nhân tạo:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "• Khung chính sách chiến lược: Ban hành Quyết định 127/QĐ-TTg ngày 26/01/2021 về Chiến lược quốc gia về nghiên cứu, phát triển và ứng dụng AI đến năm 2030, định vị AI là công nghệ nền tảng thúc đẩy chuyển đổi số quốc gia."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "• Trung tâm nghiên cứu & Doanh nghiệp tiên phong: Sự ra đời của các viện nghiên cứu đẳng cấp quốc tế như VinAI Research, Viettel AI, FPT AI Center, Zalo AI Lab... đã đóng góp nhiều công trình công bố tại các hội nghị đỉnh cao (NeurIPS, CVPR, ICML) và thương mại hóa các giải pháp trợ lý ảo tiếng Việt, xe tự hành, camera thông minh."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "• Ứng dụng thực tiễn: Tích hợp AI vào hành chính công, chẩn đoán y tế từ xa, nông nghiệp công nghệ cao và phòng chống thiên tai."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.6.2. Những thách thức cốt lõi đặt ra"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "1. Tính chất \"Hộp đen\" & Khả năng giải thích (Explainable AI – XAI): Các mạng nơ-ron sâu đưa ra dự báo chính xác nhưng con người khó truy xuất lý do tại sao, gây rủi ro lớn trong các lĩnh vực nhạy cảm như chẩn đoán ung thư, phê duyệt tín dụng hay tư pháp."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "2. Thiên lệch dữ liệu & Tính công bằng (Data Bias & Fairness): Mô hình học từ dữ liệu lịch sử của con người nên có nguy cơ phản ánh và khuếch đại các định kiến xã hội về giới tính, chủng tộc hoặc địa lý."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 19",
+    "text": "3. Độ tin cậy & Hiện tượng \"Ảo giác\" (Hallucination): Các mô hình ngôn ngữ lớn có xu hướng sinh ra thông tin sai lệch nhưng với giọng điệu vô cùng tự tin, gây nguy hại cho việc tiếp nhận tri thức chính xác."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": "TL01 trang 20",
+    "text": "4. Chi phí tính toán & Tác động môi trường (Compute Cost & Green AI): Huấn luyện một mô hình nền tảng hiện đại tiêu tốn hàng chục triệu USD và năng lượng đáng kể, phụ thuộc quy mô và phần cứng, đặt ra bài toán về tính bền vững và sự bất bình đẳng công nghệ giữa các quốc gia."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 20",
+    "text": "5. Quyền riêng tư dữ liệu & An toàn bảo mật (Privacy & Adversarial Robustness): Nguy cơ rò rỉ dữ liệu cá nhân khi huấn luyện mô hình và khả năng mô hình bị đánh lừa bởi các cuộc tấn công đối nghịch (Adversarial Attacks)."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "000000",
+    "text": "1.7. Tiểu kết chương 1"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 20",
+    "text": "Lịch sử phát triển của Trí tuệ Nhân tạo là một hành trình biện chứng đầy cảm hứng kéo dài gần 70 năm. Từ những phác thảo lý thuyết trừu tượng của Alan Turing, sự ra đời của Perceptron, qua hai cuộc \"Mùa đông AI\" đầy thử thách, cho đến sự phục hưng của học máy thống kê và cuộc cách mạng học sâu chấn động thế giới hôm nay."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 20",
+    "text": "Những chu kỳ thăng trầm lịch sử đã để lại một bài học vô giá: Không có một mô hình đơn lẻ nào là vạn năng. Để làm chủ công nghệ và xây dựng các hệ thống thông minh bền vững, người kỹ sư cần thấu hiểu bản chất toán học từ các kỹ thuật Machine Learning cổ điển, cho đến các kiến trúc chuyên biệt cho không gian (CNN) và thời gian (RNN)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "000000",
+    "source": "TL01 trang 20",
+    "text": "Đó chính là tiền đề dẫn dắt chúng ta bước vào Chương 2, nơi các kỹ thuật học máy cơ bản và cấu trúc mạng nơ-ron sâu sẽ được mổ xẻ tường minh từ lý thuyết tới thực nghiệm."
+  },
+  {
+    "kind": "heading",
+    "chapter": 1,
+    "color": "FF0000",
+    "text": "1.8. Mối liên hệ giữa các giai đoạn phát triển"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": null,
+    "text": "AI biểu tượng cung cấp cách biểu diễn tri thức và suy luận có thể kiểm tra. Học máy thống kê chuyển trọng tâm sang việc học quy luật từ dữ liệu; học sâu tiếp tục học biểu diễn thay cho nhiều bước thiết kế đặc trưng thủ công. Transformer cho phép mô hình hóa quan hệ giữa các vị trí qua attention và huấn luyện song song hơn RNN. KG và RAG kết nối mô hình dữ liệu với tri thức tường minh; chúng kế thừa các ý tưởng cũ thay vì thay thế toàn bộ AI biểu tượng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 1,
+    "color": "FF0000",
+    "source": null,
+    "text": "Trong báo cáo này, mối liên hệ đó được thể hiện bằng ba loại đầu vào: bảng thuộc tính, ảnh và chuỗi thời gian. Các mô hình tạo ra dự đoán định lượng; Chương 5 bổ sung bằng chứng và ngữ cảnh để người dùng hiểu phạm vi của các kết quả."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "CHƯƠNG 2. CÁC KỸ THUẬT MACHINE LEARNING CƠ BẢN"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Chương này giữ nền tảng học máy của Tiểu luận 01 và triển khai lại độc lập hai bài toán: phân loại nhãn nguy cơ trên Diabetes Risk Prediction 50k và hồi quy giá nhà Việt Nam. Các mô hình, phép chia dữ liệu, checkpoint và kết quả dưới đây được tạo trong main.ipynb."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1. Cơ sở lý thuyết Học máy (Machine Learning Foundations)"
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.1. Khái niệm và Các dạng học máy"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 21",
+    "text": "Năm 1997, Tom Mitchell đã đưa ra định nghĩa toán học chuẩn tắc về học máy:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 21",
+    "text": "\"Một chương trình máy tính được coi là học từ kinh nghiệm E đối với một lớp tác vụ T và thước đo hiệu năng P, nếu hiệu năng của nó đối với các tác vụ trong T, được đo bằng P, cải thiện theo kinh nghiệm E.\""
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "Dựa vào bản chất của kinh nghiệm E (dữ liệu đầu vào), học máy được chia thành 4 dạng thức chính:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "1. Học có giám sát (Supervised Learning):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Dữ liệu huấn luyện bao gồm cặp mẫu đầu vào và nhãn mục tiêu tương ứng:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "D=\\{(x_i,y_i)\\}_{i=1}^{N}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Mục tiêu: Tìm hàm ánh xạ từ không gian đầu vào sang không gian đầu ra sao cho dự báo xấp xỉ nhãn thực tế."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "f:\\mathcal{X}\\rightarrow\\mathcal{Y},\\qquad \\hat y=f(x)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": "TL01 trang 22",
+    "text": "• Hồi quy (Regression): Khi nhãn y thuộc tập số thực, đầu ra là giá trị liên tục (ví dụ: dự báo giá nhà, nhiệt độ, doanh thu)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Phân loại (Classification): Khi nhãn là các nhãn lớp rời rạc (ví dụ: chẩn đoán bệnh tật, phân loại email rác)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "2. Học không giám sát (Unsupervised Learning):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Dữ liệu huấn luyện chỉ bao gồm các mẫu đầu vào mà không có nhãn đích:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "D=\\{x_i\\}_{i=1}^{N}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Mục tiêu: Tự động khám phá cấu trúc ẩn sâu bên trong dữ liệu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Phân cụm (Clustering): Gom các điểm dữ liệu có đặc trưng tương đồng vào cùng nhóm (K-Means, DBSCAN)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Giảm chiều dữ liệu (Dimensionality Reduction): Nén không gian dữ liệu nhiều chiều xuống không gian ít chiều hơn mà vẫn bảo toàn tối đa thông tin quan trọng (PCA, t-SNE)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "3. Học bán giám sát & Tự giám sát (Semi-supervised & Self-supervised Learning):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Học bán giám sát: Kết hợp một lượng nhỏ dữ liệu có gán nhãn với một khối lượng khổng lồ dữ liệu không gán nhãn để tiết kiệm chi phí dán nhãn thủ công."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Học tự giám sát: Mô hình tự động tạo ra nhãn từ chính cấu trúc nội tại của dữ liệu (ví dụ: che giấu một từ trong câu và bắt mô hình dự đoán từ bị che, tạo tiền đề cho các mô hình ngôn ngữ lớn LLM)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "4. Học tăng cường (Reinforcement Learning – RL):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 22",
+    "text": "• Tác tử (Agent) tương tác liên tục với môi trường (Environment) qua các trạng thái st, thực hiện hành động at và nhận lại tín hiệu phần thưởng rt"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "(Reward). Mục tiêu là tìm chính sách hành động π(a\\s) tối đa hóa tổng phần thưởng tích lũy dài hạn."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.2. Quy trình chuẩn xây dựng một mô hình Học máy"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "Một quy trình khoa học dữ liệu hoàn chỉnh bao gồm 5 giai đoạn liên hoàn khép kín:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "[1. Thu thập dữ liệu] → [2. Tiền xử lý (EDA, Clean, Scale)] → [3. Phân chia Train/Val/Test] → [4. Huấn luyện & Tối ưu Siêu tham số] → [5. Đánh giá & Giám sát]"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "1. Thu thập và Khám phá Dữ liệu (EDA): Phân tích phân phối thống kê, phát hiện ngoại lai (Outliers), kiểm tra độ tương quan giữa các biến và nhận diện hiện tượng rò rỉ dữ liệu (Data Leakage)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "2. Tiền xử lý Dữ liệu:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "• Xử lý dữ liệu khuyết: Điền khuyết (Imputation) bằng giá trị trung bình (mean), trung vị (median) hoặc mô hình học máy."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "• Mã hóa biến phân loại: One-Hot Encoding cho biến định danh không thứ bậc, Label Encoding cho biến có thứ bậc."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "• Chuẩn hóa thang đo: Đưa các thuộc tính về cùng một miền giá trị bằng Standard Scaling hoặc Min-Max Scaling nhằm giúp các thuật toán hạ gradient hội tụ nhanh và ổn định."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "z=\\frac{x-\\mu}{\\sigma},\\qquad x^{\\prime}=\\frac{x-x_{\\min}}{x_{\\max}-x_{\\min}}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "x là giá trị gốc; μ, σ, x_min và x_max lần lượt là trung bình, độ lệch chuẩn và hai biên của đặc trưng. Các đại lượng này chỉ được ước lượng từ train, rồi giữ cố định khi biến đổi validation/test."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "3. Phân chia tập dữ liệu: Chia tách độc lập thành tập Huấn luyện (Train set), tập Kiểm định (Validation set) và tập Kiểm thử (Test set). Áp dụng kỹ thuật Kiểm định chéo K-lần (K-Fold Cross-Validation) để đánh giá độ ổn định của mô hình."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "4. Huấn luyện và Tối ưu hóa: Lựa chọn kiến trúc thuật toán phù hợp, định nghĩa hàm mục tiêu (Loss function) và tinh chỉnh siêu tham số (Hyperparameter Tuning)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "5. Đánh giá và Kiểm định độc lập: Đo lường hiệu năng trên tập Test chưa từng nhìn thấy bằng các thước đo chuẩn mực."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.3. Phương pháp Tối ưu hóa bằng Hạ Gradient (Gradient Descent)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "Hạ gradient là thuật toán tối ưu hóa nền tảng trong toàn bộ học máy và học sâu, nhằm tìm bộ tham số w làm cực tiểu hóa hàm mất mát L(w)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 23",
+    "text": "Nguyên lý toán học: Vector gradient ∇L(w) chỉ hướng tăng nhanh nhất của hàm số tại điểm khảo sát. Do đó, để làm giảm hàm mất mát nhanh nhất, ta cập nhật tham số ngược hướng với vector gradient:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "w_{t+1}=w_t-\\eta\\nabla\\mathcal{L}(w_t)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Trong đó η> 0 là tốc độ học (Learning Rate). Nếu quá nhỏ, mô hình hội tụ cực kỳ chậm chạp; nếu η quá lớn, mô hình sẽ dao động phân kỳ và không thể đạt tới điểm cực tiểu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Các biến thể của Gradient Descent:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "• Batch Gradient Descent: Tính toán gradient trên toàn bộ mẫu dữ liệu của tập huấn luyện. Hướng đi rất ổn định nhưng cực kỳ tốn bộ nhớ và chậm chạp khi dữ liệu lớn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "• Stochastic Gradient Descent (SGD): Tính toán gradient và cập nhật tham số trên từng mẫu đơn lẻ (N = 1). Cực kỳ nhanh và có khả năng thoát khỏi các điểm cực tiểu địa phương cạn, nhưng dao động gradient rất mạnh (nhiễu)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "• Mini-batch Gradient Descent: Cân bằng hoàn hảo giữa hai thái cực trên bằng cách chia dữ liệu thành từng nhóm nhỏ kích thước B (thường là 32, 64, 128 mẫu). Đây là tiêu chuẩn vàng trong huấn luyện mạng nơ-ron hiện đại."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.4. Hồi quy tuyến tính (Linear Regression)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Mô hình hồi quy tuyến tính giả thiết mối quan hệ giữa biến đầu vào x= [x1, x2,..., xd]T và biến mục tiêu liên tục y là tuyến tính:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\hat y=w^T x+b=\\sum_{j=1}^{d}w_jx_j+b"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Hàm mất mát — Sai số bình phương trung bình (Mean Squared Error – MSE):"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\mathcal{L}=\\frac{1}{N}\\sum_{i=1}^{N}(\\hat y_i-y_i)^2"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Đạo hàm và Cập nhật trọng số: Đạo hàm riêng theo trọng số w:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\frac{\\partial\\mathcal{L}}{\\partial w}=\\frac{2}{N}X^T(\\hat y-y)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 24",
+    "text": "Cập nhật tham số qua gradient descent:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "w\\leftarrow w-\\eta\\frac{\\partial\\mathcal{L}}{\\partial w}"
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.5. Hồi quy Logistic (Logistic Regression & Softmax)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Dành cho bài toán phân loại. Dù mang tên \"hồi quy\", mô hình này thực chất là một bộ phân loại tuyến tính xác suất."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Phân loại nhị phân (Binary Classification): Để ép giá trị đầu ra tuyến tính z= wTx+ b về khoảng xác suất, mô hình sử dụng hàm kích hoạt Sigmoid:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\sigma(z)=\\frac{1}{1+e^{-z}}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Hàm mất mát — Binary Cross-Entropy (BCE / Log Loss):"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\mathcal{L}_{BCE}=-\\frac{1}{N}\\sum_{i=1}^{N}[y_i\\log\\hat y_i+(1-y_i)\\log(1-\\hat y_i)]"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Phân loại đa lớp (Multiclass Classification — Softmax Regression): Khi có K lớp phân loại rời rạc, đầu ra tại lớp thứ k được chuẩn hóa qua hàm Softmax:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "p_k=\\frac{e^{z_k}}{\\sum_{j=1}^{K}e^{z_j}}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Hàm mất mát tương ứng là Categorical Cross-Entropy:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\mathcal{L}_{CE}=-\\frac{1}{N}\\sum_{i=1}^{N}\\sum_{k=1}^{K}y_{ik}\\log p_{ik}"
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.6. Tổng quan các thuật toán Học máy kinh điển tiêu biểu"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "Bên cạnh các mô hình tuyến tính, học máy cổ điển sở hữu các thuật toán phi tuyến xuất sắc:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "1. Cây quyết định (Decision Tree):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "• Phân chia không gian dữ liệu bằng các câu hỏi điều kiện phân nhánh nhị phân trực quan."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": "TL01 trang 25",
+    "text": "• Tiêu chuẩn phân chia tối ưu: sử dụng độ lợi thông tin (Information Gain) dựa trên Entropy hoặc chỉ số Gini Impurity."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "FF0000",
+    "latex": "H(S)=-\\sum_{k=1}^{K}p_k\\log_2p_k,\\qquad G(S)=1-\\sum_{k=1}^{K}p_k^2"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "pk là tỷ lệ mẫu thuộc lớp k ở nút đang xét. Độ lợi thông tin là độ giảm entropy có trọng số sau khi chia; ký hiệu p1 trong tổng của bản nguồn đã được sửa thành pk."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "• Ưu điểm: Cực kỳ dễ giải thích, không yêu cầu chuẩn hóa thang đo; Nhược điểm: Dễ bị quá khớp (Overfitting) nếu cây phát triển quá sâu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 25",
+    "text": "2. Phương pháp Tổ hợp (Ensemble Methods):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "• Rừng ngẫu nhiên (Random Forest): Kỹ thuật đóng gói (Bagging) kết hợp dự báo của hàng trăm cây quyết định độc lập được huấn luyện trên các tập mẫu con lấy mẫu có hoàn lại (Bootstrap) và tập thuộc tính ngẫu nhiên. Triệt tiêu phương sai, cực kỳ bền bỉ và chính xác trên dữ liệu dạng bảng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "• Gradient Boosting (GBM / XGBoost / LightGBM): Kỹ thuật tăng cường (Boosting) xây dựng các cây quyết định tuần tự, trong đó mỗi cây sau tập trung sửa chữa sai số (Residuals) của các cây trước đó. Thường đạt độ chính xác cao nhất trong các cuộc thi dữ liệu bảng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "3. Máy vector hỗ trợ (Support Vector Machine – SVM):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "• Tìm kiếm siêu phẳng phân cách tối ưu sao cho khoảng cách (lề - margin) từ siêu phẳng tới các điểm dữ liệu gần nhất của hai lớp (gọi là các Support Vectors) là cực đại."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "• Kernel Trick: Ánh xạ dữ liệu không phân tách tuyến tính từ không gian gốc lên không gian nhiều chiều hơn thông qua các hàm nhân (RBF Kernel, Polynomial Kernel) để phân tách tuyến tính mà không cần tính toán tọa độ rõ ràng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "4. K láng giềng gần nhất (K-Nearest Neighbors – KNN):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 26",
+    "text": "• Giải thuật học lười biếng (Lazy Learning): Không có pha huấn luyện tường minh. Khi dự báo mẫu mới, thuật toán tính khoảng cách (Euclidean, Manhattan) tới toàn bộ các điểm trong tập dữ liệu và lấy biểu quyết đa số từ K điểm láng giềng gần nhất."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 2.1. So sánh các thuật toán học máy kinh điển"
+  },
+  {
+    "kind": "table",
+    "chapter": 2,
+    "color": "000000",
+    "caption": "So sánh các thuật toán học máy kinh điển",
+    "rows": 6
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.7. Hiện tượng Overfitting, Underfitting & Kỹ thuật Điều chuẩn"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "Sự đánh đổi giữa Độ chệch và Phương sai (Bias-Variance Trade-off): Tổng sai số kỳ vọng của một mô hình học máy được phân rã thành 3 thành phần:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "E[(y-\\hat f(x))^2]=\\operatorname{Bias}[\\hat f(x)]^2+\\operatorname{Var}[\\hat f(x)]+\\sigma^2"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "• Thiếu khớp (Underfitting - High Bias): Mô hình quá đơn giản, không học đủ quy luật từ dữ liệu, sai số trên cả tập Train và Test đều cao."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "• Quá khớp (Overfitting - High Variance): Mô hình quá phức tạp, ghi nhớ cả các nhiễu ngẫu nhiên của tập Train, dẫn tới sai số tập Train cực thấp nhưng sai số tập Test vọt lên rất cao."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "Các kỹ thuật Điều chuẩn (Regularization): Điều chuẩn là kỹ thuật thêm một số hạng phạt vào hàm mất mát nhằm hạn chế độ lớn của các trọng số, ép mô hình đơn giản hơn:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "• Điều chuẩn L2 (Ridge Regression / Weight Decay): Phạt tổng bình phương trọng số. Thu nhỏ trọng số về gần 0 nhưng không triệt tiêu hoàn toàn."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\mathcal{L}_{reg}=\\mathcal{L}+\\lambda\\sum_i w_i^2"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "2. Thu nhỏ trọng số về gần 0 nhưng không triệt tiêu trọng số Lreg= L+ λΣwi hoàn toàn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "• Điều chuẩn L1 (Lasso Regression): Phạt tổng giá trị tuyệt đối của trọng số. Có khả năng triệt tiêu trọng số về chính xác bằng 0, đóng vai trò chọn lọc đặc trưng tự động."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\mathcal{L}_{reg}=\\mathcal{L}+\\lambda\\sum_i|w_i|"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 27",
+    "text": "• Trong Mạng Nơ-ron: Áp dụng kỹ thuật Dropout (ngẫu nhiên ngắt kết nối một tỉ lệ nơ-ron trong quá trình train để chống đồng thích nghi) và Early Stopping (dừng huấn luyện khi sai số trên tập Validation bắt đầu tăng liên tục)."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.1.8. Từ Học máy truyền thống đến Mạng Nơ-ron Sâu (Deep Neural Network – DNN)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "Khi dữ liệu có độ phức tạp cao và phi tuyến mạnh mẽ, việc kết hợp các tầng biến đổi tuyến tính xen kẽ các hàm kích hoạt phi tuyến dẫn tới kiến trúc Mạng nơ-ron sâu (DNN)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": "TL01 trang 28",
+    "text": "Có thể minh họa lý thuyết bằng một kiến trúc Mạng nơ-ron sâu 5 lớp (gồm 4 lớp ẩn Dense liên kết đầy đủ + 1 lớp đầu ra):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "Input (X) ──► [Dense 1 + ReLU] ──► [Dense 2 + ReLU] ──► [Dense 3 + ReLU] ──► [Dense 4 + ReLU] ──► Output Layer (ŷ)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "1. Lan truyền xuôi (Forward Propagation): Tại mỗi tầng ẩn l∈{1,2,3,4}:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "z^{(l)}=W^{(l)}a^{(l-1)}+b^{(l)},\\quad a^{(l)}=\\operatorname{ReLU}(z^{(l)})"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "Tại tầng đầu ra l = 5:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "• Với bài toán hồi quy (Housing Price): ŷ = z(5)(kích hoạt tuyến tính)."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": "TL01 trang 28",
+    "text": "• Với bài toán phân loại đa lớp: ŷ = Softmax(z(5))."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 28",
+    "text": "2. Lan truyền ngược (Backpropagation theo Chain Rule): Để cập nhật ma trận trọng số, ta tính toán gradient sai số từ tầng cuối cùng lội ngược về tầng đầu theo quy tắc chuỗi giải tích:"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\frac{\\partial\\mathcal{L}}{\\partial W^{(l)}}=\\delta^{(l)}(a^{(l-1)})^T"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "000000",
+    "latex": "\\delta^{(l)}=((W^{(l+1)})^T\\delta^{(l+1)})\\odot\\operatorname{ReLU}^{\\prime}(z^{(l)})"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": "TL01 trang 28",
+    "text": "Trong đó δ là sai số lan truyền ngược. Quy tắc chuỗi cho phép truyền gradient qua các lớp; phần thực nghiệm mới sử dụng các mô hình được mô tả riêng bên dưới."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "FF0000",
+    "text": "2.1.9. Kiểm định chéo và lựa chọn siêu tham số"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Train dùng để ước lượng tham số; validation dùng để kiểm tra các lựa chọn phát triển và checkpoint; test chỉ dùng cho đánh giá cuối. Trong phân loại, StratifiedKFold giữ tỷ lệ lớp trong từng fold. Với giá nhà, GroupKFold giữ các bản ghi cùng địa chỉ trong một fold. Toàn bộ imputation, scaling và one-hot encoding được fit bên trong từng fold, không fit trên toàn bộ dữ liệu trước khi chia."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Grid search so sánh tập siêu tham số hữu hạn đã định trước. Dùng macro-F1 khi các lớp mất cân bằng và MAE theo tỷ VND khi dự báo giá nhà. Không lựa chọn mô hình bằng chỉ số test. Khoảng cách train–validation–test giúp phát hiện quá khớp; một lần chia và một random seed chưa mô tả hết độ bất định."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "FF0000",
+    "text": "2.1.10. Các thước đo đánh giá"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "FF0000",
+    "latex": "\\operatorname{MAE}=\\frac{1}{n}\\sum_{i=1}^{n}|y_i-\\hat y_i|,\\quad \\operatorname{MSE}=\\frac{1}{n}\\sum_{i=1}^{n}(y_i-\\hat y_i)^2"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "FF0000",
+    "latex": "\\operatorname{RMSE}=\\sqrt{\\operatorname{MSE}},\\quad R^2=1-\\frac{\\sum_i(y_i-\\hat y_i)^2}{\\sum_i(y_i-\\bar y)^2}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Trong (2.21)–(2.22), n là số mẫu, yi là giá trị thực, ŷi là dự đoán và ȳ là trung bình của nhãn trong tập đánh giá. MAE và RMSE có cùng đơn vị với nhãn, MSE có đơn vị bình phương. R2 so với dự đoán hằng bằng trung bình, có thể âm và không phải phần trăm chính xác."
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "FF0000",
+    "latex": "\\operatorname{Accuracy}=\\frac{TP+TN}{TP+TN+FP+FN},\\quad P=\\frac{TP}{TP+FP},\\quad R=\\frac{TP}{TP+FN}"
+  },
+  {
+    "kind": "equation",
+    "chapter": 2,
+    "color": "FF0000",
+    "latex": "F_1=\\frac{2PR}{P+R},\\qquad F_{1,\\mathrm{macro}}=\\frac{1}{K}\\sum_{k=1}^{K}F_{1,k}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "TP, TN, FP và FN lần lượt là số dự đoán dương đúng, âm đúng, dương sai và âm sai trong cách xét một lớp so với các lớp còn lại. Với K lớp, macro-F1 cho mỗi lớp trọng số bằng nhau, vì vậy thể hiện rõ hơn hiệu năng ở lớp ít mẫu."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "FF0000",
+    "text": "2.2. Phân tích và chuẩn bị dữ liệu thực nghiệm"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 2.2. Dữ liệu của các thực nghiệm tự xây dựng lại"
+  },
+  {
+    "kind": "table",
+    "chapter": 2,
+    "color": "FF0000",
+    "caption": "Dữ liệu của các thực nghiệm tự xây dựng lại",
+    "rows": 2
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Diabetes Risk Prediction là dữ liệu tổng hợp phục vụ học máy, không được coi là 50.000 hồ sơ bệnh nhân đã xác minh lâm sàng. Phân phối thực tế gồm High 36.593 mẫu (73,2%), Moderate 12.937 mẫu (25,9%) và Low 470 mẫu (0,9%). Vì vậy nhận định cân bằng của bản nguồn được thay bằng phân tích mất cân bằng. Tám đầu vào gồm Age, BMI, HbA1c, Fasting_Blood_Sugar, Blood_Glucose, Blood_Pressure_Systolic, HDL và LDL. Patient_ID, Diabetes_Risk_Score, AI_Health_Recommendation và Doctor_Consultation_Needed không được sử dụng vì là định danh hoặc có thể tiết lộ nhãn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Dữ liệu giá nhà có các trường Area, Frontage, Access Road, Floors, Bedrooms, Bathrooms cùng hướng nhà, hướng ban công, pháp lý và nội thất. Province được trích từ phần cuối địa chỉ. Pipeline điền thiếu số bằng trung vị train, mã hóa one-hot với nhóm chưa gặp được bỏ qua, và học log(1 + Price) rồi biến đổi ngược trước khi tính sai số. Các bản ghi cùng địa chỉ được giữ trong cùng một tập. Đây là kiểm tra tổng quát hóa sang địa chỉ khác, chưa phải backtest giá nhà theo thời gian."
+  },
+  {
+    "kind": "figure",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/housing_eda.png",
+    "caption": "Phân phối giá nhà trước và sau biến đổi logarit"
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "FF0000",
+    "text": "2.3. So sánh và lựa chọn mô hình"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 2.3. So sánh phân loại với StratifiedKFold 3 phần"
+  },
+  {
+    "kind": "table",
+    "chapter": 2,
+    "color": "FF0000",
+    "caption": "So sánh phân loại với StratifiedKFold 3 phần",
+    "rows": 6
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Random Forest được chọn bằng CV macro-F1 0.6203, gồm 80 cây, max_depth=10, class_weight=balanced, random_state=42. Macro-F1 train 0.7105, validation 0.6059 và test 0.6087 cho thấy vẫn có khoảng cách khái quát hóa. Không dùng test để tăng độ sâu cây."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 2.4. So sánh hồi quy với GroupKFold 3 phần"
+  },
+  {
+    "kind": "table",
+    "chapter": 2,
+    "color": "FF0000",
+    "caption": "So sánh hồi quy với GroupKFold 3 phần",
+    "rows": 4
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Hồi quy chọn Log Random Forest với 80 cây, max_depth=14, min_samples_leaf=3. Ridge thử alpha 1, 10, 100; Gradient Boosting thử learning_rate 0,04 và 0,08. Tất cả cấu hình cùng một nhóm train và các fold theo địa chỉ. Mô hình trung vị cung cấp mốc đánh giá độ hữu ích của các mô hình học được."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "FF0000",
+    "text": "2.4. Kết quả test độc lập và phân tích sai số"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 2.5. Kết quả được tính từ predictions của main.ipynb"
+  },
+  {
+    "kind": "table",
+    "chapter": 2,
+    "color": "FF0000",
+    "caption": "Kết quả được tính từ predictions của main.ipynb",
+    "rows": 4
+  },
+  {
+    "kind": "figure",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/diabetes_confusion.png",
+    "caption": "Ma trận nhầm lẫn của phân loại nguy cơ trên 10.000 mẫu test"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Ma trận nhầm lẫn cho thấy Accuracy chịu ảnh hưởng lớn của lớp High. Macro-precision thấp hơn macro-recall phản ánh chi phí dự đoán nhầm khi dùng class_weight=balanced. Nhãn dự đoán chỉ mô tả quy tắc của dataset, không phải chẩn đoán hoặc nguy cơ bệnh ngoài đời."
+  },
+  {
+    "kind": "figure",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/housing_predictions.png",
+    "caption": "Giá nhà dự đoán và thực tế tại các địa chỉ giữ riêng"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "MAE train của giá nhà là 1.0276 tỷ VND, validation 1.2936, test 1.2760; R2 test 0.4273. Sai số tuyệt đối còn lớn đối với định giá cá nhân. Các thông tin vị trí trong địa chỉ, chất lượng tin đăng và thời điểm giao dịch chưa được mô hình hóa đầy đủ. Mức lệch giữa train và test cần được theo dõi trước khi tăng độ phức tạp."
+  },
+  {
+    "kind": "heading",
+    "chapter": 2,
+    "color": "000000",
+    "text": "2.5. Kết luận chương"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "000000",
+    "source": "TL01 trang 36; diễn giải kết luận được giữ",
+    "text": "Với dữ liệu dạng bảng, Random Forest và Gradient Boosting thường cạnh tranh tốt với Deep Learning. Không có một mô hình đơn lẻ phù hợp với mọi tập dữ liệu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 2,
+    "color": "FF0000",
+    "source": null,
+    "text": "Hai thực nghiệm mới thay cho các kết quả Scratch/Keras/PyTorch của tác giả nguồn. Lý thuyết DNN được giữ để giải thích nền tảng, nhưng không trình bày checkpoint hoặc độ chính xác DNN cũ như sản phẩm thực nghiệm của sinh viên. Các tệp joblib, CSV dự đoán và bảng CV là bằng chứng của kết quả ở chương này."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "CHƯƠNG 3. MẠNG NƠ-RON TÍCH CHẬP CNN"
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1. Lý thuyết CNN"
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1.1. Tại sao cần CNN?"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "Với ảnh 224×224×3 (RGB), nếu dùng Dense layer thông thường:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "• Số tham số đầu vào: 224 × 224 × 3 = 150,528 giá trị"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "• Một Dense layer với 1000 nơ-ron: 150 triệu tham số — bùng nổ tham số!"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "CNN giải quyết bằng 3 ý tưởng chính:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "1. Local connectivity: Mỗi nơ-ron chỉ nhìn một vùng nhỏ của ảnh"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "2. Weight sharing: Cùng một kernel dùng chung cho toàn bộ ảnh"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": "TL01 trang 37",
+    "text": "3. Translation equivariance: phép tích chập dùng chung kernel khi dịch đầu vào; pooling tạo bất biến cục bộ ở mức độ nhất định."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1.2. Phép Tích chập (Convolution)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "Với kernel K kích thước (kH × kW) và ảnh đầu vào X kích thước (H × W):"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "Kích thước đầu ra (với padding P, stride S):"
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1.3. Pooling"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "Max Pooling: Lấy giá trị lớn nhất trong mỗi vùng → giảm kích thước, giữ đặc trưng nổi bật"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 37",
+    "text": "Average Pooling: Lấy trung bình → giảm kích thước mượt hơn"
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1.4. Kiến trúc CNN điển hình"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": "TL01 trang 38",
+    "text": "Input → [Conv → BN → ReLU → MaxPool] × N → Flatten → Dense → Softmax"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 3.1. Vai trò của các tầng CNN"
+  },
+  {
+    "kind": "table",
+    "chapter": 3,
+    "color": "000000",
+    "caption": "Vai trò của các tầng CNN",
+    "rows": 6
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "000000",
+    "text": "3.1.5. Các kiến trúc CNN tiêu biểu"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 3.2. Các kiến trúc CNN và đặc trưng thiết kế đã hiệu chỉnh"
+  },
+  {
+    "kind": "table",
+    "chapter": 3,
+    "color": "FF0000",
+    "caption": "Các kiến trúc CNN và đặc trưng thiết kế đã hiệu chỉnh",
+    "rows": 6
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "LeNet-5 không phải mô hình ImageNet năm 1989. Các con số Top-5 của nhiều biến thể kiến trúc, tập dữ liệu hoặc chế độ ensemble không được đặt cạnh nhau như một phép so sánh thống nhất. Bảng 3.2 chỉ so sánh đặc điểm kiến trúc; các chỉ số định lượng trong chương được tính riêng trên MNIST."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "FF0000",
+    "text": "3.1.6. Backpropagation, loss và optimizer"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Lan truyền xuôi tạo logits của từng lớp; CrossEntropyLoss kết hợp log-softmax và negative log likelihood, vì vậy không áp softmax trước loss trong PyTorch. Backpropagation dùng quy tắc chuỗi để tính gradient của kernel và dense layer. Adam cập nhật trọng số dựa trên các ước lượng moment của gradient; learning rate, weight decay và checkpoint được lựa chọn mà không nhìn test."
+  },
+  {
+    "kind": "equation",
+    "chapter": 3,
+    "color": "FF0000",
+    "latex": "\\frac{\\partial\\mathcal{L}}{\\partial K_{uv}}=\\sum_{i,j}\\frac{\\partial\\mathcal{L}}{\\partial Y_{ij}}X_{i+u,j+v}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Trong (3.4), K là kernel, X là đầu vào và Y là đầu ra trước kích hoạt; chỉ số u,v xác định phần tử kernel và i,j chạy qua vị trí đầu ra. Cùng một trọng số được dùng tại nhiều vị trí nên gradient là tổng đóng góp ở các vị trí đó."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "FF0000",
+    "text": "3.1.7. Transfer learning và data augmentation"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Transfer learning khởi tạo từ mạng đã học trên tập lớn, thay đầu phân loại rồi đóng băng hoặc fine-tune một số tầng. Nó hữu ích khi dữ liệu đích ít nhưng phải công bố phần pretrained và phần được học lại. Thực nghiệm MNIST dưới đây không dùng pretrained; augmentation chỉ dịch ảnh train ±1 pixel, giữ nguyên validation và test. Không dùng phép xoay mạnh làm thay đổi ý nghĩa giữa các chữ số."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "FF0000",
+    "text": "3.2. Dữ liệu ảnh và kiến trúc thực nghiệm"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "MNIST có 60.000 ảnh train gốc và 10.000 ảnh test độc lập, ảnh xám 28 × 28, nhãn 0–9. Tách 12.000 ảnh từ train làm validation theo stratification, còn 48.000 ảnh huấn luyện. Mỗi pixel được chia 255; không học thống kê từ test. Bộ tải đọc trực tiếp các tệp IDX nén gzip, kiểm tra magic number, số lượng ảnh và kích thước."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 3.3. Kiến trúc CNN tự huấn luyện"
+  },
+  {
+    "kind": "table",
+    "chapter": 3,
+    "color": "FF0000",
+    "caption": "Kiến trúc CNN tự huấn luyện",
+    "rows": 5
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Mạng có 52,138 tham số, train từ đầu 8 epoch trên CPU, Adam learning_rate=0,001, batch_size=128, weight_decay=10−4 và gradient clipping norm=1. Checkpoint có validation loss nhỏ nhất nằm ở epoch 8. Thời gian thực nghiệm ghi trong metadata là 93.5 giây trên môi trường hiện tại."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "FF0000",
+    "text": "3.3. Kết quả và phân tích dự đoán"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 3.4. Đánh giá CNN trên các tập độc lập"
+  },
+  {
+    "kind": "table",
+    "chapter": 3,
+    "color": "FF0000",
+    "caption": "Đánh giá CNN trên các tập độc lập",
+    "rows": 2
+  },
+  {
+    "kind": "figure",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/cnn_learning.png",
+    "caption": "Learning curve của CNN qua 8 epoch"
+  },
+  {
+    "kind": "figure",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/cnn_confusion.png",
+    "caption": "Ma trận nhầm lẫn CNN trên tập test MNIST"
+  },
+  {
+    "kind": "figure",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/cnn_examples.png",
+    "caption": "Sáu dự đoán đầu và sáu lỗi đầu tiên theo thứ tự test"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Accuracy test là 98.66%, tương đương 134 lỗi trên 10.000 ảnh. Các ảnh sai trong Hình 3.3 được chọn bằng quy tắc cố định, không chọn riêng ví dụ đẹp. Learning curve cho thấy validation loss giảm trong cấu hình đã chạy; không kết luận mọi CNN hoặc mọi dữ liệu ảnh đều đạt mức này. Ảnh vẽ tay trên web có thể khác phân phối MNIST nên hiển thị confidence của mô hình thay cho cam kết đúng."
+  },
+  {
+    "kind": "heading",
+    "chapter": 3,
+    "color": "FF0000",
+    "text": "3.4. Suy luận, triển khai và phạm vi mở rộng"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "Checkpoint PyTorch được xuất thành trọng số JSON. API thực hiện convolution, ReLU, max-pooling, flatten và dense bằng đúng trọng số đã huấn luyện, dùng Python standard library để tránh đóng gói PyTorch nặng vào serverless. Bộ vector đối chiếu kiểm tra logits của API với PyTorch. Giao diện hỗ trợ ảnh test thật, canvas vẽ số, kiểm tra ảnh trống, trạng thái đang xử lý và thông báo lỗi."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 3,
+    "color": "FF0000",
+    "source": null,
+    "text": "ASL được giữ như ví dụ mở rộng của bài toán thị giác: các cử chỉ M/N hoặc U/V gần nhau, nền ảnh và góc chụp có thể làm giảm khả năng tổng quát hóa. Trong lần thực hiện này chưa huấn luyện lại ASL, vì vậy các accuracy và biểu đồ ASL cũ không được dùng như kết quả mới. Tương tự, không khẳng định Keras và PyTorch tương đương từ một phép thử chỉ chạy PyTorch."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "CHƯƠNG 4. MẠNG NƠ-RON HỒI QUY RNN"
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1. Lý thuyết RNN"
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1.1. Vấn đề với dữ liệu tuần tự"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": "TL01 trang 45",
+    "text": "Dense layer không giữ trạng thái qua thời gian. CNN có thể xử lý tín hiệu 1D theo trường tiếp nhận hữu hạn; RNN bổ sung trạng thái truyền qua các bước để biểu diễn ngữ cảnh của chuỗi."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "• Giá hôm nay phụ thuộc vào giá hôm qua"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "• Từ trong câu phụ thuộc vào từ trước đó"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "• Nhịp tim tương lai phụ thuộc vào lịch sử"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "→ Cần kiến trúc có bộ nhớ (memory) giữa các bước thời gian."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1.2. RNN cơ bản — Vanilla RNN"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "Tại mỗi bước thời gian t:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "Trong đó:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "• xi: vector đầu vào tại bước t"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "• hi: hidden state (bộ nhớ ngắn hạn)"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": "TL01 trang 45",
+    "text": "• Wx, Wh và Wγ là ma trận trọng số; các tham số được dùng chung tại mọi bước thời gian."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 45",
+    "text": "Backpropagation Through Time (BPTT):"
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1.3. LSTM — Long Short-Term Memory"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "LSTM thêm cell state ct như \"bộ nhớ dài hạn\" và 3 gates kiểm soát luồng thông tin:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "Forget Gate: Quyết định quên bao nhiêu cell state cũ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "Input Gate: Quyết định thêm thông tin mới nào"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "Cập nhật Cell State:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "Output Gate: Quyết định đầu ra"
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1.4. GRU — Gated Recurrent Unit"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "000000",
+    "source": "TL01 trang 46",
+    "text": "GRU đơn giản hóa LSTM bằng cách gộp forget gate và input gate thành update gate:"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 4.1. So sánh cấu trúc recurrent network"
+  },
+  {
+    "kind": "table",
+    "chapter": 4,
+    "color": "FF0000",
+    "caption": "So sánh cấu trúc recurrent network",
+    "rows": 3
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "000000",
+    "text": "4.1.5. Cửa sổ trượt và các kiểu đầu vào đầu ra"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Cửa sổ trượt tạo một mẫu bằng L quan sát quá khứ và nhãn của bước kế tiếp. Many-to-one ánh xạ chuỗi thành một giá trị hoặc nhãn; one-to-many sinh chuỗi từ một ngữ cảnh đầu; many-to-many tạo một đầu ra ở mỗi bước hoặc một chuỗi đầu ra khác độ dài. Thực nghiệm dự báo giá trong chương sử dụng many-to-one."
+  },
+  {
+    "kind": "equation",
+    "chapter": 4,
+    "color": "FF0000",
+    "latex": "X_t=[r_{t-L+1},\\ldots,r_t],\\quad r_t=\\log(P_t/P_{t-1}),\\quad \\hat P_{t+1}=P_t e^{\\hat r_{t+1}}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Pt là giá đóng cửa, rt là log-return, L=30 là chiều dài cửa sổ. Dự báo tại t dùng dữ liệu không muộn hơn t; nhãn ở t+1. Mỗi cửa sổ khởi tạo trạng thái ẩn bằng 0 và không truyền hidden state từ test về train."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "FF0000",
+    "text": "4.1.6. BPTT và ổn định gradient"
+  },
+  {
+    "kind": "equation",
+    "chapter": 4,
+    "color": "FF0000",
+    "latex": "\\frac{\\partial h_t}{\\partial h_{t-k}}=\\prod_{j=t-k+1}^{t}\\frac{\\partial h_j}{\\partial h_{j-1}}"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "BPTT trải mạng theo thời gian và cộng gradient của cùng tham số qua các bước. Tích nhiều Jacobian có chuẩn nhỏ hơn 1 có thể làm gradient suy giảm, còn chuẩn lớn có thể gây bùng nổ. LSTM/GRU tạo đường truyền có cổng để giảm khó khăn này nhưng không bảo đảm giải quyết mọi phụ thuộc dài hạn. Gradient clipping giới hạn norm; chuẩn hóa chỉ trên train và chọn checkpoint bằng validation giúp ổn định thực nghiệm."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "FF0000",
+    "text": "4.2. Dữ liệu, phép chia và cấu hình"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Dùng snapshot Yahoo Finance của Tiểu luận 02: FPT.VN có 1.304 phiên và vàng futures GC=F có 1.257 phiên, từ 15/10/2021 đến 14/10/2026. GC=F không được đổi tên thành spot XAU/USD. Lợi suất được tính theo phiên có thật, không nội suy ngày nghỉ. Dữ liệu e-commerce không được đưa vào thực nghiệm mới vì chưa xác minh được thứ tự sự kiện và nhãn đủ để biện minh cho RNN."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Ngày của nhãn quyết định tập dữ liệu: FPT train trước 13/02/2026, validation từ 13/02 đến trước 04/06/2026; vàng train trước 26/02/2026, validation đến trước 09/06/2026. Test kéo dài đến nhãn 14/10/2026. Cách định nghĩa này khác chỉ số ngày đặc trưng của bảng thị trường ở Chương 5; không so sánh trực tiếp hai bảng như cùng tập test. Validation/test được phép dùng lịch sử đã biết trước ngày nhãn, phù hợp dự báo cuốn chiếu một bước."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 4.2. Phân chia chuỗi theo ngày nhãn"
+  },
+  {
+    "kind": "table",
+    "chapter": 4,
+    "color": "FF0000",
+    "caption": "Phân chia chuỗi theo ngày nhãn",
+    "rows": 2
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Ba mạng dùng 16 hidden units, một recurrent layer và một linear head, Adam learning_rate=0,001, 35 epoch, batch_size=128 và seed=42. Trung bình và độ lệch chuẩn của đầu vào/nhãn chỉ tính trên train. Checkpoint tối thiểu validation MSE được lưu; mạng triển khai được chọn bằng validation MAE theo đơn vị giá, có Persistence cùng tham gia. Test được giữ cho báo cáo cuối."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Ở phần cài đặt, GRU dùng quy ước PyTorch: reset gate nhân sau phép biến đổi tuyến tính của hidden state trong nhánh tạo trạng thái ứng viên. Đây là một biến thể so với cách đặt reset gate trước ma trận trong một số trình bày lý thuyết. API tuân theo đúng quy ước của checkpoint; kiểm thử đối chiếu cả sáu mạng giúp phát hiện sai khác thứ tự cổng hoặc cách áp dụng reset gate."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "FF0000",
+    "text": "4.3. So sánh RNN, LSTM, GRU và Persistence"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Bảng 4.3. Kết quả mạng chuỗi trong đơn vị gốc VND hoặc USD/oz"
+  },
+  {
+    "kind": "table",
+    "chapter": 4,
+    "color": "FF0000",
+    "caption": "Kết quả mạng chuỗi trong đơn vị gốc VND hoặc USD/oz",
+    "rows": 6
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "FPT: Persistence test MAE 734.258 VND. Mạng có validation MAE thấp nhất là GRU (1265.027), trong khi Persistence validation MAE 1266.974. Vì vậy quy tắc trước test chọn GRU để trình diễn trên web."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "GOLD: Persistence test MAE 48.089 USD/oz. Mạng có validation MAE thấp nhất là GRU (63.622), trong khi Persistence validation MAE 63.152. Vì vậy quy tắc trước test chọn Persistence để trình diễn trên web."
+  },
+  {
+    "kind": "figure",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/fpt_sequences.png",
+    "caption": "Dự báo một bước FPT bằng ba mạng và baseline"
+  },
+  {
+    "kind": "figure",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "path": "artifacts_tl03/figures/gold_sequences.png",
+    "caption": "Dự báo một bước vàng futures GC=F"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Vanilla RNN có MAE test thấp nhất trong ba mạng ở cả hai miền trong lần chạy này, nhưng không được đổi lựa chọn triển khai sau khi nhìn test. Kết quả bác bỏ việc mặc định LSTM luôn tốt hơn. Chuỗi ngắn, ít dữ liệu, nhiễu thị trường và một random seed hạn chế khả năng khái quát hóa. Mức chênh MAE nhỏ chưa chứng minh lợi ích giao dịch; báo cáo không suy ra lợi nhuận."
+  },
+  {
+    "kind": "heading",
+    "chapter": 4,
+    "color": "FF0000",
+    "text": "4.4. Hạn chế và khả năng mở rộng"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Thực nghiệm là dự báo một bước trên snapshot cố định, không phải dự báo nhiều bước tương lai hoặc dữ liệu trực tiếp. Hướng mở rộng gồm nhiều seed, walk-forward backtest, khoảng tin cậy theo khối, nhiều chiều dài cửa sổ và covariate có timestamp. Cần khóa ngân sách tuning trước khi thử, tránh biến test thành validation qua nhiều lần sửa mô hình."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 4,
+    "color": "FF0000",
+    "source": null,
+    "text": "Mô hình triển khai giữ checkpoint train lịch sử, không refit bằng test để giữ được dấu vết đánh giá. Người dùng có thể sửa giá gần nhất và 30 log-return để thử kịch bản; kết quả không có khoảng tin cậy đã hiệu chỉnh cho kịch bản ngoài miền. Checkpoint của mọi RNN/LSTM/GRU và training history được lưu riêng để kiểm tra."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "CHƯƠNG 5. KNOWLEDGE GRAPH VÀ RAG"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.1. MỞ ĐẦU"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 4",
+    "text": "Knowledge Graph (KG) và Retrieval-Augmented Generation (RAG) xuất phát từ hai truyền thống khác nhau. KG nhấn mạnh biểu diễn tường minh: thực thể nào tồn tại, chúng liên hệ ra sao và ràng buộc nào phải được giữ. RAG xuất phát từ nhu cầu cho mô hình sinh tiếp cận một kho tri thức ngoài tại thời điểm trả lời. Khi ghép hai hướng này, hệ thống vừa có khả năng tìm kiếm mềm theo ngôn ngữ, vừa có cấu trúc để kiểm tra đường suy luận."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": "TL02 trang 4",
+    "text": "Bài làm lựa chọn kiến trúc có thể chạy trọn trong một notebook. TF-IDF đảm nhiệm truy xuất văn bản, NetworkX lưu đồ thị, còn bộ tổng hợp ghép bằng chứng tìm được thành câu trả lời. Dữ liệu FPT.VN và GC=F được đọc từ snapshot đã khóa trong lần tái lập; có chế độ tải mới khi được bật; dữ liệu tiểu đường lấy từ scikit-learn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 4",
+    "text": "Ba miền được chọn tạo ra phép thử đủ khác biệt. Y tế yêu cầu diễn đạt thận trọng; chứng khoán là chuỗi thời gian nội địa; vàng chịu tác động của yếu tố vĩ mô và được niêm yết quốc tế. Một pipeline dùng chung phải giữ được ngữ cảnh riêng của từng miền mà không trộn lẫn bằng chứng."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 4",
+    "path": "artifacts_giangkt/figures/architecture.png",
+    "caption": "Kiến trúc KG và RAG"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.1.1. LỊCH SỬ PHÁT TRIỂN CỦA KNOWLEDGE GRAPH"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 5",
+    "text": "Ý tưởng nối các khái niệm thành mạng ngữ nghĩa đã xuất hiện từ những nghiên cứu ban đầu về trí nhớ và biểu diễn tri thức. Sau đó, hệ chuyên gia đưa luật IF-THEN vào các miền hẹp. Bước ngoặt của Web ngữ nghĩa là việc chuẩn hóa RDF, RDFS, OWL và SPARQL, khiến bộ ba chủ thể-vị từ-đối tượng trở thành một ngôn ngữ trao đổi máy đọc được,."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 5",
+    "text": "Năm 2012, cách gọi Knowledge Graph được phổ biến rộng rãi qua công cụ tìm kiếm của Google. Trong doanh nghiệp, KG tiếp tục được dùng cho danh mục sản phẩm, phát hiện gian lận, quản trị dữ liệu chủ và gợi ý nội dung. Điểm chung không phải một loại cơ sở dữ liệu cụ thể, mà là cách coi quan hệ giữa các thực thể là công dân hạng nhất."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 5",
+    "text": "Ở bài này, đồ thị được cài bằng Labeled Property Graph đơn giản. Mỗi nút có type và domain; mỗi cạnh có nhãn quan hệ. Lựa chọn này gần với cách Neo4j tổ chức dữ liệu và thuận tiện cho trực quan hóa, dù chưa khai thác đầy đủ suy luận ontology như OWL."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.1.2. LỊCH SỬ PHÁT TRIỂN CỦA RAG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 6",
+    "text": "Trước RAG, các hệ hỏi đáp mở thường tách bộ tìm kiếm tài liệu và bộ đọc hiểu. REALM đưa cơ chế truy xuất vào quá trình tiền huấn luyện. Lewis và cộng sự sau đó định danh kiến trúc Retrieval-Augmented Generation, kết hợp bộ truy xuất dense với mô hình sinh seq2seq cho nhiệm vụ giàu tri thức."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 6",
+    "text": "Sự phổ biến của mô hình ngôn ngữ lớn khiến RAG trở thành một mẫu triển khai thực dụng: tài liệu có thể cập nhật mà không cần huấn luyện lại toàn bộ mô hình, đồng thời câu trả lời giữ được liên kết về nguồn. Tuy nhiên, vector search thường ưu tiên đoạn giống câu hỏi và có thể bỏ qua quan hệ gián tiếp. GraphRAG giải quyết phần thiếu này bằng việc xây thực thể, quan hệ, cụm và tóm tắt theo cấu trúc."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 6",
+    "text": "Nguyên mẫu trong notebook không cố tái tạo toàn bộ Microsoft GraphRAG. Nó giữ hai ý cốt lõi: truy xuất đồng thời từ văn bản và đồ thị, sau đó đưa cả hai nhóm bằng chứng vào bước tổng hợp."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.1.3. VAI TRÒ VÀ Ý NGHĨA TRONG AI"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 7",
+    "text": "KG giúp mô hình có từ điển thực thể thống nhất, quan hệ có tên và đường đi có thể kiểm tra. RAG giúp tri thức ngoài đi vào ngữ cảnh trả lời đúng thời điểm. Kết hợp hai thành phần làm giảm nguy cơ câu trả lời chỉ dựa trên tương đồng bề mặt, nhưng không đồng nghĩa loại bỏ hoàn toàn sai sót."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 7",
+    "text": "Trong y tế, giá trị quan trọng nhất là provenance: người đọc phải biết nhận xét dựa trên biến nào và nguồn nào. Trong tài chính, dữ liệu có tính thời điểm nên ngày quan sát phải đi cùng con số. Trong cả hai trường hợp, câu trả lời nên phân biệt sự kiện đo được, quan hệ thường gặp và kết luận mang tính dự báo."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 7",
+    "text": "Ý nghĩa học thuật của bài nằm ở khả năng chạy lại. Người chấm có thể Run All, xem dữ liệu thô đã lưu, đối chiếu bộ ba, kiểm tra tài liệu được truy xuất và mở PDF được sinh từ cùng một trạng thái chạy."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.1.4. PHẠM VI, CÂU HỎI VÀ ĐÓNG GÓP"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 8",
+    "text": "Bài đặt ba câu hỏi: (1) một cấu trúc KG thống nhất có mô tả được ba miền khác nhau không; (2) truy xuất lai có cung cấp nhiều bằng chứng hơn vector search đơn lẻ không; và (3) có thể đóng gói toàn bộ quy trình trong một notebook duy nhất không."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 8",
+    "text": "Đóng góp thực hành gồm lớp KnowledgeGraphCore, bộ tải Yahoo Finance không cần API key, các bước tạo chỉ báo, VectorRetriever, truy xuất đồ thị theo miền, đánh giá precision@3, ứng dụng dự đoán, chatbot sức khỏe có nguồn và bộ sinh PDF. Mọi tệp phụ đều được tạo lại từ notebook."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 8",
+    "text": "Ba nguồn dữ liệu được mô tả bằng số dòng, số cột, khoảng thời gian, đơn vị và biến đích. Bảng được sinh trực tiếp từ DataFrame sau xử lý nên khớp với lần chạy hiện tại."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 8",
+    "path": "artifacts_giangkt/figures/data_profile.png",
+    "caption": "Thông tin ba miền dữ liệu"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.2. KNOWLEDGE GRAPH - KNOWLEDGE BASE"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 9",
+    "text": "Knowledge Base trong bài gồm hai lớp. Lớp văn bản giữ các đoạn mô tả dữ liệu, phương pháp và kết quả theo từng miền. Lớp đồ thị giữ thực thể cùng các quan hệ có hướng. Hai lớp dùng chung nhãn domain để ngăn truy xuất nhầm giữa tiểu đường, cổ phiếu và vàng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 9",
+    "text": "Đồ thị tại lần chạy này có 25 nút và 22 cạnh. Kích thước nhỏ giúp người đọc kiểm tra thủ công. Khi mở rộng, cùng schema có thể chuyển sang Neo4j hoặc một triple store mà không thay đổi ý nghĩa bộ ba."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 9",
+    "text": "Knowledge Base không chỉ chứa kiến thức tĩnh. Các nút quan sát như giá FPT hoặc giá vàng gần nhất được tạo từ dữ liệu tải về. Cách làm này nối câu trả lời với đúng trạng thái thị trường tại thời điểm chạy."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 9",
+    "path": "artifacts_giangkt/figures/knowledge_graph.png",
+    "caption": "Đồ thị tri thức đa miền"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.2.1. BỘ BA, THỰC THỂ VÀ QUAN HỆ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 10",
+    "text": "Một bộ ba có dạng (s, p, o), trong đó s là thực thể nguồn, p là quan hệ có tên và o là thực thể hoặc giá trị đích. Ví dụ: (MA20, MÔ_TẢ_XU_HƯỚNG_NGẮN_HẠN_CỦA, FPT.VN). Bộ ba này không khẳng định xu hướng sẽ tiếp diễn; nó chỉ diễn tả vai trò của chỉ báo."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 10",
+    "text": "Thực thể được gắn type như Condition, Biomarker, Stock, TechnicalIndicator, Commodity hoặc MacroFactor. Thuộc tính domain tách ba không gian nghiệp vụ. Tên quan hệ dùng động từ viết hoa để người đọc có thể đọc thành câu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 10",
+    "text": "Việc chọn quan hệ là công đoạn có tính chủ quan. Báo cáo ưu tiên từ CÓ_THỂ_TÁC_ĐỘNG hoặc CÓ_QUAN_HỆ... thay vì GÂY_RA khi dữ liệu không đủ để chứng minh nhân quả."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.2.2. KNOWLEDGE GRAPH CORE ENGINE"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 11",
+    "text": "Lớp KnowledgeGraphCore bọc MultiDiGraph của NetworkX. add_entity quản lý nút và thuộc tính; add_relation thêm cạnh có hướng; neighbors trả về bằng chứng một bước; multi_hop tìm các đường đơn trong giới hạn số hop. Cấu trúc MultiDiGraph cho phép hai thực thể có nhiều loại quan hệ."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 11",
+    "text": "Độ phức tạp của truy vấn lân cận tỷ lệ với bậc của nút. Truy vấn mọi đường đơn có thể tăng nhanh theo kích thước đồ thị, vì vậy max_hops phải được giới hạn. Với đồ thị sản xuất, cần chỉ mục, phân quyền và chiến lược truy vấn cụ thể thay vì duyệt toàn bộ."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 11",
+    "text": "Toàn bộ cạnh được xuất thành knowledge_graph_triples.csv. Đây là điểm kiểm tra thuận tiện: mỗi dòng trong tệp phải đọc được như một phát biểu, không có nút mồ côi vô nghĩa và không chứa con số không rõ ngày."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 11",
+    "path": "artifacts_giangkt/figures/code_kg_core.png",
+    "caption": "Cấu trúc KnowledgeGraphCore"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.2.3. RDF VÀ LABELED PROPERTY GRAPH"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 12",
+    "text": "RDF phù hợp khi cần URI toàn cục, liên kết dữ liệu và suy luận theo chuẩn W3C. Labeled Property Graph thuận tiện khi cạnh cần thuộc tính và truy vấn đường đi là trọng tâm. Bài chọn mô hình thứ hai vì mục tiêu là nguyên mẫu phân tích và trực quan hóa bằng Python."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 12",
+    "text": "Nếu chuyển sang RDF, các entity_id cần ánh xạ thành IRI; relation thành predicate; giá trị số thành literal có datatype. Nếu chuyển sang Neo4j, type có thể thành node label, relation thành relationship type và các trường domain/source thành property."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 12",
+    "text": "Không có mô hình nào tốt tuyệt đối. Tiêu chí chọn là khả năng tích hợp với hệ thống, yêu cầu suy luận, quy mô và kỹ năng vận hành của nhóm."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.2.4. CHẤT LƯỢNG VÀ QUẢN TRỊ TRI THỨC"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 13",
+    "text": "Một KG hữu ích cần hơn số lượng cạnh. Bốn kiểm tra tối thiểu gồm: tính duy nhất của định danh, tính hợp lệ của miền-phạm vi, nguồn gốc quan hệ và thời hạn của dữ liệu động. Các quan hệ y tế và tài chính phải có mức tin cậy hoặc câu chữ thể hiện độ bất định."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 13",
+    "text": "Bài hiện lưu source ở lớp tài liệu và domain ở lớp đồ thị. Bản sản xuất nên bổ sung created_at, valid_from, valid_to, confidence và evidence_id cho từng cạnh. Khi đó, một quan hệ đã cũ có thể bị loại trước khi đưa vào prompt."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 13",
+    "text": "Kiểm soát chất lượng cần vòng phản hồi của chuyên gia. Bác sĩ xác nhận ontology y tế; chuyên viên tài chính rà soát khái niệm và đơn vị; kỹ sư dữ liệu kiểm tra schema cùng pipeline cập nhật."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.3. RAG - RETRIEVAL-AUGMENTED GENERATION"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 14",
+    "text": "Pipeline RAG gồm ingestion, indexing, retrieval và generation. Văn bản được chia thành các đơn vị có nguồn; TF-IDF biến chúng thành vector; cosine similarity xếp hạng theo câu hỏi. Bước sinh ghép hai đoạn phù hợp nhất với các bộ ba liên quan."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 14",
+    "text": "TF-IDF được chọn vì minh bạch, nhẹ và tái lập. Hạn chế là không hiểu đồng nghĩa sâu như embedding. Để giảm nhược điểm, câu hỏi được nhận diện miền bằng một từ điển alias và GraphRAG bổ sung các quan hệ từ đồ thị."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 14",
+    "text": "Mỗi câu trả lời trả về cả documents, score, triples và domain. Cấu trúc này quan trọng hơn phần câu chữ: giao diện hoặc báo cáo có thể trình bày bằng chứng mà không phải phân tích ngược chuỗi văn bản."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 14",
+    "path": "artifacts_giangkt/figures/architecture.png",
+    "caption": "Các bước truy xuất và tổng hợp bằng chứng"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.3.1. NẠP, LẬP CHỈ MỤC VÀ TRUY XUẤT"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 15",
+    "text": "Các tài liệu ngắn được xây từ mô tả bộ dữ liệu và kết quả thực nghiệm. Trong hệ thống lớn, ingestion cần đọc PDF, HTML hoặc cơ sở dữ liệu; chuẩn hóa Unicode; bỏ trùng; chia đoạn theo ngữ nghĩa; và gắn metadata trước khi embedding."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 15",
+    "text": "TfidfVectorizer dùng unigram và bigram. Bigram giúp phân biệt các cụm như giá vàng, tiểu đường, lãi suất Fed. top_k=3 giữ ngữ cảnh ngắn và dễ kiểm tra. Precision@3 theo domain được dùng như phép đo đơn giản cho độ đúng của truy xuất."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 15",
+    "text": "Điểm cosine chỉ phản ánh độ gần từ vựng, không phải độ đúng. Vì vậy báo cáo không diễn giải score như xác suất và không tự động loại bỏ nguồn chuyên môn chỉ vì score thấp."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 15",
+    "path": "artifacts_giangkt/figures/code_retriever.png",
+    "caption": "Lập chỉ mục và truy xuất TF-IDF"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.3.2. TRUY XUẤT ĐỒ THỊ VÀ SUY LUẬN NHIỀU BƯỚC"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 16",
+    "text": "graph_evidence nhận diện miền, chọn các nút cùng domain hoặc trùng từ khóa, rồi lấy quan hệ vào và ra. Phương án này đủ cho đồ thị nhỏ. Khi đồ thị lớn, cần entity linking, tìm kiếm theo embedding của nhãn và truy vấn Cypher có giới hạn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 16",
+    "text": "Suy luận nhiều bước được minh họa bởi chuỗi Rủi ro địa chính trị → Nhu cầu trú ẩn → Vàng quốc tế. Vector search có thể tìm một đoạn nói về địa chính trị nhưng không mặc nhiên biểu diễn hai quan hệ riêng. Đồ thị giúp giữ cấu trúc của lời giải thích."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 16",
+    "text": "Đường đi chỉ là bằng chứng cấu trúc, không tự chứng minh nhân quả. Mọi kết luận vẫn phụ thuộc chất lượng cạnh và nguồn đã dùng để tạo cạnh."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 16",
+    "path": "artifacts_giangkt/figures/code_graphrag.png",
+    "caption": "Truy xuất bằng chứng đồ thị"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.3.3. TỔNG HỢP CÂU TRẢ LỜI CÓ CĂN CỨ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 17",
+    "text": "Bộ sinh trong bài là deterministic synthesizer. Nó chọn hai tài liệu phù hợp, nối tối đa ba quan hệ đồ thị và thêm cảnh báo theo miền. Kết quả ít tự nhiên hơn LLM nhưng có lợi thế là chạy offline và không tự thêm sự kiện ngoài bằng chứng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 17",
+    "text": "Có thể thay bộ sinh bằng một LLM cục bộ hoặc dịch vụ API. Khi đó prompt phải tách rõ QUESTION, TEXT EVIDENCE, GRAPH EVIDENCE và yêu cầu từ chối nếu bằng chứng thiếu. Đầu ra nên ở dạng JSON để kiểm tra citation_id."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 17",
+    "text": "Thiết kế production cần chống prompt injection từ tài liệu, lọc dữ liệu nhạy cảm, theo dõi phiên bản chỉ mục và ghi log các nguồn đã đưa cho mô hình."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.3.4. ĐÁNH GIÁ RAG VÀ GRAPHRAG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 18",
+    "text": "Bộ kiểm thử gồm sáu câu hỏi, hai câu cho mỗi miền. vector_precision@3 đo tỷ lệ tài liệu thuộc đúng miền trong ba kết quả đầu. graph_evidence ghi nhận hệ thống có tìm được cạnh liên quan hay không. Điểm tổng hợp cộng một phần thưởng nhỏ khi cả hai kênh đều có bằng chứng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 18",
+    "text": "Ở lần chạy này, precision@3 trung bình là 0.500; tỷ lệ câu hỏi có bằng chứng đồ thị là 1.000; điểm bằng chứng lai là 0.750."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 18",
+    "text": "Đây là smoke test, chưa phải benchmark khoa học. Một đánh giá đầy đủ cần nhiều câu hỏi do người độc lập soạn, đáp án chuẩn, chấm faithfulness, answer relevance, citation correctness, độ trễ và chi phí."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 18",
+    "path": "artifacts_giangkt/figures/rag_benchmark.png",
+    "caption": "Đánh giá smoke test RAG và GraphRAG"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.4. KB VÀ RAG CHO BỆNH TIỂU ĐƯỜNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 19",
+    "text": "Dữ liệu diabetes gồm 442 người đã mắc bệnh, 10 thuộc tính nền và điểm tiến triển sau một năm. Đầu ra là hồi quy nghiên cứu, không phải xác suất mắc tiểu đường."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 19",
+    "text": "Dữ liệu được chia thành 282 mẫu train, 71 mẫu hiệu chỉnh khoảng dự báo và 89 mẫu test. K-fold 5 phần chỉ chạy trên train; so sánh Median baseline, Linear, Ridge, ElasticNet, Huber, SVR RBF, Random Forest và Gradient Boosting. Thêm mô hình phi tuyến không đồng nghĩa chắc chắn tốt hơn; quyết định vẫn dựa trên CV MAE."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 19",
+    "text": "Mô hình được chọn theo CV: Ridge; CV MAE 44.44; test MAE 42.94; R2 0.452. MAE của dự báo trung vị là 62.28. Khoảng dự báo mục tiêu 90% có độ bao phủ test 86.5%."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 19",
+    "path": "artifacts_giangkt/figures/diabetes_model.png",
+    "caption": "Mô hình hồi quy tiến triển tiểu đường"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.4.1. ONTOLOGY VÀ XỬ LÝ DỮ LIỆU Y TẾ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 20",
+    "text": "Ontology tối giản gồm Condition, Biomarker, RiskFactor, Lifestyle, Monitoring và Professional. Các quan hệ như LIÊN_QUAN_ĐẾN hoặc HỖ_TRỢ_QUẢN_LÝ được chọn để tránh biến một tương quan thành chỉ định điều trị."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 20",
+    "text": "Dữ liệu không có tên bệnh nhân hay định danh cá nhân. Trong tình huống thực, hồ sơ y tế cần mã hóa, phân quyền theo vai trò, nhật ký truy cập và quy trình chấp thuận. Không nên đưa thông tin nhận dạng vào dịch vụ embedding công cộng khi chưa có cơ sở pháp lý."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 20",
+    "text": "Mô hình Ridge được chọn theo MAE trung bình của 5 fold. Permutation importance được tính trên tập test để cùng một cách giải thích áp dụng được cho cả mô hình tuyến tính và mô hình cây."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 20",
+    "path": "artifacts_giangkt/figures/kg_diabetes.png",
+    "caption": "Đồ thị tri thức y tế"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.4.2. THỰC NGHIỆM HỎI ĐÁP Y TẾ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 21",
+    "text": "Câu hỏi mẫu hỏi các yếu tố liên quan đến quản lý bệnh tiểu đường. Vector retriever tìm mô tả theo dõi đường huyết, HbA1c, huyết áp, cân nặng, ăn uống và vận động. Đồ thị bổ sung các cạnh nối bệnh với theo dõi và chuyên gia."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 21",
+    "text": "Câu trả lời sinh ra trong lần chạy: Theo dõi đường huyết, HbA1c, huyết áp, cân nặng, chế độ ăn và vận động là các thành phần thường gặp trong quản lý bệnh đái tháo đường; quyết định điều trị cần bác sĩ. Bộ dữ liệu diabetes của scikit-learn có 442 quan sát, 10 biến nền ở thang đo gốc và biến đích phản ánh mức tiến triển bệnh sau một năm. Quan hệ đồ thị liên quan: Bệnh đái tháo đường -[ĐƯỢC_THEO_DÕI_BẰNG]→ Theo dõi HbA1c; Bệnh đái tháo đường -[CẦN_TƯ_VẤN_BỞI]→ Bác sĩ chuyên khoa; Glucose -[LIÊN_QUAN_ĐẾN]→ Bệnh đái tháo đường. Kết quả chỉ có giá trị minh họa; cần tham khảo nhân viên y tế cho quyết định cá nhân."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 21",
+    "text": "Biểu đồ đối chiếu giá trị thực - dự đoán và feature importance cho thấy mức độ phù hợp cũng như biến nào được mô hình sử dụng nhiều nhất."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 21",
+    "path": "artifacts_giangkt/figures/code_diabetes_training.png",
+    "caption": "Huấn luyện và đánh giá mô hình y tế"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.4.3. GIỚI HẠN VÀ HƯỚNG MỞ RỘNG Y TẾ"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 22",
+    "text": "Bộ dữ liệu nhỏ, không đại diện cho dân số Việt Nam và không chứa bối cảnh điều trị. Chỉ số đích mang ý nghĩa nghiên cứu, khác với chẩn đoán đái tháo đường trong thực hành. Vì vậy không thể suy rộng độ chính xác mô hình thành hiệu quả lâm sàng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 22",
+    "text": "Hướng mở rộng là dùng dữ liệu đã khử định danh, xác định rõ biến kết cục, đánh giá theo nhóm tuổi/giới và mời chuyên gia lâm sàng kiểm tra ontology. Ngoài độ chính xác, cần đo calibration, fairness và khả năng giải thích."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 22",
+    "text": "Với RAG y tế, mọi đoạn văn cần version và ngày hiệu lực. Hướng dẫn cũ phải được thu hồi khỏi chỉ mục thay vì chỉ thêm tài liệu mới."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.5. KB VÀ RAG CHO CHỨNG KHOÁN"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 23",
+    "text": "Dữ liệu FPT.VN được lấy từ Yahoo Finance chart API - FPT.VN. Khoảng thời gian 15/10/2021 - 14/10/2026 có 1304 quan sát. Giá đóng cửa gần nhất là 57,100 VND."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 23",
+    "text": "Lợi suất toàn kỳ là 15.91%, biến động năm hóa 27.63%, RSI14 8.2. Mỗi con số được gắn ngày chạy và nguồn dữ liệu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 23",
+    "text": "Knowledge Graph nối FPT.VN với giá gần nhất, MA20, MA60, RSI, thanh khoản, kết quả kinh doanh và tâm lý thị trường. Các quan hệ mô tả vai trò chỉ báo, không tự động tạo khuyến nghị mua bán."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 23",
+    "path": "artifacts_giangkt/figures/fpt_market.png",
+    "caption": "Chuỗi giá và chỉ báo FPT"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.5.1. DỮ LIỆU VÀ TIỀN XỬ LÝ FPT"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 24",
+    "text": "Chuỗi OHLCV được sắp xếp tăng dần theo ngày; dòng thiếu Close bị loại. Return_1D, MA20, MA60, volatility20 và RSI14 được tính từ dữ liệu lịch sử. Đặc trưng bổ sung gồm thay đổi khối lượng, biên độ High-Low, chênh lệch Open-Close và các độ trễ một phiên."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 24",
+    "text": "Tại điểm cuối, MA20 = 62,260, MA60 = 63,396. Bộ học có 988 mẫu train và 85 mẫu test theo thứ tự thời gian."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 24",
+    "text": "Biến đích là giá Close của phiên kế tiếp. Việc dịch target một bước rồi drop dòng cuối giúp đặc trưng tại ngày t không chứa giá của ngày t+1."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 24",
+    "path": "artifacts_giangkt/figures/code_market_data.png",
+    "caption": "Pipeline xử lý dữ liệu thị trường"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.5.2. HUẤN LUYỆN VÀ ĐÁNH GIÁ MÔ HÌNH FPT"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 25",
+    "text": "Lịch sử tải được mở rộng từ 2 năm lên 5 năm. Chín họ cấu hình gồm Persistence, Ridge giá, Median lợi suất, Ridge lợi suất, Huber, SVR RBF, Random Forest và hai dạng Gradient Boosting. Tuning độ co lợi suất, cửa sổ học gần nhất và siêu tham số trên TimeSeriesSplit 5 phần, mỗi phần xác nhận 63 phiên, gap=1. Tập test giữ nguyên mốc của bản 2.0."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 25",
+    "text": "Chia theo thời gian: 988 train, 67 hiệu chỉnh, 85 test; bỏ một quan sát tại mỗi ranh giới. Mô hình Persistence đạt MAE 728.13, R2 0.871; baseline MAE 728.13. Cải thiện trên test 0.00%."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 25",
+    "text": "Test lịch sử từ 2026-06-04 đến 2026-10-13; MAE bản trước 728.13 VND. Bao phủ khoảng dự báo lịch sử: 97.6%. Kết quả hiện tại chưa cho thấy mô hình học máy thắng Persistence. Dữ liệu chuỗi thời gian không thỏa giả định trao đổi như mẫu độc lập nên mức 90% chỉ là mục tiêu, không phải bảo đảm cho tương lai."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 25",
+    "path": "artifacts_giangkt/figures/stock_model.png",
+    "caption": "Dự báo FPT so với Persistence"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.5.3. HỎI ĐÁP CHỨNG KHOÁN VỚI GRAPHRAG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 26",
+    "text": "Câu trả lời mẫu: FPT.VN có MA20 62,260, MA60 63,396, RSI14 8.2 và biến động năm hóa 27.6%. Đường trung bình động mô tả xu hướng quá khứ chứ không bảo đảm giá tương lai. RSI là chỉ báo động lượng và cần kết hợp thanh khoản, cơ bản doanh nghiệp cùng bối cảnh thị trường. Quan hệ đồ thị liên quan: FPT.VN -[CÓ_GIÁ_GẦN_NHẤT]→ Giá FPT 57,100 VND; MA20 -[MÔ_TẢ_XU_HƯỚNG_NGẮN_HẠN_CỦA]→ FPT.VN; MA60 -[MÔ_TẢ_XU_HƯỚNG_TRUNG_HẠN_CỦA]→ FPT.VN. Đây là phân tích dữ liệu quá khứ, không phải khuyến nghị mua hoặc bán."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 26",
+    "text": "Tài liệu cung cấp số liệu động; đồ thị giải thích vai trò của chỉ báo và liên kết multi-hop. Bộ lọc domain ngăn tài liệu vàng hoặc y tế đi vào câu trả lời chứng khoán."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 26",
+    "text": "Kết quả mô hình được ghi thành tài liệu trong KB với model name, thời gian, MAE và R2. Vì vậy RAG có thể dẫn lại đúng lần huấn luyện thay vì tạo ra độ chính xác không tồn tại."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 26",
+    "path": "artifacts_giangkt/figures/kg_stock.png",
+    "caption": "Đồ thị tri thức chứng khoán"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.5.4. RỦI RO VÀ HƯỚNG MỞ RỘNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 27",
+    "text": "Corporate actions, thanh khoản, cách điều chỉnh giá và survivorship bias có thể làm sai phân tích. Yahoo Finance phù hợp bài tập nhưng nên đối chiếu nguồn chính thức nếu dùng trong nghiên cứu giao dịch."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 27",
+    "text": "Dự báo Close phiên kế tiếp thường có R2 cao do giá hôm nay gần giá ngày mai; vì vậy phải đọc cùng persistence baseline và directional accuracy. R2 cao không đồng nghĩa chiến lược có lợi nhuận."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 27",
+    "text": "Hướng mở rộng là walk-forward backtest có phí, trượt giá, khoảng tin cậy và kiểm tra thay đổi chế độ thị trường. Mọi đầu ra vẫn cần cảnh báo không phải khuyến nghị đầu tư."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.6. KB VÀ RAG CHO GIÁ VÀNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 28",
+    "text": "Dữ liệu hợp đồng vàng GC=F được lấy từ Yahoo Finance chart API - GC=F. Khoảng 15/10/2021 - 14/10/2026 có 1257 quan sát; giá gần nhất 4,107.90 USD/oz."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 28",
+    "text": "Lợi suất toàn kỳ 132.31%, biến động năm hóa 19.07%, RSI14 31.6. GC=F là tham chiếu quốc tế, không đồng nhất với giá vàng miếng SJC."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 28",
+    "text": "Knowledge Graph mô tả lãi suất Fed, USD, lạm phát, địa chính trị và nhu cầu trú ẩn. Những cạnh này là khung giải thích có điều kiện, không phải quan hệ nhân quả cố định."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 28",
+    "path": "artifacts_giangkt/figures/gold_market.png",
+    "caption": "Chuỗi giá và chỉ báo vàng"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.6.1. DỮ LIỆU, CHỈ BÁO VÀ KNOWLEDGE GRAPH VÀNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 29",
+    "text": "MA20 hiện là 4,237.78, MA60 là 4,330.82. Chuỗi giữ nguyên lịch phiên của nguồn; không nội suy ngày nghỉ. Biến đích là Close phiên kế tiếp."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 29",
+    "text": "Đặc trưng dùng cùng một công thức với FPT để so sánh công bằng: giá và độ trễ, return, MA20, MA60, volatility20, RSI14, thay đổi volume, biên độ ngày và chênh lệch Open-Close."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 29",
+    "text": "Chuỗi Rủi ro địa chính trị -> Nhu cầu trú ẩn -> Vàng quốc tế minh họa truy vấn nhiều bước. Quan hệ Vàng quốc tế -> Giá vàng SJC chỉ là tham chiếu, cần thêm tỷ giá và cơ chế thị trường trong nước để giải thích chênh lệch."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 29",
+    "path": "artifacts_giangkt/figures/kg_gold.png",
+    "caption": "Đồ thị tri thức vàng"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.6.2. HUẤN LUYỆN VÀ ĐÁNH GIÁ MÔ HÌNH VÀNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 30",
+    "text": "Vàng dùng cùng quy trình lựa chọn có baseline và mô hình lợi suất như FPT. Không ép chọn mô hình phức tạp nếu Persistence có CV MAE thấp hơn. Train, hiệu chỉnh và test nằm theo đúng thứ tự thời gian, có khoảng cách một phiên ở ranh giới."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 30",
+    "text": "Mô hình được chọn: SVR return; CV MAE 38.792; test MAE 49.440; R2 0.880. Baseline MAE 48.267; cải thiện -2.43%."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 30",
+    "text": "Test từ 2026-06-09 đến 2026-10-13; bản trước có MAE 50.4701. Mức giảm sai số so với bản trước là 2.04%, nhưng vẫn cần đối chiếu baseline. Khoảng bootstrap khối 5 phiên, 2.000 lần lặp cho mức cải thiện so với baseline: -6.10% đến 2.68%. Khoảng chứa 0 chưa chứng minh cải thiện rõ ràng. GC=F không phải vàng SJC."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 30",
+    "path": "artifacts_giangkt/figures/gold_model.png",
+    "caption": "Mô hình vàng và baseline"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.6.3. HỎI ĐÁP VĨ MÔ VỚI GRAPHRAG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 31",
+    "text": "Câu trả lời mẫu: Giá vàng thường nhạy với lãi suất thực, sức mạnh đồng USD, kỳ vọng lạm phát, nhu cầu dự trữ và rủi ro địa chính trị; quan hệ có thể thay đổi theo từng giai đoạn. Chuỗi vàng GC=F gồm 1257 phiên từ 15/10/2021 đến 14/10/2026; giá gần nhất 4,107.90 USD/oz. Quan hệ đồ thị liên quan: Vàng quốc tế GC=F -[CÓ_GIÁ_GẦN_NHẤT]→ Giá vàng 4,107.90 USD/oz; Vàng quốc tế GC=F -[LÀ_THAM_CHIẾU_CHO]→ Giá vàng SJC; Lãi suất Fed -[CÓ_QUAN_HỆ_NGHỊCH_THƯỜNG_GẶP_VỚI]→ Vàng quốc tế GC=F. Đây là phân tích dữ liệu quá khứ, không phải khuyến nghị mua hoặc bán."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 31",
+    "text": "Truy xuất văn bản nêu điều kiện và độ bất định; đồ thị cung cấp các cạnh thường gặp và đường đi qua nhu cầu trú ẩn. Hai nguồn bằng chứng cùng xuất hiện giúp câu trả lời tránh tuyệt đối hóa."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 31",
+    "text": "Nếu thay bộ sinh mẫu bằng LLM, prompt phải cấm tự tạo mục tiêu giá hoặc xác suất tăng giảm khi evidence không cung cấp. Citation ID và timestamp nên là trường bắt buộc trong JSON đầu ra."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 31",
+    "path": "artifacts_giangkt/figures/code_market_training.png",
+    "caption": "Quy trình học máy cho thị trường"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.6.4. GIỚI HẠN VÀ HƯỚNG MỞ RỘNG"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 32",
+    "text": "Hợp đồng tương lai có ngày đáo hạn và cơ chế nối chuỗi. Spot XAU/USD, futures GC=F và vàng SJC là ba sản phẩm khác nhau; không thể trộn USD/oz với VND/lượng nếu chưa quy đổi."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 32",
+    "text": "Mô hình hiện chưa dùng lãi suất thực, DXY, tỷ giá USD/VND hay vị thế ETF. Hướng mở rộng là gắn timestamp cho các yếu tố vĩ mô, thử độ trễ và lưu confidence cùng evidence trên mỗi cạnh."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 32",
+    "text": "Tương tự chứng khoán, dự báo một bước chỉ minh họa quy trình machine learning có kiểm soát. Nó không phải khuyến nghị mua, bán hay nắm giữ vàng."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.7. DEPLOYMENT"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 33",
+    "text": "Insight Lab 2.0 chia thành khu Dự đoán với ba tab Tiểu đường, FPT, Vàng và khu Trợ lý sức khỏe riêng. Người dùng xem kết quả tại từng tab; khi muốn thảo luận, chủ động chọn chia sẻ kết quả sức khỏe cho chatbot."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 33",
+    "text": "Web hiển thị biểu đồ lịch sử giá, dự báo điểm, khoảng sai số hiệu chỉnh và so sánh baseline. Đầu vào trống, sai đơn vị hoặc vượt giới hạn được kiểm tra trước suy luận. Giá trị ngoài phạm vi train được đánh dấu để tránh hiểu sai mức tin cậy."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": "TL02 trang 33",
+    "text": "Web: https://rag-httm-chatbot.vercel.app. GitHub: https://github.com/jellalaz/HTTM_ThayQue. Sơ đồ dưới đây minh họa bố cục, không phải ảnh chụp màn hình."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 33",
+    "path": "artifacts_giangkt/figures/web_app_preview.png",
+    "caption": "Sơ đồ bố cục giao diện gốc"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.7.1. SUY LUẬN MÔ HÌNH TRÊN TRÌNH DUYỆT"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 34",
+    "text": "Notebook xuất cấu trúc estimator được chọn: scaler, hệ số tuyến tính, vector hỗ trợ và kernel RBF của SVR, cấu trúc cây hoặc công thức Persistence/lợi suất. JavaScript dùng cùng đặc trưng và tham số. Các vector đối chiếu Python/JavaScript được lưu để kiểm tra sai số đóng gói."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 34",
+    "text": "Mô hình sức khỏe có sáu trường chính và bốn trường bổ sung. Trường bổ sung trống dùng trung vị tập train và được công bố ở kết quả. HbA1c và bối cảnh đo dùng cho nhận xét xét nghiệm riêng, không bị đưa nhầm vào mô hình chưa học chúng. Điểm tiến triển không được dùng quyết định chẩn đoán hoặc cấp cứu."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 34",
+    "text": "Cấu hình thị trường được chọn trên dữ liệu trước test rồi fit lại cho web, chừa 63 phiên gần nhất để hiệu chỉnh khoảng dự báo và bỏ cách một phiên. Chỉ số test lịch sử thuộc bản fit trước đó, không phải đánh giá ngoài mẫu của bản refit. Web hiển thị riêng hai giai đoạn. Cảnh báo ngoài miền của mô hình lợi suất xét đặc trưng tương đối, không chỉ mức giá tuyệt đối. Web không gửi hồ sơ sức khỏe ra ngoài."
+  },
+  {
+    "kind": "figure",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 34",
+    "path": "artifacts_giangkt/figures/code_deployment.png",
+    "caption": "Xuất estimator sang JavaScript"
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.7.2. CHATBOT DỰ ĐOÁN, TƯ VẤN VÀ HỎI ĐÁP"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 35",
+    "text": "Chatbot nhận đường huyết, HbA1c, BMI, tuổi, huyết áp tâm thu/tâm trương, huyết áp trung bình, cholesterol toàn phần, LDL, HDL, triglyceride và các đặc trưng nghiên cứu s4/s5. Câu ‘huyết áp 90’ được hỏi lại loại số đo; thiếu đơn vị thì hỏi tiếp. Một tin nhắn có thể chứa nhiều chỉ số, đơn vị được gắn riêng với từng giá trị để tránh lấy nhầm mmol/L của HDL cho glucose."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 35",
+    "text": "Các ngưỡng xét nghiệm tham khảo NIDDK/ADA. Đường huyết thấp được xử lý trước bảng phân loại đường cao. Sau bữa ăn thông thường không bị đánh đồng với nghiệm pháp 75 g glucose. Thai kỳ và trẻ em cần bối cảnh riêng. Câu hỏi kê liều thuốc được chuyển thành hướng dẫn trao đổi với bác sĩ."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 35",
+    "text": "Kho tri thức mở rộng thành 20 chủ đề, bổ sung nguồn AHA về huyết áp, MedlinePlus về mỡ máu và Mayo Clinic về xét nghiệm cholesterol. Nội dung, đường quan hệ KG và danh mục nguồn được xuất ra health_knowledge.json. BM25 truy xuất kết hợp bộ nhận diện số đo; chưa kết nối LLM ngoài. Khi chia sẻ form, chatbot nhận đủ các trường đã nhập, nhưng loại giá trị trung vị thay thế khỏi nhận xét y khoa. Mã giới tính 1/2 không tự dùng chọn ngưỡng HDL; s5 không tự quy đổi thành xét nghiệm triglyceride. Hồ sơ chỉ giữ trong phiên."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.8. Đánh giá tổng hợp"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 36",
+    "text": "Kết quả cho thấy một notebook có thể bao quát tải dữ liệu, tiền xử lý, KG, RAG, đánh giá, báo cáo và web. GraphRAG lai cung cấp thêm loại bằng chứng mà Vector RAG không có: quan hệ có tên và đường đi giữa các thực thể."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 36",
+    "text": "Đổi lại, KG yêu cầu thiết kế ontology, kiểm soát quan hệ và cập nhật theo thời gian. Chi phí này chỉ đáng bỏ ra khi bài toán cần giải thích, liên kết đa bước hoặc quản trị tri thức dài hạn."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 36",
+    "text": "Bài làm đạt mục tiêu nguyên mẫu tái lập. Hạn chế chính là corpus nhỏ, đánh giá ít câu hỏi, generator dạng mẫu và chưa có chuyên gia miền thẩm định. Những giới hạn này được ghi rõ thay vì suy rộng kết quả."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.8.1. Kết quả huấn luyện ba miền"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 5.1. Tổng hợp kết quả giữ từ Tiểu luận 02"
+  },
+  {
+    "kind": "table",
+    "chapter": 5,
+    "color": "000000",
+    "caption": "Tổng hợp kết quả giữ từ Tiểu luận 02",
+    "rows": 3
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 38",
+    "text": "Mô hình được chọn theo CV MAE trên tập train. Chỉ số test được tính trên phần dữ liệu giữ lại."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.8.2. Kết quả truy xuất và bộ ba tri thức"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 5.2. Kết quả smoke test được giữ nguyên"
+  },
+  {
+    "kind": "table",
+    "chapter": 5,
+    "color": "000000",
+    "caption": "Kết quả smoke test được giữ nguyên",
+    "rows": 6
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 39",
+    "text": "Bảng này là phép kiểm tra hồi quy cho pipeline. Nó không thay thế đánh giá câu trả lời bởi chuyên gia."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": null,
+    "text": "Bảng 5.3. Bộ ba tri thức của hệ thống"
+  },
+  {
+    "kind": "table",
+    "chapter": 5,
+    "color": "000000",
+    "caption": "Bộ ba tri thức của hệ thống",
+    "rows": 22
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "FF0000",
+    "text": "5.8.3. Chunking, embedding và giới hạn đánh giá"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": null,
+    "text": "Embedding là biểu diễn văn bản bằng vector; dense embedding học ngữ nghĩa từ dữ liệu huấn luyện, còn TF-IDF là vector thưa theo tần suất từ. Vector database bổ sung chỉ mục và quản trị truy vấn ở quy mô lớn; prototype hiện lưu ma trận TF-IDF trong bộ nhớ, chưa vận hành một vector database độc lập. Corpus gồm các tài liệu ngắn đã là đơn vị truy xuất, nên không tạo hàng loạt chunk chồng lấn không cần thiết. Với PDF dài, cần chunk theo heading, giữ metadata và thử kích thước/overlap bằng một tập câu hỏi riêng."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": null,
+    "text": "Điểm hybrid cũ cộng 0,25 khi có bằng chứng đồ thị là điểm kỹ thuật tự định nghĩa, không phải Accuracy, faithfulness hay xác suất đúng của câu trả lời. Precision theo domain chỉ đo mức đúng miền. Việc mọi câu hỏi tìm được một cạnh không chứng minh cạnh đó đủ để trả lời. Cần phân biệt truy xuất văn bản, độ đúng đường đi và độ bám sát bằng chứng khi đánh giá generator."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "FF0000",
+    "text": "5.8.4. Đồng bộ notebook và các chức năng web bổ sung"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": null,
+    "text": "main.ipynb chứa các bước thực nghiệm mới, pipeline KG/RAG từ Tiểu luận 02, xuất mô hình và đóng gói web. Chế độ full là cấu hình của số liệu trong báo cáo; quick dùng ít dữ liệu/epoch hơn để kiểm tra, không thay số liệu full trong báo cáo. Manifest lưu seed, phiên bản thư viện, hash dataset, checkpoint và cấu hình chạy."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "FF0000",
+    "source": null,
+    "text": "Giao diện Insight Lab giữ khu dự đoán ba miền, trợ lý sức khỏe, màu sắc và bố cục chính. Khu thực nghiệm bổ sung giá nhà, phân loại nhãn nguy cơ tổng hợp, nhận dạng chữ số CNN và dự báo chuỗi. Các mô hình mới sử dụng API /api/predict và trọng số JSON xuất từ notebook. API không gọi dịch vụ LLM, không cần secret và có kiểm tra kích thước cũng như giá trị đầu vào. Chatbot sức khỏe cũ vẫn xử lý trong trình duyệt; dữ liệu nhập vào các demo API được gửi tới máy chủ inference để tính dự đoán."
+  },
+  {
+    "kind": "heading",
+    "chapter": 5,
+    "color": "000000",
+    "text": "5.9. Kết luận chương"
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 37",
+    "text": "Điều quan trọng nhất rút ra là không nên coi GraphRAG như một nhãn công nghệ thay thế cho thiết kế dữ liệu. Chất lượng câu trả lời bắt đầu từ việc định nghĩa thực thể, quan hệ, nguồn và phạm vi kết luận."
+  },
+  {
+    "kind": "paragraph",
+    "chapter": 5,
+    "color": "000000",
+    "source": "TL02 trang 37",
+    "text": "Notebook kèm theo là sản phẩm có thể chạy lại. PDF và ứng dụng web chỉ là hai cách trình bày cùng một trạng thái kết quả, nhờ đó giảm sai lệch giữa code và báo cáo."
+  }
+]

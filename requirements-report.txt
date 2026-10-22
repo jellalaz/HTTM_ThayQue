@@ -1,0 +1,5 @@
+# Chỉ dùng khi bảo trì/xuất lại Word; không cần để Run All thực nghiệm.
+python-docx>=1.2
+pymupdf>=1.26,<3
+Pillow>=10
+# Cần thêm hai executable: pandoc và LibreOffice headless.

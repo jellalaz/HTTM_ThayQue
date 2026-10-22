@@ -1,0 +1,7 @@
+{
+  "red_native_equations_restored": 8,
+  "text_and_geometry_unchanged": true,
+  "pages": 58,
+  "reason": "LibreOffice OMML color import limitation",
+  "method": "vector PDF color operators only; no glyph or coordinate replacement"
+}

@@ -1,10 +1,10 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+  "functions": {
+    "api/predict.py": {
+      "maxDuration": 30,
+      "includeFiles": "models/**"
     }
-  ],
+  },
   "headers": [
     {
       "source": "/(.*)",

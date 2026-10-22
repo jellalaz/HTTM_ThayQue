@@ -1,49 +1,61 @@
-# Knowledge Graph và RAG
+# Tiểu luận 03 — AI, ML, CNN, RNN, Knowledge Graph và RAG
 
-Bài tiểu luận Chương 4 của **Kiều Trường Giang - B23DCCN254**, học phần Phát triển các hệ thống thông minh.
+Kiều Trường Giang — B23DCCN254. Học phần **Phát triển các hệ thống thông minh**, giảng viên **Thầy Trần Đình Quế**. Hai bìa PDF gốc không ghi tên lớp, nên báo cáo không tự suy ra thông tin này.
 
-## Cách chạy
+## Sản phẩm chính
 
-Mở `Tieuluan02_06_Nhom2_Giangkt.ipynb` và chọn **Run All**. Notebook tự thực hiện toàn bộ quy trình:
+- `tieuluan03_06_02_giangkt.254.docx`: Word chỉnh sửa được, 5 chương, mục lục TOC và công thức OMML.
+- `tieuluan03_06_02_giangkt.254.pdf`: xuất từ chính bản Word, giữ màu đen/đỏ.
+- `main.ipynb`: notebook chính duy nhất, đã chạy **Run All** chế độ full.
+- `CHANGELOG.md`, `EXPERIMENT_RESULTS.md`, `FINAL_VERIFICATION.md`: thay đổi, số liệu và kết quả kiểm tra.
 
-1. tải và xử lý dữ liệu tiểu đường, cổ phiếu FPT.VN và vàng GC=F;
-2. so sánh và tuning mô hình cho cả ba miền: K-fold cho tiểu đường, TimeSeriesSplit cho FPT và vàng;
-3. xây Knowledge Graph cho ba miền;
-4. chạy Vector RAG và GraphRAG;
-5. xuất tham số mô hình sang ứng dụng web, tạo ba biểu mẫu dự đoán và chatbot RAG sức khỏe;
-6. sinh báo cáo `Tieuluan02_06_Nhom2_Giangkt.pdf`.
+## Chạy thực nghiệm
 
-Nếu Yahoo Finance tạm thời không truy cập được, notebook đọc snapshot đã lưu và ghi rõ ngày/nguồn. Không tự thay dữ liệu thật bằng giá mô phỏng. Nếu không có snapshot, notebook dừng và yêu cầu chạy lại khi có mạng.
+Mở `main.ipynb` bằng Jupyter/VS Code hoặc môi trường notebook tương thích, chọn kernel Python 3.10+ rồi **Run All**. Khuyến nghị Python 3.12 trở lên. Notebook tự kiểm tra/cài thư viện, tải dataset công khai, chuẩn bị snapshot, huấn luyện, đánh giá, lưu checkpoint, tạo biểu đồ và build web. Không phải mở notebook khác hoặc chạy thủ công file Python phụ.
 
-## Insight Lab 2.2
+Mặc định `MODE="full"`, `REUSE_CACHE=True`, `REFRESH_MARKET=False`, seed 42 và CPU. Full gồm 50.000 dòng nguy cơ, 30.229 dòng giá nhà, 48.000 ảnh train CNN với 8 epoch và sáu mạng chuỗi với 35 epoch/mạng. Lần đầu cần Internet cho Kaggle, MNIST và các gói còn thiếu; dữ liệu đã tải được cache. Snapshot thị trường TL02 được giữ cố định để tái lập số liệu. Bật `REFRESH_MARKET` tạo trạng thái dữ liệu khác, cần đánh giá và xuất lại báo cáo trước khi dùng số liệu mới.
 
-- Ba tab **Tiểu đường / FPT / Vàng** cùng khu Dự đoán; chatbot sức khỏe nằm riêng. Kết quả chỉ được đưa sang chatbot khi người dùng chọn chia sẻ.
-- So sánh 8 họ mô hình sức khỏe và 9 họ mô hình thị trường, gồm SVR RBF, Huber, Ridge, Random Forest, Gradient Boosting và baseline; lựa chọn bằng CV MAE. Thị trường tải lịch sử 5 năm, thử cửa sổ học gần nhất, shrinkage và `TimeSeriesSplit(gap=1, test_size=63)`.
-- Train, calibration, test tách riêng. Khoảng dự báo mục tiêu 90%, công bố độ bao phủ thực tế; không dùng R² làm phần trăm chính xác.
-- Giữ nguyên giai đoạn test của bản 2.0: FPT 04/06–13/10/2026, vàng 09/06–13/10/2026. Không chọn cấu hình theo điểm test. Bản web fit lại với cấu hình đã chọn, giữ riêng 63 phiên gần nhất để hiệu chỉnh; chỉ số test lịch sử và khoảng dự báo bản refit được phân biệt rõ.
-- Trên cùng test, vàng giảm MAE từ 50,47 còn 49,44 USD/oz nhưng chưa thắng baseline 48,27. FPT vẫn chọn Persistence (MAE 728,13 VND), sức khỏe vẫn chọn Ridge (MAE 42,94). Không ép mô hình phức tạp nếu CV kém hơn. Bootstrap theo khối cho biết độ bất định của mức cải thiện; không dùng khoảng này để tuning.
-- Chatbot trích xuất dựa trên BM25 + bằng chứng KG: nhớ thông số trong phiên, hỏi tiếp đơn vị/thời điểm đo, quy đổi mmol/L, nhận xét HbA1c/BMI, phân biệt sau ăn và OGTT, xử lý đường huyết thấp trước.
-- Khi nhập số vượt giới hạn như 150 mmol/L, chatbot giữ số đo để sửa đơn vị hoặc nhập lại, không tự đổi thành 150 mg/dL hay 15 mmol/L.
-- Chatbot hiểu toàn bộ hồ sơ form: tuổi, BMI, huyết áp trung bình, cholesterol toàn phần, LDL, HDL, s4/s5, mã giới tính, glucose và HbA1c; bổ sung huyết áp tâm thu/tâm trương và triglyceride gốc. Hỏi lại khi chỉ có “huyết áp 90” hoặc “cholesterol 5,2”; xử lý nhiều chỉ số với đơn vị riêng trong một tin nhắn.
-- Kho tri thức 20 chủ đề có AHA, MedlinePlus, Mayo Clinic và các nguồn hiện có; notebook xuất nội dung và danh mục nguồn ra `artifacts_giangkt/data/health_knowledge.json`. Đây là bổ sung tri thức và logic hội thoại, không phải train một LLM mới.
-- Khi chia sẻ form, nhận đủ trường người dùng cung cấp; không coi các trung vị thay thế là xét nghiệm. Không tự diễn giải mã giới tính nghiên cứu để chọn ngưỡng HDL, không tự suy ngược s5 thành triglyceride xét nghiệm. Ngưỡng huyết áp theo AHA, không áp cho MAP; thai kỳ/trẻ em cần cách đánh giá riêng.
-- Kiểm tra đầu vào, cảnh báo ngoài phạm vi train, không thực thi HTML từ câu hỏi. Không dùng API key hoặc LLM bên ngoài.
-- Dữ liệu không cập nhật trực tiếp trên web; chạy lại notebook để cập nhật.
+`MODE="quick"` dùng ít dữ liệu/epoch cho thực nghiệm mới, ghi vào `tmp/quick03`, không thay model/web/số liệu full. `REUSE_CACHE=False` buộc huấn luyện lại. Cache kiểm tra code, seed, phiên bản thư viện, snapshot và hash artifact. `requirements.txt` mô tả môi trường hỗ trợ; `requirements-verified.txt` ghi phiên bản đã kiểm chứng. Không phụ thuộc torchvision. CPU đã chạy; phát hiện GPU không đồng nghĩa đã kiểm thử GPU.
 
-`src/` và `scripts/sync_notebook.py` chỉ phục vụ bảo trì. Notebook phát hành chứa toàn bộ mã nguồn và không phụ thuộc các tệp đó hay Node.js khi Run All. `node tests/engine.test.cjs` kiểm tra logic hội thoại và đối chiếu suy luận JavaScript/Python; `node tests/clinical.test.cjs` kiểm tra chỉ số bổ sung, đơn vị và chia sẻ hồ sơ.
+## Website và API
 
-## Cấu trúc
+Production: https://rag-httm-chatbot.vercel.app/
 
-- `Tieuluan02_06_Nhom2_Giangkt.ipynb`: tệp duy nhất cần chạy.
-- `Tieuluan02_06_Nhom2_Giangkt.pdf`: báo cáo được sinh từ notebook.
-- `artifacts_giangkt/data/`: dữ liệu sau xử lý và bộ ba tri thức.
-- `artifacts_giangkt/figures/`: biểu đồ, đồ thị và ảnh code.
-- `vercel_app/`: ứng dụng Insight Lab để triển khai Vercel. Ba mô hình dùng chung khu dự đoán; chatbot sức khỏe độc lập dùng nguồn NIDDK, WHO và CDC.
+GitHub: https://github.com/jellalaz/HTTM_ThayQue
 
-## Liên kết
+Giữ giao diện chính Insight Lab, ba tab dự đoán và chatbot sức khỏe cũ. Khu **Thực nghiệm Tiểu luận 03** bổ sung giá nhà, nhãn nguy cơ trên dataset tổng hợp, CNN nhận dạng chữ số và dự báo chuỗi FPT/vàng. Demo mới gọi `POST /api/predict`; dữ liệu nhập ở khu này được gửi đến server inference. Chatbot sức khỏe cũ vẫn chạy trong trình duyệt và chỉ nhận hồ sơ khi người dùng chọn chia sẻ.
 
-- GitHub: https://github.com/jellalaz/RAG_HTTM
-- Web demo: https://rag-httm-chatbot.vercel.app
-- Vercel account: https://vercel.com/trng-giang
+API suy luận bằng Python standard library và tham số thật từ model đã train. Không đóng gói PyTorch/scikit-learn vào Vercel, không dùng API key/LLM ngoài. Bundle model nén khoảng 5,1 MB. `GET /api/predict` là health check; `POST` nhận `task`: `housing`, `diabetes_classifier`, `cnn` hoặc `sequence`.
 
-> Dữ liệu tài chính và y tế trong dự án phục vụ mục đích học tập.
+Bảo trì web cục bộ sau khi chạy notebook: `python scripts/serve03.py`, mở http://127.0.0.1:8765/. Đây là server tùy chọn cho web, không phải bước bắt buộc để chạy notebook.
+
+## Phạm vi kết quả
+
+Classifier nguy cơ dùng nhãn dữ liệu tổng hợp, không phải xác suất mắc bệnh/chẩn đoán. Hồi quy diabetes cũ dùng 442 người đã mắc bệnh, đầu ra là điểm tiến triển nghiên cứu. Giá nhà dùng tin đăng 2024, không phải định giá hiện thời. GC=F là vàng futures, khác XAU/USD spot và SJC.
+
+Mô hình chuỗi chọn bằng validation, có Persistence tham gia; không đổi lựa chọn theo test. Test Chương 4 ghi **ngày nhãn**, khác ngày đặc trưng của mô hình cũ Chương 5. Không so hai bảng như cùng tập test. RAG dùng TF-IDF/NetworkX và deterministic generator; smoke test không phải faithfulness của LLM.
+
+ASL, e-commerce và ba bản Scratch/Keras/PyTorch của tác giả TL01 không được nhận là thực nghiệm mới. Không dùng checkpoint hoặc biểu đồ huấn luyện của người khác làm thành quả của sinh viên.
+
+## Màu và báo cáo
+
+Lý thuyết giữ từ hai nguồn mặc định đen; bổ sung/sửa kiến thức, kết quả mới và tính năng mới màu `#FF0000`. Sửa nhỏ được đánh dấu theo từ/cụm khi có thể. Chương 5 giữ phần lớn nội dung gốc màu đen. Báo cáo chỉ có bìa, mục lục và 5 chương, không có tài liệu tham khảo/citation số.
+
+Nguồn chỉ có PDF nên văn bản được trích xuất và ghép lại; công thức phổ biến chuyển sang Word Equation/OMML. Một số công thức CNN/RNN giữ hình gốc nét cao để tránh sai ký hiệu. `scripts/build_report03.py` là builder bảo trì; `scripts/populate_toc03.py` điền cache TOC từ PDF đã render. Word giữ TOC, bookmark và PAGEREF để cập nhật Ctrl+A → F9 sau khi chỉnh sửa, rồi xuất lại PDF.
+
+Quy trình bảo trì báo cáo: build Word → `normalize_word03.py` → render Word/PDF → `populate_toc03.py` → render lại đến khi TOC ổn định → `finalize_pdf03.py` → `audit_report03.py`. Bộ xuất LibreOffice bỏ màu của OMML; bước finalize chỉ khôi phục toán tử màu đỏ của tám công thức mới trong PDF vector, không thay văn bản, glyph hoặc tọa độ. Bản Word vẫn giữ công thức OMML chỉnh sửa được và màu đỏ trong XML. PNG render được rà từng trang. Không cần các bước này để chạy thực nghiệm qua notebook.
+
+## Cấu trúc và kiểm thử
+
+- `src/experiments03.py`: thực nghiệm mới, được nhúng trong notebook.
+- `src/inference03.py`: suy luận từ model export.
+- `src/experiments03.html`, `src/experiments03.js`: phần giao diện bổ sung.
+- `artifacts_tl03/models/`: checkpoint và tham số.
+- `artifacts_tl03/data/`: metrics, predictions, history, split, manifest, parity và QA.
+- `artifacts_tl03/legacy/`: kết quả tái lập riêng TL02.
+- `artifacts_tl03/source/`: cấu trúc trích xuất PDF và hình nguồn để ghép.
+- `vercel_app/`: gói triển khai gồm API và model nén.
+
+Kiểm thử bảo trì: `python tests/test_inference03.py`, `node tests/engine.test.cjs`, `node tests/clinical.test.cjs`. `tests/check_production03.py` gọi production bằng mẫu công khai/tổng hợp. Token không đưa vào notebook/repository. Raw dataset tải tự động và Git ignore.
+
+PDF/notebook TL01/TL02 được giữ như đầu vào lưu trữ; **main.ipynb là entrypoint duy nhất** của bản 03.
