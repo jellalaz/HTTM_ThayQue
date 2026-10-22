@@ -22,7 +22,7 @@ Ngày kiểm chứng: 23/10/2026, múi giờ Asia/Ho_Chi_Minh.
 | API production | Đã kiểm tra thật | GET frontend/health; 5 POST trả 200; 4 yêu cầu lỗi trả 400, gồm ảnh toàn 0; `production_verified.json` |
 | Giao diện production | Đã kiểm tra qua trình duyệt | CNN ảnh test 7→7; link mở đúng bài toán/miền vàng; phần tử chuỗi trống bị từ chối; vàng hiển thị Persistence. `web_ui_detail_verified.json`, ảnh chụp `web_detail_cnn.png` |
 | Responsive | Đã kiểm tra cơ bản | Viewport 390 × 844: document/body scrollWidth không vượt viewport; đã trả về viewport mặc định |
-| GitHub | Đang chốt bản mở rộng | Bản trước ở `57597a7`; bản 78 trang được chuẩn bị trên nhánh `tieuluan03-detailed-report`, không force-push |
+| GitHub | Đã commit và push thành công | Commit bản mở rộng `5d81041`; ba nhánh `main`, `tieuluan03-giangkt`, `tieuluan03-detailed-report`; cập nhật fast-forward từ `57597a7`, không force-push |
 
 Các file bắt buộc bổ sung đã có: `README.md`, `CHANGELOG.md`, `EXPERIMENT_RESULTS.md`, `PROJECT_REPORT.md`, file kiểm chứng này và mã nguồn web/API. `PROJECT_REPORT.md` phân tích từng demo, dữ liệu, tiền xử lý, cơ chế, kết quả và giới hạn; các link từ giao diện trỏ đến đúng mục.
 
@@ -61,4 +61,4 @@ Không còn bước xác thực bên ngoài đang chặn deploy: phiên Vercel v
 
 Thư mục `.git` tại workspace không phải checkout Git sử dụng được, nên đồng bộ thông qua bản clone riêng tại `/tmp/httm_tl03_remote`, giữ nguyên workspace và các file nguồn. Không force-push. Tệp gốc trên remote được giữ lại. Raw dataset tải tự động, font Microsoft dùng render, `.env*`, `.vercel`, cache và `tmp` không được commit. Model lớn nhất khoảng 16 MB; bundle deploy nén khoảng 5,1 MB.
 
-Bản bàn giao mở rộng được quét các mẫu credential phổ biến trước khi commit; kết quả và checksum tám tệp đầu ra được lưu trong `delivery_verified.json`. Đây là kiểm tra bổ sung, không phải bảo đảm phát hiện mọi dạng secret. Không xóa tệp nguồn hay sửa lịch sử commit. Lần kiểm tra HTTPS cuối vẫn nhận 200 cho cả năm ca inference và 400 cho input không hợp lệ.
+Bản bàn giao mở rộng được quét các mẫu credential phổ biến trước khi commit: 69 tệp text thay đổi không có mẫu khớp; kết quả và checksum tám tệp đầu ra được lưu trong `delivery_verified.json`. Đây là kiểm tra bổ sung, không phải bảo đảm phát hiện mọi dạng secret. GitHub xác nhận cập nhật `57597a7..5d81041` bằng atomic push cho cả ba nhánh; bản ghi kiểm chứng được chốt bằng commit kế tiếp. Không xóa tệp nguồn hay sửa lịch sử commit. Lần kiểm tra HTTPS cuối vẫn nhận 200 cho cả năm ca inference và 400 cho input không hợp lệ.

@@ -1,6 +1,6 @@
 {
   "url": "https://rag-httm-chatbot.vercel.app",
-  "checked_at": "2026-10-23T03:42:31.233387+07:00",
+  "checked_at": "2026-10-23T04:08:56.323422+07:00",
   "frontend_HTTP": 200,
   "health_endpoint": true,
   "invalid_input_HTTP": 400,
@@ -31,7 +31,7 @@
       "task": "cnn",
       "domain": null,
       "HTTP": 200,
-      "seconds": 1.4915885299997171,
+      "seconds": 1.1091750790001242,
       "result": {
         "digit": 7,
         "probabilities": [
@@ -64,7 +64,7 @@
       "task": "housing",
       "domain": null,
       "HTTP": 200,
-      "seconds": 0.5937967019999633,
+      "seconds": 0.3779955610007164,
       "result": {
         "prediction": 7.549916755898363,
         "unit": "tỷ VND",
@@ -81,7 +81,7 @@
       "task": "diabetes_classifier",
       "domain": null,
       "HTTP": 200,
-      "seconds": 0.3562484289977874,
+      "seconds": 0.3683426649986359,
       "result": {
         "label": "Moderate",
         "scores": {
@@ -98,7 +98,7 @@
       "task": "sequence",
       "domain": "fpt",
       "HTTP": 200,
-      "seconds": 0.378831033998722,
+      "seconds": 0.3461368089992902,
       "result": {
         "prediction": 57147.79480484828,
         "predicted_log_return": 0.0008366867424990554,
@@ -112,7 +112,7 @@
       "task": "sequence",
       "domain": "gold",
       "HTTP": 200,
-      "seconds": 0.3451974939998763,
+      "seconds": 0.3411231360005331,
       "result": {
         "prediction": 4107.89990234375,
         "predicted_log_return": 0.0,
