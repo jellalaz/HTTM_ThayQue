@@ -47,6 +47,13 @@ def export(root=ROOT):
         'medians':num.named_steps['impute'].statistics_.tolist(),'means':num.named_steps['scale'].mean_.tolist(),
         'scales':num.named_steps['scale'].scale_.tolist(),'categories':[x.tolist() for x in cat.categories_],
         'estimator':regressor(pipeline.named_steps['model']),'metrics':result['housing']['metrics']}
+    housing_raw=pd.read_csv(art/'data/raw/housing.zip').drop_duplicates()
+    housing_raw=housing_raw[np.isfinite(housing_raw.Price)&(housing_raw.Price>0)&np.isfinite(housing_raw.Area)&(housing_raw.Area>0)]
+    housing_raw['Province']=housing_raw.Address.fillna('Unknown').str.split(',').str[-1].str.strip()
+    housing_split=pd.read_csv(art/'data/housing_split.csv')
+    housing_train=housing_raw.iloc[housing_split.loc[housing_split.split=='train','row']]
+    housing['ranges']={k:[float(housing_train[k].min()),float(housing_train[k].max())] for k in numeric}
+    category_defaults={k:str(housing_train[k].fillna('Unknown').mode().iloc[0]) for k in categorical}
     seq=json.loads((art/'models/sequences.json').read_text())
     bundle={'version':'3.0','diabetes_classifier':diabetes,'housing':housing,
         'cnn':json.loads((art/'models/mnist_cnn.json').read_text()),'sequences':seq}
@@ -83,6 +90,7 @@ class handler(BaseHTTPRequestHandler):
     meta={'cnn':json.loads((art/'data/cnn_results.json').read_text()),'tabular':result,
         'housing_categories':dict(zip(categorical,housing['categories'])),
         'housing_defaults':dict(zip(numeric,housing['medians'])),
+        'housing_category_defaults':category_defaults,
         'diabetes_defaults':dict(zip(features,diabetes['medians'])),
         'sequences':{k:{x:v[x] for x in ['kind','neural_validation_winner','last_close','last_returns','as_of','unit','baseline_test_metrics','test_metrics']} for k,v in seq.items()},
         'samples':json.loads((art/'data/cnn_demo_samples.json').read_text())}

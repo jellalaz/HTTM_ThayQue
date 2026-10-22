@@ -29,6 +29,9 @@ for p in list(doc.paragraphs):
         t=OxmlElement('w:t');t.set(qn('xml:space'),'preserve');t.text=' Notebook và web dùng chung artifact để đối chiếu kết quả.';r.append(t);previous.append(r)
         p._p.getparent().remove(p._p)
 mathns='{http://schemas.openxmlformats.org/officeDocument/2006/math}'
+# Pandoc có thể giữ ký tự căn cột LaTeX như chữ trong equation array.
+for t in doc.element.iter(mathns+'t'):
+    if t.text:t.text=t.text.replace('&','')
 if 'Red Equation' not in doc.styles:
     style=doc.styles.add_style('Red Equation',1);style.base_style=doc.styles['Normal']
 doc.styles['Red Equation'].font.color.rgb=RGBColor.from_string('FF0000')

@@ -23,6 +23,7 @@ from docx.oxml.ns import qn
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
 from lxml import etree
 from PIL import Image, ImageDraw, ImageFont
+from report_details03 import add_intro,add_details
 
 ROOT=Path(__file__).resolve().parents[1]
 ART=ROOT/'artifacts_tl03';DATA=ART/'data';FIG=ART/'figures'
@@ -54,6 +55,7 @@ for level,size in [(1,16),(2,14),(3,13)]:
     s=doc.styles[f'Heading {level}'];s.font.size=Pt(size);s.font.bold=True
     s.paragraph_format.space_before=Pt(12 if level>1 else 0)
     s.paragraph_format.space_after=Pt(7);s.paragraph_format.keep_with_next=True
+    s.paragraph_format.alignment=WD_ALIGN_PARAGRAPH.LEFT
     if level==1:s.paragraph_format.page_break_before=True
 doc.styles['Caption'].font.size=Pt(12)
 doc.styles['Caption'].paragraph_format.alignment=WD_ALIGN_PARAGRAPH.CENTER
@@ -69,7 +71,7 @@ def clean(t):
     t=re.sub(r'\[\d+(?:\s*,\s*\d+)*\]','',t)
     t=re.sub(r'\s+([,.;:])',r'\1',t)
     t=re.sub(r'\s+',' ',t).strip()
-    t=unicodedata.normalize('NFKC',t).replace('\u00ad','')
+    t=unicodedata.normalize('NFKC',t.replace('10⁻⁵','0,00001')).replace('\u00ad','')
     if '•' in t and not t.startswith('•'):
         t='• '+re.sub(r'\s*•\s*',' ',t).strip()
     t=re.sub(r'(?<=[A-Za-z])-\s+(?=[a-z])','-',t)
@@ -113,6 +115,19 @@ def start_chapter(n,title):
     chapter=n;heading(f'CHƯƠNG {n}. {title}',1)
 
 
+def link_line(label,url,color=RED):
+    p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.LEFT
+    p.paragraph_format.space_after=Pt(6);run(p,label+': ',color)
+    relation=doc.part.relate_to(url,'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',is_external=True)
+    link=OxmlElement('w:hyperlink');link.set(qn('r:id'),relation)
+    rr=OxmlElement('w:r');pr=OxmlElement('w:rPr')
+    for tag,value in [('color',color),('sz','24')]:
+        el=OxmlElement('w:'+tag);el.set(qn('w:val'),value);pr.append(el)
+    rr.append(pr);text=OxmlElement('w:t');text.text=url;rr.append(text);link.append(rr);p._p.append(link)
+    provenance.append({'kind':'link','chapter':chapter,'color':color,'label':label,'url':url})
+    return p
+
+
 def table(headers,rows,caption,color=BLACK,widths=None):
     table_count[chapter]+=1
     para(f'Bảng {chapter}.{table_count[chapter]}. {caption}',color).paragraph_format.keep_with_next=True
@@ -138,6 +153,10 @@ def table(headers,rows,caption,color=BLACK,widths=None):
             if rowvals is headers:
                 sh=OxmlElement('w:shd');sh.set(qn('w:fill'),'F0F0F0');tcpr.append(sh)
     repeat=OxmlElement('w:tblHeader');t.rows[0]._tr.get_or_add_trPr().append(repeat)
+    for row in t.rows:
+        no_split=OxmlElement('w:cantSplit');row._tr.get_or_add_trPr().append(no_split)
+    for cell in t.rows[0].cells:
+        for p in cell.paragraphs:p.paragraph_format.keep_with_next=True
     provenance.append({'kind':'table','chapter':chapter,'color':color,'caption':caption,'rows':len(rows)})
     doc.add_paragraph().paragraph_format.space_after=Pt(0)
     return t
@@ -165,7 +184,7 @@ def equation(latex,color=BLACK):
     for mr in mathnode.findall('.//{http://schemas.openxmlformats.org/officeDocument/2006/math}r'):
         for old in list(mr.findall(qn('w:rPr'))):mr.remove(old)
         rp=OxmlElement('w:rPr');cl=OxmlElement('w:color');cl.set(qn('w:val'),color);rp.append(cl);mr.insert(0,rp)
-    p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.paragraph_format.keep_with_next=True
+    p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.paragraph_format.keep_with_next=False
     p._p.append(mathnode);run(p,f'    ({chapter}.{eq_count[chapter]})',color)
     provenance.append({'kind':'equation','chapter':chapter,'color':color,'latex':latex})
 
@@ -206,6 +225,16 @@ EQMAP={
  'tl01_p28_img25.png':r'z^{(l)}=W^{(l)}a^{(l-1)}+b^{(l)},\quad a^{(l)}=\operatorname{ReLU}(z^{(l)})',
  'tl01_p28_img26.png':r'\frac{\partial\mathcal{L}}{\partial W^{(l)}}=\delta^{(l)}(a^{(l-1)})^T',
  'tl01_p28_img27.png':r'\delta^{(l)}=((W^{(l+1)})^T\delta^{(l+1)})\odot\operatorname{ReLU}^{\prime}(z^{(l)})',
+ 'tl01_p37_img24.png':r'Z(i,j)=\sum_{u=0}^{k_H-1}\sum_{v=0}^{k_W-1}X(i+u,j+v)K(u,v)+b',
+ 'tl01_p37_img25.png':r'H_{\mathrm{out}}=\left\lfloor\frac{H-k_H+2P}{S}\right\rfloor+1',
+ 'tl01_p37_img26.png':r'P_{\max}(i,j)=\max_{(u,v)\in R_{ij}}Z(u,v)',
+ 'tl01_p45_img24.png':r'\begin{gathered}h_t=\tanh(W_xx_t+W_hh_{t-1}+b)\\\hat y_t=W_yh_t+b_y\end{gathered}',
+ 'tl01_p45_img25.png':r'\frac{\partial\mathcal L}{\partial\theta}=\sum_{t=1}^{T}\sum_{k=1}^{t}\frac{\partial\mathcal L_t}{\partial h_t}\frac{\partial h_t}{\partial h_k}\left(\frac{\partial h_k}{\partial\theta}\right)_{\mathrm{direct}}',
+ 'tl01_p46_img20.png':r'f_t=\sigma(W_f[h_{t-1},x_t]+b_f)',
+ 'tl01_p46_img21.png':r'i_t=\sigma(W_i[h_{t-1},x_t]+b_i),\quad\tilde c_t=\tanh(W_c[h_{t-1},x_t]+b_c)',
+ 'tl01_p46_img22.png':r'c_t=f_t\odot c_{t-1}+i_t\odot\tilde c_t',
+ 'tl01_p46_img23.png':r'o_t=\sigma(W_o[h_{t-1},x_t]+b_o),\quad h_t=o_t\odot\tanh(c_t)',
+ 'tl01_p46_img24.png':r'\begin{gathered}z_t=\sigma(W_z[h_{t-1},x_t]+b_z)\\r_t=\sigma(W_r[h_{t-1},x_t]+b_r)\\\tilde h_t=\tanh(W[r_t\odot h_{t-1},x_t]+b)\\h_t=(1-z_t)\odot h_{t-1}+z_t\odot\tilde h_t\end{gathered}',
 }
 
 
@@ -230,10 +259,32 @@ def theory_page(pg,lower=0,upper=1000):
         if text.startswith('2. Thu nhỏ trọng số về gần 0'):return
         # Chuẩn hóa số mục, không phải cải tiến kiến thức.
         if re.match(r'^\d+\.\d+(?:\.\d+)?\.\s',text):
+            if text=='1.7. Tiểu kết chương 1':text='1.8. Tiểu kết chương 1'
             level=3 if re.match(r'^\d+\.\d+\.\d+\.',text) else 2
             heading(text,level);return
         color=BLACK;original=text
+        neutral={
+          'Lịch sử phát triển gần 8 thập kỷ':'Lịch sử phát triển AI bao gồm các giai đoạn kỳ vọng cao và những đợt suy giảm đầu tư. Nhiều thay đổi về phương pháp xuất phát từ giới hạn kỹ thuật của giai đoạn trước, cùng sự xuất hiện của dữ liệu và phần cứng mới.',
+          'Lịch sử phát triển của Trí tuệ Nhân tạo là một hành trình':'Lịch sử AI thể hiện sự chuyển đổi giữa nhiều hướng tiếp cận: từ các nền tảng lý thuyết của Alan Turing và Perceptron, qua những giai đoạn suy giảm đầu tư, đến học máy thống kê và học sâu. Các bước tiến gắn với thay đổi về dữ liệu, năng lực tính toán và phương pháp học.',
+          'Những chu kỳ thăng trầm lịch sử đã để lại':'Không có một mô hình đơn lẻ phù hợp với mọi bài toán. Việc lựa chọn cần dựa trên cấu trúc dữ liệu, mục tiêu đánh giá và khả năng kiểm tra kết quả, từ các kỹ thuật học máy cho bảng thuộc tính đến kiến trúc chuyên biệt cho ảnh và chuỗi.',
+          'Đó chính là tiền đề dẫn dắt chúng ta':'Chương tiếp theo cụ thể hóa các nguyên tắc trên bằng hai bài toán dữ liệu bảng, trong đó phép chia dữ liệu và lựa chọn thước đo được xác định trước khi so sánh mô hình.'}
+        for prefix,replacement in neutral.items():
+            if text.startswith(prefix):text=replacement;color=RED
         replacements={
+          'cực kỳ':'rất',
+          'Cực kỳ':'Rất',
+          'Cân bằng hoàn hảo':'Cân bằng',
+          'tiêu chuẩn vàng':'cách làm phổ biến',
+          'Triệt tiêu phương sai':'Giảm phương sai',
+          'triệt tiêu phương sai':'giảm phương sai',
+          'giảm sốc':'giảm',
+          'tạo cơn địa chấn toàn cầu':'thu hút sự chú ý',
+          'ngọn lửa cách mạng học sâu':'sự phát triển của học sâu',
+          'hạ gục kỳ thủ':'thắng kỳ thủ',
+          'thống trị tuyệt đối của Deep Learning trước các phương pháp kỹ nghệ đặc trưng thủ công':'ưu thế của mạng sâu trên benchmark này so với các phương pháp thiết kế đặc trưng thủ công',
+          'bước tiến vượt bậc':'bước phát triển',
+          'khả năng thích ứng phi thường':'khả năng thích ứng',
+          'π(a\\s)':'π(a|s)',
           'LSTM), giải quyết triệt để vấn đề biến mất gradient':'LSTM), giảm khó khăn học phụ thuộc dài hạn do biến mất gradient',
           'chính thức đặt tên cho thuật ngữ "Deep Learning"':'góp phần khôi phục quan tâm đến huấn luyện mạng sâu',
           'Mỗi bước tiến công nghệ đều bắt nguồn':'Nhiều bước tiến công nghệ bắt nguồn',
@@ -290,7 +341,7 @@ def theory_page(pg,lower=0,upper=1000):
         if 'Tiêu chuẩn phân chia tối ưu' in text:
             para('• Tiêu chuẩn phân chia tối ưu: sử dụng độ lợi thông tin (Information Gain) dựa trên Entropy hoặc chỉ số Gini Impurity.',RED,source,original=original)
             equation(r'H(S)=-\sum_{k=1}^{K}p_k\log_2p_k,\qquad G(S)=1-\sum_{k=1}^{K}p_k^2',RED)
-            para('pₖ là tỷ lệ mẫu thuộc lớp k ở nút đang xét. Độ lợi thông tin là độ giảm entropy có trọng số sau khi chia; ký hiệu p₁ trong tổng của bản nguồn đã được sửa thành pₖ.',RED)
+            para('pₖ là tỷ lệ mẫu thuộc lớp k ở nút đang xét. Độ lợi thông tin là độ giảm entropy có trọng số sau khi chia. Một phép chia có độ lợi cao tạo các nút con đồng nhất hơn về nhãn.',RED)
             return
         if text.startswith('Bảng so sánh tổng hợp các thuật toán'):
             t=table(['Thuật toán','Bản chất','Độ phức tạp','Giải thích','Ưu điểm','Hạn chế'],[
@@ -307,7 +358,9 @@ def theory_page(pg,lower=0,upper=1000):
     for y,typ,b in events:
         if typ=='image':
             flush();filename=Path(b['path']).name
-            if filename in EQMAP:equation(EQMAP[filename])
+            if filename in EQMAP:
+                equation(EQMAP[filename],RED if filename=='tl01_p45_img25.png' else BLACK)
+                if filename=='tl01_p45_img25.png':para('θ là một tham số dùng chung của mạng; đạo hàm cuối chỉ lấy tác động trực tiếp tại bước k. Tổng theo k cộng các đường mà tham số ảnh hưởng tới loss ở bước t. Đạo hàm giữa hai trạng thái bao gồm toàn bộ các bước trung gian, với đạo hàm đồng nhất khi k=t.',RED)
             elif pg in [12,17]:picture(b['path'],'Các giai đoạn và quan hệ giữa các kỹ thuật AI',source=f'TL01 trang {pg}')
             else:
                 # Các phương trình CNN/RNN gốc giữ nguyên hình nếu chưa ánh xạ OMML.
@@ -327,6 +380,7 @@ def theory_page(pg,lower=0,upper=1000):
 
 
 start_chapter(1,'LỊCH SỬ VÀ PHÁT TRIỂN AI')
+add_intro(1,globals())
 theory_page(11,100,405)
 table(['Chiều kích','Tiếp cận dựa trên con người','Tiếp cận dựa trên tính hợp lý'],[
  ['Tư duy','Tư duy như con người (Thinking Humanly). Khoa học nhận thức; mô phỏng quá trình nơ-ron não bộ xử lý thông tin.','Tư duy duy lý (Thinking Rationally). Dựa trên các quy luật logic hình thức (Boole, Frege); rút ra kết luận đúng đắn từ các tiền đề.'],
@@ -338,13 +392,15 @@ table(['Trụ cột','Bản chất kỹ thuật','Cột mốc minh họa'],[
  ['Tính toán GPU','Mạng nơ-ron là chuỗi phép nhân ma trận song song; kiến trúc nhiều nhân của GPU phù hợp hơn CPU truyền thống.','CUDA xuất hiện năm 2007; AlexNet năm 2012 huấn luyện trên hai GPU GTX 580.'],
  ['Thuật toán và kiến trúc','ReLU, Dropout, BatchNorm, Adam và kết nối tắt hỗ trợ tối ưu mạng sâu và hạn chế quá khớp.','Dropout (2012), BatchNorm (2015), Adam (2014), ResNet (2015).']], 'Ba trụ cột phát triển của học sâu',widths=[3,6.5,6.5])
 theory_page(18,lower=330)
-theory_page(19);theory_page(20)
-heading('1.8. Mối liên hệ giữa các giai đoạn phát triển',2,RED)
+theory_page(19);theory_page(20,upper=200)
+heading('1.7. Mối liên hệ giữa các giai đoạn phát triển',2,RED)
 para('AI biểu tượng cung cấp cách biểu diễn tri thức và suy luận có thể kiểm tra. Học máy thống kê chuyển trọng tâm sang việc học quy luật từ dữ liệu; học sâu tiếp tục học biểu diễn thay cho nhiều bước thiết kế đặc trưng thủ công. Transformer cho phép mô hình hóa quan hệ giữa các vị trí qua attention và huấn luyện song song hơn RNN. KG và RAG kết nối mô hình dữ liệu với tri thức tường minh; chúng kế thừa các ý tưởng cũ thay vì thay thế toàn bộ AI biểu tượng.',RED)
 para('Trong báo cáo này, mối liên hệ đó được thể hiện bằng ba loại đầu vào: bảng thuộc tính, ảnh và chuỗi thời gian. Các mô hình tạo ra dự đoán định lượng; Chương 5 bổ sung bằng chứng và ngữ cảnh để người dùng hiểu phạm vi của các kết quả.',RED)
+add_details('ai_bridge',globals())
+theory_page(20,lower=200)
 
 start_chapter(2,'CÁC KỸ THUẬT MACHINE LEARNING CƠ BẢN')
-para('Chương này giữ nền tảng học máy của Tiểu luận 01 và triển khai lại độc lập hai bài toán: phân loại nhãn nguy cơ trên Diabetes Risk Prediction 50k và hồi quy giá nhà Việt Nam. Các mô hình, phép chia dữ liệu, checkpoint và kết quả dưới đây được tạo trong main.ipynb.',RED)
+add_intro(2,globals())
 for pg in range(21,29):theory_page(pg,lower=610 if pg==21 else 0,upper=609 if pg==28 else 1000)
 heading('2.1.9. Kiểm định chéo và lựa chọn siêu tham số',3,RED)
 para('Train dùng để ước lượng tham số; validation dùng để kiểm tra các lựa chọn phát triển và checkpoint; test chỉ dùng cho đánh giá cuối. Trong phân loại, StratifiedKFold giữ tỷ lệ lớp trong từng fold. Với giá nhà, GroupKFold giữ các bản ghi cùng địa chỉ trong một fold. Toàn bộ imputation, scaling và one-hot encoding được fit bên trong từng fold, không fit trên toàn bộ dữ liệu trước khi chia.',RED)
@@ -362,9 +418,10 @@ heading('2.2. Phân tích và chuẩn bị dữ liệu thực nghiệm',2,RED)
 table(['Dataset','Quy mô','Mục tiêu','Train / Val / Test'],[
  ['Diabetes Risk Prediction','50.000 dòng; 41 cột gồm cả nhãn','Ba nhãn High, Low, Moderate',f"{d['split']['train']} / {d['split']['validation']} / {d['split']['test']}"],
  ['Vietnam Housing 2024','30.229 dòng; 12 cột gốc','Giá nhà theo tỷ VND',f"{h['split']['train']} / {h['split']['validation']} / {h['split']['test']}"]], 'Dữ liệu của các thực nghiệm tự xây dựng lại',RED,[4.5,3.6,4.1,3.8])
-para('Diabetes Risk Prediction là dữ liệu tổng hợp phục vụ học máy, không được coi là 50.000 hồ sơ bệnh nhân đã xác minh lâm sàng. Phân phối thực tế gồm High 36.593 mẫu (73,2%), Moderate 12.937 mẫu (25,9%) và Low 470 mẫu (0,9%). Vì vậy nhận định cân bằng của bản nguồn được thay bằng phân tích mất cân bằng. Tám đầu vào gồm Age, BMI, HbA1c, Fasting_Blood_Sugar, Blood_Glucose, Blood_Pressure_Systolic, HDL và LDL. Patient_ID, Diabetes_Risk_Score, AI_Health_Recommendation và Doctor_Consultation_Needed không được sử dụng vì là định danh hoặc có thể tiết lộ nhãn.',RED)
+para('Diabetes Risk Prediction là dữ liệu tổng hợp phục vụ học máy, không được coi là 50.000 hồ sơ bệnh nhân đã xác minh lâm sàng. Phân phối thực tế gồm High 36.593 mẫu (73,2%), Moderate 12.937 mẫu (25,9%) và Low 470 mẫu (0,9%). Mất cân bằng giữa ba lớp cần được tính đến khi chọn mô hình và đọc chỉ số. Tám đầu vào gồm Age, BMI, HbA1c, Fasting_Blood_Sugar, Blood_Glucose, Blood_Pressure_Systolic, HDL và LDL. Patient_ID, Diabetes_Risk_Score, AI_Health_Recommendation và Doctor_Consultation_Needed không được sử dụng vì là định danh hoặc có thể tiết lộ nhãn.',RED)
 para('Dữ liệu giá nhà có các trường Area, Frontage, Access Road, Floors, Bedrooms, Bathrooms cùng hướng nhà, hướng ban công, pháp lý và nội thất. Province được trích từ phần cuối địa chỉ. Pipeline điền thiếu số bằng trung vị train, mã hóa one-hot với nhóm chưa gặp được bỏ qua, và học log(1 + Price) rồi biến đổi ngược trước khi tính sai số. Các bản ghi cùng địa chỉ được giữ trong cùng một tập. Đây là kiểm tra tổng quát hóa sang địa chỉ khác, chưa phải backtest giá nhà theo thời gian.',RED)
 picture(FIG/'housing_eda.png','Phân phối giá nhà trước và sau biến đổi logarit',RED)
+add_details('ml_data',globals())
 heading('2.3. So sánh và lựa chọn mô hình',2,RED)
 rows=list(csv.DictReader((DATA/'diabetes_cv.csv').open()))
 table(['Mô hình','CV macro-F1'],[[r['model'],f"{float(r['CV_F1_macro']):.4f}"] for r in rows], 'So sánh phân loại với StratifiedKFold 3 phần',RED,[10,6])
@@ -382,17 +439,19 @@ picture(FIG/'diabetes_confusion.png','Ma trận nhầm lẫn của phân loại 
 para('Ma trận nhầm lẫn cho thấy Accuracy chịu ảnh hưởng lớn của lớp High. Macro-precision thấp hơn macro-recall phản ánh chi phí dự đoán nhầm khi dùng class_weight=balanced. Nhãn dự đoán chỉ mô tả quy tắc của dataset, không phải chẩn đoán hoặc nguy cơ bệnh ngoài đời.',RED)
 picture(FIG/'housing_predictions.png','Giá nhà dự đoán và thực tế tại các địa chỉ giữ riêng',RED)
 para(f"MAE train của giá nhà là {h['train_metrics']['MAE']:.4f} tỷ VND, validation {h['validation_metrics']['MAE']:.4f}, test {h['metrics']['MAE']:.4f}; R² test {h['metrics']['R2']:.4f}. Sai số tuyệt đối còn lớn đối với định giá cá nhân. Các thông tin vị trí trong địa chỉ, chất lượng tin đăng và thời điểm giao dịch chưa được mô hình hóa đầy đủ. Mức lệch giữa train và test cần được theo dõi trước khi tăng độ phức tạp.",RED)
+add_details('ml_errors',globals())
 heading('2.5. Kết luận chương',2)
 para('Với dữ liệu dạng bảng, Random Forest và Gradient Boosting thường cạnh tranh tốt với Deep Learning. Không có một mô hình đơn lẻ phù hợp với mọi tập dữ liệu.',BLACK,'TL01 trang 36; diễn giải kết luận được giữ')
-para('Hai thực nghiệm mới thay cho các kết quả Scratch/Keras/PyTorch của tác giả nguồn. Lý thuyết DNN được giữ để giải thích nền tảng, nhưng không trình bày checkpoint hoặc độ chính xác DNN cũ như sản phẩm thực nghiệm của sinh viên. Các tệp joblib, CSV dự đoán và bảng CV là bằng chứng của kết quả ở chương này.',RED)
+para('Hai bài toán cho thấy điểm số phụ thuộc cách xác định nhãn, phép chia dữ liệu và thước đo. Macro-F1 giúp nhận rõ hạn chế ở lớp hiếm; chia theo địa chỉ giúp đánh giá giá nhà ngoài các nhóm đã gặp. Dù Random Forest được chọn trong cả hai bài toán, chất lượng đầu vào và miền sử dụng vẫn là giới hạn chính. Các tệp checkpoint, dự đoán và bảng CV được giữ để có thể kiểm tra lại từng kết luận.',RED)
 
 start_chapter(3,'MẠNG NƠ-RON TÍCH CHẬP CNN')
+add_intro(3,globals())
 theory_page(37,lower=220)
 theory_page(38,upper=110)
 table(['Tầng','Vai trò'],[['Conv2D','Trích xuất đặc trưng cục bộ: cạnh, góc, texture'],['BatchNorm','Chuẩn hóa giúp huấn luyện ổn định hơn'],['ReLU','Tạo tính phi tuyến'],['MaxPool','Giảm kích thước, tăng receptive field'],['Dropout','Điều chuẩn, hạn chế quá khớp'],['Dense và Softmax','Phân loại đa lớp']], 'Vai trò của các tầng CNN',widths=[4,12])
 heading('3.1.5. Các kiến trúc CNN tiêu biểu',3)
 table(['Kiến trúc','Năm','Đặc điểm'],[['LeNet-5','1998','Nhận dạng chữ số, convolution và subsampling'],['AlexNet','2012','ReLU, Dropout và huấn luyện GPU'],['VGG','2014','Các kernel 3 × 3 xếp chồng'],['GoogLeNet','2014','Các nhánh Inception'],['ResNet','2015','Kết nối residual'],['EfficientNet','2019','Compound scaling độ sâu, độ rộng và độ phân giải']], 'Các kiến trúc CNN và đặc trưng thiết kế đã hiệu chỉnh',RED,[3.5,2,10.5])
-para('LeNet-5 không phải mô hình ImageNet năm 1989. Các con số Top-5 của nhiều biến thể kiến trúc, tập dữ liệu hoặc chế độ ensemble không được đặt cạnh nhau như một phép so sánh thống nhất. Bảng 3.2 chỉ so sánh đặc điểm kiến trúc; các chỉ số định lượng trong chương được tính riêng trên MNIST.',RED)
+para('LeNet-5 (1998) hướng tới nhận dạng ký tự và chữ số; các kiến trúc về sau mở rộng khả năng học biểu diễn trên ảnh phức tạp hơn. Chỉ số Top-5 của các biến thể, dataset hoặc chế độ ensemble khác nhau không tạo thành một phép so sánh thống nhất. Bảng 3.2 đối chiếu đặc điểm kiến trúc; các kết quả định lượng của chương được tính riêng trên MNIST.',RED)
 heading('3.1.6. Backpropagation, loss và optimizer',3,RED)
 para('Lan truyền xuôi tạo logits của từng lớp; CrossEntropyLoss kết hợp log-softmax và negative log likelihood, vì vậy không áp softmax trước loss trong PyTorch. Backpropagation dùng quy tắc chuỗi để tính gradient của kernel và dense layer. Adam cập nhật trọng số dựa trên các ước lượng moment của gradient; learning rate, weight decay và checkpoint được lựa chọn mà không nhìn test.',RED)
 equation(r'\frac{\partial\mathcal{L}}{\partial K_{uv}}=\sum_{i,j}\frac{\partial\mathcal{L}}{\partial Y_{ij}}X_{i+u,j+v}',RED)
@@ -403,17 +462,20 @@ heading('3.2. Dữ liệu ảnh và kiến trúc thực nghiệm',2,RED)
 para('MNIST có 60.000 ảnh train gốc và 10.000 ảnh test độc lập, ảnh xám 28 × 28, nhãn 0–9. Tách 12.000 ảnh từ train làm validation theo stratification, còn 48.000 ảnh huấn luyện. Mỗi pixel được chia 255; không học thống kê từ test. Bộ tải đọc trực tiếp các tệp IDX nén gzip, kiểm tra magic number, số lượng ảnh và kích thước.',RED)
 table(['Tầng','Kích thước đầu ra','Tham số'],[['Ảnh vào','1 × 28 × 28','Pixel / 255'],['Conv1 + ReLU + MaxPool','8 × 14 × 14','Kernel 3; padding 1; pool 2'],['Conv2 + ReLU + MaxPool','16 × 7 × 7','Kernel 3; padding 1; pool 2'],['Flatten + Dense + ReLU','64','784 → 64'],['Dense logits','10','64 → 10']], 'Kiến trúc CNN tự huấn luyện',RED,[5.5,4,6.5])
 para(f"Mạng có {CNN['parameters']:,} tham số, train từ đầu {CNN['epochs']} epoch trên CPU, Adam learning_rate=0,001, batch_size=128, weight_decay=10⁻⁴ và gradient clipping norm=1. Checkpoint có validation loss nhỏ nhất nằm ở epoch {CNN['best_epoch']}. Thời gian thực nghiệm ghi trong metadata là {CNN['seconds']:.1f} giây trên môi trường hiện tại.",RED)
+add_details('cnn_mechanism',globals())
 heading('3.3. Kết quả và phân tích dự đoán',2,RED)
 table(['Tập','Accuracy','Macro-F1'],[['Validation',f"{CNN['validation_metrics']['Accuracy']:.4f}",f"{CNN['validation_metrics']['F1_macro']:.4f}"],['Test 10.000 ảnh',f"{CNN['metrics']['Accuracy']:.4f}",f"{CNN['metrics']['F1_macro']:.4f}"]], 'Đánh giá CNN trên các tập độc lập',RED,[6,5,5])
 picture(FIG/'cnn_learning.png','Learning curve của CNN qua 8 epoch',RED,max_height=7)
 picture(FIG/'cnn_confusion.png','Ma trận nhầm lẫn CNN trên tập test MNIST',RED,max_height=10)
 picture(FIG/'cnn_examples.png','Sáu dự đoán đầu và sáu lỗi đầu tiên theo thứ tự test',RED,max_height=7)
 para(f"Accuracy test là {100*CNN['metrics']['Accuracy']:.2f}%, tương đương {int(round((1-CNN['metrics']['Accuracy'])*10000))} lỗi trên 10.000 ảnh. Các ảnh sai trong Hình 3.{fig_count[3]} được chọn bằng quy tắc cố định, không chọn riêng ví dụ đẹp. Learning curve cho thấy validation loss giảm trong cấu hình đã chạy; không kết luận mọi CNN hoặc mọi dữ liệu ảnh đều đạt mức này. Ảnh vẽ tay trên web có thể khác phân phối MNIST nên hiển thị confidence của mô hình thay cho cam kết đúng.",RED)
+add_details('cnn_errors',globals())
 heading('3.4. Suy luận, triển khai và phạm vi mở rộng',2,RED)
 para('Checkpoint PyTorch được xuất thành trọng số JSON. API thực hiện convolution, ReLU, max-pooling, flatten và dense bằng đúng trọng số đã huấn luyện, dùng Python standard library để tránh đóng gói PyTorch nặng vào serverless. Bộ vector đối chiếu kiểm tra logits của API với PyTorch. Giao diện hỗ trợ ảnh test thật, canvas vẽ số, kiểm tra ảnh trống, trạng thái đang xử lý và thông báo lỗi.',RED)
 para('ASL được giữ như ví dụ mở rộng của bài toán thị giác: các cử chỉ M/N hoặc U/V gần nhau, nền ảnh và góc chụp có thể làm giảm khả năng tổng quát hóa. Trong lần thực hiện này chưa huấn luyện lại ASL, vì vậy các accuracy và biểu đồ ASL cũ không được dùng như kết quả mới. Tương tự, không khẳng định Keras và PyTorch tương đương từ một phép thử chỉ chạy PyTorch.',RED)
 
-start_chapter(4,'MẠNG NƠ-RON HỒI QUY RNN')
+start_chapter(4,'MẠNG NƠ-RON HỒI TIẾP RNN')
+add_intro(4,globals())
 theory_page(45,lower=297)
 theory_page(46,upper=478)
 table(['Mạng','Trạng thái','Số cổng','Đặc điểm'],[['RNN','Hidden state hₜ','Không có cổng','Ít tham số, khó học phụ thuộc xa'],['LSTM','hₜ và cell state cₜ','Input, forget, output','Luồng cộng qua cell state hỗ trợ truyền gradient'],['GRU','Hidden state hₜ','Reset và update','Ít tham số hơn LSTM cùng kích thước ẩn']], 'So sánh cấu trúc recurrent network',RED,[2,4,4,6])
@@ -429,7 +491,8 @@ para('Dùng snapshot Yahoo Finance của Tiểu luận 02: FPT.VN có 1.304 phi�
 para('Ngày của nhãn quyết định tập dữ liệu: FPT train trước 13/02/2026, validation từ 13/02 đến trước 04/06/2026; vàng train trước 26/02/2026, validation đến trước 09/06/2026. Test kéo dài đến nhãn 14/10/2026. Cách định nghĩa này khác chỉ số ngày đặc trưng của bảng thị trường ở Chương 5; không so sánh trực tiếp hai bảng như cùng tập test. Validation/test được phép dùng lịch sử đã biết trước ngày nhãn, phù hợp dự báo cuốn chiếu một bước.',RED)
 table(['Miền','Train / Val / Test','Khoảng ngày nhãn test'],[[r['domain'],f"{r['train_size']} / {r['validation_size']} / {r['test_size']}",f"{r['test_start']} — {r['test_end']}"] for r in SEQ['rows'] if r['model']=='RNN'], 'Phân chia chuỗi theo ngày nhãn',RED,[3,5,8])
 para('Ba mạng dùng 16 hidden units, một recurrent layer và một linear head, Adam learning_rate=0,001, 35 epoch, batch_size=128 và seed=42. Trung bình và độ lệch chuẩn của đầu vào/nhãn chỉ tính trên train. Checkpoint tối thiểu validation MSE được lưu; mạng triển khai được chọn bằng validation MAE theo đơn vị giá, có Persistence cùng tham gia. Test được giữ cho báo cáo cuối.',RED)
-para('Ở phần cài đặt, GRU dùng quy ước PyTorch: reset gate nhân sau phép biến đổi tuyến tính của hidden state trong nhánh tạo trạng thái ứng viên. Đây là một biến thể so với cách đặt reset gate trước ma trận trong một số trình bày lý thuyết. API tuân theo đúng quy ước của checkpoint; kiểm thử đối chiếu cả sáu mạng giúp phát hiện sai khác thứ tự cổng hoặc cách áp dụng reset gate.',RED)
+para('GRU trong PyTorch có hai khác biệt quy ước so với công thức lý thuyết ở trên: reset gate nhân sau phép biến đổi tuyến tính của hidden state trong nhánh ứng viên; update gate z đặt trọng số lên trạng thái cũ thay vì ứng viên. Cụ thể, hₜ=(1−zₜ)⊙nₜ+zₜ⊙hₜ₋₁, với nₜ là ứng viên. API dùng đúng hai quy ước của checkpoint; kiểm thử cả sáu mạng phát hiện sai khác thứ tự cổng, vị trí reset và cách phối hợp trạng thái.',RED)
+add_details('sequence_mechanism',globals())
 heading('4.3. So sánh RNN, LSTM, GRU và Persistence',2,RED)
 table(['Miền / Mạng','Tham số','Val MAE','Test MAE','Test RMSE'],[[r['domain']+' / '+r['model'],str(r['parameters']),f"{r['validation_MAE']:.3f}",f"{r['MAE']:.3f}",f"{r['RMSE']:.3f}"] for r in SEQ['rows']], 'Kết quả mạng chuỗi trong đơn vị gốc VND hoặc USD/oz',RED,[4,2,3.3,3.3,3.4])
 for domain,v in SEQ['deployment'].items():
@@ -437,11 +500,13 @@ for domain,v in SEQ['deployment'].items():
 picture(FIG/'fpt_sequences.png','Dự báo một bước FPT bằng ba mạng và baseline',RED,max_height=7.5)
 picture(FIG/'gold_sequences.png','Dự báo một bước vàng futures GC=F',RED,max_height=7.5)
 para('Vanilla RNN có MAE test thấp nhất trong ba mạng ở cả hai miền trong lần chạy này, nhưng không được đổi lựa chọn triển khai sau khi nhìn test. Kết quả bác bỏ việc mặc định LSTM luôn tốt hơn. Chuỗi ngắn, ít dữ liệu, nhiễu thị trường và một random seed hạn chế khả năng khái quát hóa. Mức chênh MAE nhỏ chưa chứng minh lợi ích giao dịch; báo cáo không suy ra lợi nhuận.',RED)
+add_details('sequence_errors',globals())
 heading('4.4. Hạn chế và khả năng mở rộng',2,RED)
-para('Thực nghiệm là dự báo một bước trên snapshot cố định, không phải dự báo nhiều bước tương lai hoặc dữ liệu trực tiếp. Hướng mở rộng gồm nhiều seed, walk-forward backtest, khoảng tin cậy theo khối, nhiều chiều dài cửa sổ và covariate có timestamp. Cần khóa ngân sách tuning trước khi thử, tránh biến test thành validation qua nhiều lần sửa mô hình.',RED)
+para('Thực nghiệm là dự báo một bước trên snapshot cố định, không phải dự báo nhiều bước tương lai hoặc dữ liệu trực tiếp. Phân tích bootstrap theo khối ở trên chưa thay thế kiểm tra nhiều seed và walk-forward backtest. Hướng mở rộng gồm nghiên cứu độ nhạy với chiều dài cửa sổ, các biến đầu vào có timestamp và ngân sách tuning khóa trước. Không dùng test lặp lại để điều chỉnh cấu hình.',RED)
 para('Mô hình triển khai giữ checkpoint train lịch sử, không refit bằng test để giữ được dấu vết đánh giá. Người dùng có thể sửa giá gần nhất và 30 log-return để thử kịch bản; kết quả không có khoảng tin cậy đã hiệu chỉnh cho kịch bản ngoài miền. Checkpoint của mọi RNN/LSTM/GRU và training history được lưu riêng để kiểm tra.',RED)
 
 start_chapter(5,'KNOWLEDGE GRAPH VÀ RAG')
+add_intro(5,globals())
 # Lấy nguyên các đoạn văn của TL02, loại header/footer, citation và tham chiếu cũ.
 ch5_figs={4:('architecture.png','Kiến trúc KG và RAG'),8:('data_profile.png','Thông tin ba miền dữ liệu'),9:('knowledge_graph.png','Đồ thị tri thức đa miền'),11:('code_kg_core.png','Cấu trúc KnowledgeGraphCore'),14:('architecture.png','Các bước truy xuất và tổng hợp bằng chứng'),15:('code_retriever.png','Lập chỉ mục và truy xuất TF-IDF'),16:('code_graphrag.png','Truy xuất bằng chứng đồ thị'),18:('rag_benchmark.png','Đánh giá smoke test RAG và GraphRAG'),19:('diabetes_model.png','Mô hình hồi quy tiến triển tiểu đường'),20:('kg_diabetes.png','Đồ thị tri thức y tế'),21:('code_diabetes_training.png','Huấn luyện và đánh giá mô hình y tế'),23:('fpt_market.png','Chuỗi giá và chỉ báo FPT'),24:('code_market_data.png','Pipeline xử lý dữ liệu thị trường'),25:('stock_model.png','Dự báo FPT so với Persistence'),26:('kg_stock.png','Đồ thị tri thức chứng khoán'),28:('gold_market.png','Chuỗi giá và chỉ báo vàng'),29:('kg_gold.png','Đồ thị tri thức vàng'),30:('gold_model.png','Mô hình vàng và baseline'),31:('code_market_training.png','Quy trình học máy cho thị trường'),33:('web_app_preview.png','Sơ đồ bố cục giao diện gốc'),34:('code_deployment.png','Xuất estimator sang JavaScript')}
 for page in S2[3:37]:
@@ -463,6 +528,11 @@ for page in S2[3:37]:
             heading(num+'. '+title,3 if num.count('.')==2 else 2);continue
         if pg==37:continue  # Kết luận sẽ đặt sau các bảng tổng hợp.
         color=BLACK
+        if text.startswith('Web:'):
+            link_line('Web','https://rag-httm-chatbot.vercel.app/',RED)
+            link_line('GitHub','https://github.com/jellalaz/HTTM_ThayQue',RED)
+            para('Hình bố cục dưới đây là sơ đồ minh họa, không phải ảnh chụp màn hình.',RED)
+            continue
         if 'GitHub: https://github.com/jellalaz/RAG_HTTM' in text:
             text=text.replace('https://github.com/jellalaz/RAG_HTTM','https://github.com/jellalaz/HTTM_ThayQue');color=RED
         # Khẳng định nguồn tải trực tiếp được cập nhật cho lần chạy snapshot hiện tại.
@@ -471,7 +541,8 @@ for page in S2[3:37]:
         para(text,color,f'TL02 trang {pg}')
     if pg in ch5_figs:
         file,cap=ch5_figs[pg]
-        picture(ROOT/'artifacts_giangkt/figures'/file,cap,BLACK,max_height=7.3,source=f'TL02 trang {pg}')
+        if pg==14:picture(FIG/'mechanism_rag.png','Minh họa luồng truy xuất và tổng hợp bằng chứng',RED,max_height=5)
+        else:picture(ROOT/'artifacts_giangkt/figures'/file,cap,BLACK,max_height=7.3,source=f'TL02 trang {pg}')
 
 heading('5.8.1. Kết quả huấn luyện ba miền',3)
 legacy=json.loads((ROOT/'artifacts_giangkt/data/web_model_config.json').read_text())
@@ -489,6 +560,7 @@ para('Điểm hybrid cũ cộng 0,25 khi có bằng chứng đồ thị là đi�
 heading('5.8.4. Đồng bộ notebook và các chức năng web bổ sung',3,RED)
 para('main.ipynb chứa các bước thực nghiệm mới, pipeline KG/RAG từ Tiểu luận 02, xuất mô hình và đóng gói web. Chế độ full là cấu hình của số liệu trong báo cáo; quick dùng ít dữ liệu/epoch hơn để kiểm tra, không thay số liệu full trong báo cáo. Manifest lưu seed, phiên bản thư viện, hash dataset, checkpoint và cấu hình chạy.',RED)
 para('Giao diện Insight Lab giữ khu dự đoán ba miền, trợ lý sức khỏe, màu sắc và bố cục chính. Khu thực nghiệm bổ sung giá nhà, phân loại nhãn nguy cơ tổng hợp, nhận dạng chữ số CNN và dự báo chuỗi. Các mô hình mới sử dụng API /api/predict và trọng số JSON xuất từ notebook. API không gọi dịch vụ LLM, không cần secret và có kiểm tra kích thước cũng như giá trị đầu vào. Chatbot sức khỏe cũ vẫn xử lý trong trình duyệt; dữ liệu nhập vào các demo API được gửi tới máy chủ inference để tính dự đoán.',RED)
+add_details('rag_trace',globals())
 heading('5.9. Kết luận chương',2)
 for b in S2[36]['blocks']:
     if b['type']=='text' and 100<b['bbox'][1]<730 and clean(b['text'])!='KẾT LUẬN' and not re.fullmatch(r'\d+',clean(b['text'])):para(b['text'],BLACK,'TL02 trang 37')

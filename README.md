@@ -8,6 +8,7 @@ Kiều Trường Giang — B23DCCN254. Học phần **Phát triển các hệ th
 - `tieuluan03_06_02_giangkt.254.pdf`: xuất từ chính bản Word, giữ màu đen/đỏ.
 - `main.ipynb`: notebook chính duy nhất, đã chạy **Run All** chế độ full.
 - `CHANGELOG.md`, `EXPERIMENT_RESULTS.md`, `FINAL_VERIFICATION.md`: thay đổi, số liệu và kết quả kiểm tra.
+- [`PROJECT_REPORT.md`](PROJECT_REPORT.md): phân tích chi tiết các bài toán trên web, liên kết demo trực tiếp và hình từ dữ liệu/checkpoint.
 
 ## Chạy thực nghiệm
 
@@ -41,13 +42,15 @@ ASL, e-commerce và ba bản Scratch/Keras/PyTorch của tác giả TL01 không 
 
 Lý thuyết giữ từ hai nguồn mặc định đen; bổ sung/sửa kiến thức, kết quả mới và tính năng mới màu `#FF0000`. Sửa nhỏ được đánh dấu theo từ/cụm khi có thể. Chương 5 giữ phần lớn nội dung gốc màu đen. Báo cáo chỉ có bìa, mục lục và 5 chương, không có tài liệu tham khảo/citation số.
 
-Nguồn chỉ có PDF nên văn bản được trích xuất và ghép lại; công thức phổ biến chuyển sang Word Equation/OMML. Một số công thức CNN/RNN giữ hình gốc nét cao để tránh sai ký hiệu. `scripts/build_report03.py` là builder bảo trì; `scripts/populate_toc03.py` điền cache TOC từ PDF đã render. Word giữ TOC, bookmark và PAGEREF để cập nhật Ctrl+A → F9 sau khi chỉnh sửa, rồi xuất lại PDF.
+Nguồn chỉ có PDF nên văn bản được trích xuất và ghép lại; toàn bộ công thức hiển thị độc lập của ML/CNN/RNN đã được dựng thành Word Equation/OMML để đọc rõ và chỉnh sửa được. BPTT được hiệu chỉnh phép cộng qua các đường thời gian; giải thích riêng hai quy ước GRU của phần lý thuyết và PyTorch. `scripts/build_report03.py` là builder bảo trì; `scripts/populate_toc03.py` điền cache TOC từ PDF đã render. Word giữ TOC, bookmark và PAGEREF để cập nhật Ctrl+A → F9 sau khi chỉnh sửa, rồi xuất lại PDF.
 
-Quy trình bảo trì báo cáo: build Word → `normalize_word03.py` → render Word/PDF → `populate_toc03.py` → render lại đến khi TOC ổn định → `finalize_pdf03.py` → `audit_report03.py`. Bộ xuất LibreOffice bỏ màu của OMML; bước finalize chỉ khôi phục toán tử màu đỏ của tám công thức mới trong PDF vector, không thay văn bản, glyph hoặc tọa độ. Bản Word vẫn giữ công thức OMML chỉnh sửa được và màu đỏ trong XML. PNG render được rà từng trang. Không cần các bước này để chạy thực nghiệm qua notebook.
+Quy trình bảo trì báo cáo: build Word → `normalize_word03.py` → render Word/PDF → `populate_toc03.py` → render lại đến khi TOC ổn định → `finalize_pdf03.py` → `audit_report03.py`. Bộ xuất LibreOffice bỏ màu của OMML; bước finalize khôi phục toán tử màu của các công thức mới trong PDF vector, tự đếm từ bản Word, không thay văn bản, glyph hoặc tọa độ. Bản Word vẫn giữ công thức OMML chỉnh sửa được và màu đỏ trong XML. PNG render được rà từng trang. Không cần các bước này để chạy thực nghiệm qua notebook.
 
 ## Cấu trúc và kiểm thử
 
 - `src/experiments03.py`: thực nghiệm mới, được nhúng trong notebook.
+- `src/analysis03.py`: missingness, sai số phân khúc, feature map/kernel thật, bootstrap theo khối và truy xuất thật; được nhúng trong notebook.
+- `artifacts_tl03/data/figure_lineage.json`: tệp đầu vào và SHA-256 của 12 hình phân tích/sơ đồ mới. Sơ đồ cơ chế được phân biệt với ảnh thực nghiệm.
 - `src/inference03.py`: suy luận từ model export.
 - `src/experiments03.html`, `src/experiments03.js`: phần giao diện bổ sung.
 - `artifacts_tl03/models/`: checkpoint và tham số.

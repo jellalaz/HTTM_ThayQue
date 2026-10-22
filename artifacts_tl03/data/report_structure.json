@@ -46,11 +46,19 @@
     ],
     [
       2,
-      "1.7. Tiểu kết chương 1"
+      "1.7. Mối liên hệ giữa các giai đoạn phát triển"
+    ],
+    [
+      3,
+      "1.7.1. Từ biểu diễn tri thức đến biểu diễn học được"
+    ],
+    [
+      3,
+      "1.7.2. Tiêu chí lựa chọn công nghệ trong hệ thống"
     ],
     [
       2,
-      "1.8. Mối liên hệ giữa các giai đoạn phát triển"
+      "1.8. Tiểu kết chương 1"
     ],
     [
       1,
@@ -105,12 +113,36 @@
       "2.2. Phân tích và chuẩn bị dữ liệu thực nghiệm"
     ],
     [
+      3,
+      "2.2.1. Định nghĩa mẫu, nhãn và đơn vị sử dụng"
+    ],
+    [
+      3,
+      "2.2.2. Dữ liệu nhà ở và ý nghĩa của phép chia theo địa chỉ"
+    ],
+    [
+      3,
+      "2.2.3. Pipeline và kiểm soát thông tin giữa các tập"
+    ],
+    [
       2,
       "2.3. So sánh và lựa chọn mô hình"
     ],
     [
       2,
       "2.4. Kết quả test độc lập và phân tích sai số"
+    ],
+    [
+      3,
+      "2.4.1. Hiệu năng từng lớp và tác động của mất cân bằng"
+    ],
+    [
+      3,
+      "2.4.2. Sai số nhà ở theo phân khúc và phần dư"
+    ],
+    [
+      3,
+      "2.4.3. Hai tình huống sử dụng trên web"
     ],
     [
       2,
@@ -157,8 +189,28 @@
       "3.2. Dữ liệu ảnh và kiến trúc thực nghiệm"
     ],
     [
+      3,
+      "3.2.1. Theo dõi một phép tích chập từ ảnh và trọng số thật"
+    ],
+    [
+      3,
+      "3.2.2. Feature map, receptive field và số tham số"
+    ],
+    [
       2,
       "3.3. Kết quả và phân tích dự đoán"
+    ],
+    [
+      3,
+      "3.3.1. Đọc đường học và đánh giá theo từng chữ số"
+    ],
+    [
+      3,
+      "3.3.2. Confidence không thay thế kiểm tra độ đúng"
+    ],
+    [
+      3,
+      "3.3.3. Đường đi của ảnh trên giao diện"
     ],
     [
       2,
@@ -166,7 +218,7 @@
     ],
     [
       1,
-      "CHƯƠNG 4. MẠNG NƠ-RON HỒI QUY RNN"
+      "CHƯƠNG 4. MẠNG NƠ-RON HỒI TIẾP RNN"
     ],
     [
       2,
@@ -201,8 +253,28 @@
       "4.2. Dữ liệu, phép chia và cấu hình"
     ],
     [
+      3,
+      "4.2.1. Từ giá quan sát đến một mẫu dự báo cụ thể"
+    ],
+    [
+      3,
+      "4.2.2. Vai trò của trạng thái và cổng trong thực nghiệm"
+    ],
+    [
       2,
       "4.3. So sánh RNN, LSTM, GRU và Persistence"
+    ],
+    [
+      3,
+      "4.3.1. Đường học và tính nhất quán của quy tắc lựa chọn"
+    ],
+    [
+      3,
+      "4.3.2. Chênh lệch so với baseline và độ bất định theo khối"
+    ],
+    [
+      3,
+      "4.3.3. Hai demo chuỗi và cách đọc kết quả"
     ],
     [
       2,
@@ -361,27 +433,43 @@
       "5.8.4. Đồng bộ notebook và các chức năng web bổ sung"
     ],
     [
+      3,
+      "5.8.5. Theo dõi một câu hỏi qua các bước truy xuất"
+    ],
+    [
+      3,
+      "5.8.6. Hai luồng hỏi đáp và giới hạn của câu trả lời"
+    ],
+    [
+      3,
+      "5.8.7. Phân biệt ba miền dự đoán gốc và các mô hình bổ sung"
+    ],
+    [
+      3,
+      "5.8.8. Đường triển khai, kiểm thử và khả năng tái lập"
+    ],
+    [
       2,
       "5.9. Kết luận chương"
     ]
   ],
   "figures": {
     "1": 2,
-    "2": 3,
-    "3": 3,
-    "4": 2,
-    "5": 21
+    "2": 6,
+    "3": 8,
+    "4": 5,
+    "5": 22
   },
   "tables": {
-    "1": 2,
-    "2": 5,
-    "3": 4,
-    "4": 3,
-    "5": 3
+    "1": 3,
+    "2": 9,
+    "3": 6,
+    "4": 4,
+    "5": 4
   },
   "equations": {
     "2": 24,
     "3": 4,
-    "4": 9
+    "4": 10
   }
 }

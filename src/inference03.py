@@ -67,6 +67,7 @@ def pool(image):
 def cnn_predict(model,pixels):
     if not isinstance(pixels,list) or len(pixels)!=784:raise ValueError('Ảnh phải có 784 pixel (28 × 28).')
     if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not 0<=v<=255 for v in pixels):raise ValueError('Pixel phải nằm trong 0–255.')
+    if not any(pixels):raise ValueError('Ảnh trống. Hãy vẽ chữ số hoặc chọn ảnh test.')
     w=model['weights'];image=[[pixels[i*28:(i+1)*28] for i in range(28)]]
     image=[[[v/255. for v in row] for row in image[0]]]
     z=pool(conv(image,w['conv1.weight'],w['conv1.bias']))

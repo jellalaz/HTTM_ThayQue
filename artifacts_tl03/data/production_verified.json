@@ -1,15 +1,37 @@
 {
   "url": "https://rag-httm-chatbot.vercel.app",
-  "checked_at": "2026-10-23T03:13:45.874737+07:00",
+  "checked_at": "2026-10-23T03:42:31.233387+07:00",
   "frontend_HTTP": 200,
   "health_endpoint": true,
   "invalid_input_HTTP": 400,
+  "invalid_cases": [
+    {
+      "task": "cnn",
+      "HTTP": 400,
+      "error": "Ảnh phải có 784 pixel (28 × 28)."
+    },
+    {
+      "task": "cnn",
+      "HTTP": 400,
+      "error": "Ảnh trống. Hãy vẽ chữ số hoặc chọn ảnh test."
+    },
+    {
+      "task": "sequence",
+      "HTTP": 400,
+      "error": "Cần đúng 30 log-return hữu hạn trong [-1, 1]."
+    },
+    {
+      "task": "housing",
+      "HTTP": 400,
+      "error": "Area: cần số hữu hạn."
+    }
+  ],
   "cases": [
     {
       "task": "cnn",
       "domain": null,
       "HTTP": 200,
-      "seconds": 1.1264656080020359,
+      "seconds": 1.4915885299997171,
       "result": {
         "digit": 7,
         "probabilities": [
@@ -42,7 +64,7 @@
       "task": "housing",
       "domain": null,
       "HTTP": 200,
-      "seconds": 0.39818856500278343,
+      "seconds": 0.5937967019999633,
       "result": {
         "prediction": 7.549916755898363,
         "unit": "tỷ VND",
@@ -59,7 +81,7 @@
       "task": "diabetes_classifier",
       "domain": null,
       "HTTP": 200,
-      "seconds": 0.34092087500175694,
+      "seconds": 0.3562484289977874,
       "result": {
         "label": "Moderate",
         "scores": {
@@ -76,7 +98,7 @@
       "task": "sequence",
       "domain": "fpt",
       "HTTP": 200,
-      "seconds": 0.3749516330026381,
+      "seconds": 0.378831033998722,
       "result": {
         "prediction": 57147.79480484828,
         "predicted_log_return": 0.0008366867424990554,
@@ -90,7 +112,7 @@
       "task": "sequence",
       "domain": "gold",
       "HTTP": 200,
-      "seconds": 0.38409362899983535,
+      "seconds": 0.3451974939998763,
       "result": {
         "prediction": 4107.89990234375,
         "predicted_log_return": 0.0,

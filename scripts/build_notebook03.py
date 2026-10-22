@@ -166,6 +166,14 @@ Mã HTML/CSS/JS, exporter và API được nhúng ở đây; notebook tự tạo
 file phụ. Giao diện cũ và chatbot được giữ. API dùng standard library với trọng số đã train,
 không cài PyTorch trên serverless. Quick không thay ứng dụng full.
 ''')
+md('''### Phân tích sâu từ dự đoán và checkpoint
+
+Phân phối lớp, missingness, sai số theo phân khúc giá, feature map CNN và phép tích chập
+được tính lại từ dữ liệu gốc và trọng số đã học. Block bootstrap chỉ mô tả độ bất định
+của test, không dùng đổi mô hình triển khai. Các sơ đồ cơ chế được ghi rõ là minh họa.
+''')
+analysis=source('src/analysis03.py').split('\nif __name__')[0].replace('    from experiments03 import DigitCNN,read_mnist','    # DigitCNN và read_mnist đã được định nghĩa ở phần 2.')
+code(analysis+'\nif MODE=="full":\n    run_analysis03(RUN_ROOT, documents=documents, retriever=retriever, kg=kg)\nelse:\n    print("Chẩn đoán đầy đủ dùng artifact full; quick không thay các hình và bảng này.")\n')
 # Nhúng nguyên các nguồn bảo trì dưới dạng payload; không phụ thuộc notebook hay file Python khác.
 asset_names=['src/web.html','src/styles.css','src/clinical.js','src/engine.js','src/app.js',
              'src/experiments03.html','src/experiments03.js','src/inference03.py','scripts/export_web03.py']

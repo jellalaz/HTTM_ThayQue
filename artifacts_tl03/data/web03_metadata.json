@@ -275,6 +275,13 @@
     "Bedrooms": 3.0,
     "Bathrooms": 3.0
   },
+  "housing_category_defaults": {
+    "House direction": "Unknown",
+    "Balcony direction": "Unknown",
+    "Legal status": "Have certificate",
+    "Furniture state": "Unknown",
+    "Province": "Hồ Chí Minh"
+  },
   "diabetes_defaults": {
     "Age": 54.0,
     "BMI": 30.1,

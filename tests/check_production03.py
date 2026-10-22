@@ -25,8 +25,11 @@ for payload in payloads:
     else:assert result['prediction']>0
     row={'task':payload['task'],'domain':payload.get('domain'),'HTTP':r.status_code,'seconds':time.perf_counter()-started,'result':result}
     results.append(row);print(payload['task'],payload.get('domain',''),r.status_code,round(row['seconds'],3))
-r=requests.post(base+'/api/predict',json={'task':'cnn','pixels':[0]},timeout=30)
-assert r.status_code==400
-out={'url':base,'checked_at':datetime.now(ZoneInfo('Asia/Ho_Chi_Minh')).isoformat(),'frontend_HTTP':page.status_code,'health_endpoint':True,'invalid_input_HTTP':r.status_code,'cases':results}
+invalid=[]
+for payload in [{'task':'cnn','pixels':[0]},{'task':'cnn','pixels':[0]*784},{'task':'sequence','returns':[0]*29},{'task':'housing','features':{'Area':'bad'}}]:
+    r=requests.post(base+'/api/predict',json=payload,timeout=30)
+    assert r.status_code==400,(payload['task'],r.status_code)
+    invalid.append({'task':payload['task'],'HTTP':r.status_code,'error':r.json()['error']})
+out={'url':base,'checked_at':datetime.now(ZoneInfo('Asia/Ho_Chi_Minh')).isoformat(),'frontend_HTTP':page.status_code,'health_endpoint':True,'invalid_input_HTTP':400,'invalid_cases':invalid,'cases':results}
 (ROOT/'artifacts_tl03/data/production_verified.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
 print('Production checks passed')

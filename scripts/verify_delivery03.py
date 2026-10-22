@@ -7,7 +7,7 @@ import subprocess
 
 ROOT=Path(__file__).resolve().parents[1]
 required=['tieuluan03_06_02_giangkt.254.docx','tieuluan03_06_02_giangkt.254.pdf',
-          'main.ipynb','README.md','CHANGELOG.md','EXPERIMENT_RESULTS.md','FINAL_VERIFICATION.md']
+          'main.ipynb','README.md','CHANGELOG.md','EXPERIMENT_RESULTS.md','FINAL_VERIFICATION.md','PROJECT_REPORT.md']
 assert all((ROOT/p).is_file() for p in required)
 nb=json.loads((ROOT/'main.ipynb').read_text());code=[c for c in nb['cells'] if c['cell_type']=='code']
 assert [c['execution_count'] for c in code]==list(range(1,len(code)+1))

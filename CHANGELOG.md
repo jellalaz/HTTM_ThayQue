@@ -39,10 +39,23 @@ Không nhận accuracy/RMSE, checkpoint hoặc biểu đồ của tác giả TL0
 
 ## Notebook và web
 
-`main.ipynb` tự chứa mã và tự tạo module/HTML/CSS/JS. Đã Run All full qua Jupyter, 17 code cells, không lỗi. Có quick/full, seed, hash cache và đối chiếu metrics từ predictions.
+`main.ipynb` tự chứa mã và tự tạo module/HTML/CSS/JS. Đã Run All full qua Jupyter; bản mở rộng có 18 code cells, bao gồm chẩn đoán từ dữ liệu/checkpoint, không lỗi. Có quick/full, seed, hash cache và đối chiếu metrics từ predictions.
 
 Giữ theme, hero, ba tab cũ, chatbot và khu chất lượng. Thêm demo ML/CNN/RNN, API `/api/predict`, validation, loading/error và model thật. API có parity với sklearn/PyTorch. Production đã deploy và kiểm tra; xem `FINAL_VERIFICATION.md` và `production_verified.json`.
 
 ## Dấu vết
 
 `report_provenance.json` ghi đoạn/hình/công thức, chương, màu và trang nguồn. `report_structure.json` ghi cấu trúc; `report_audit.json` kiểm tra TOC, màu, công thức và trang. Các tệp QA không đưa thành phụ lục báo cáo.
+
+## Mở rộng chiều sâu theo phản hồi
+
+- Bổ sung dẫn nhập đủ vấn đề, cách giải quyết và lộ trình cho cả năm chương. Đưa tiểu kết Chương 1 về sau phần liên hệ phương pháp; bỏ lời dẫn mang tính nhật ký ghép tài liệu, biên tập câu kết cho gọn và trung tính.
+- Chương 2: từ điển biến/đơn vị, số thiếu thật, phân phối lớp, kiểm tra nhóm địa chỉ, pipeline từng fold, precision/recall/F1 từng lớp, phần dư và bốn phân khúc giá. Giải thích đầy đủ hai đường đưa mô hình lên API và demo.
+- Chương 3: theo dõi phép tích chập từ patch MNIST và kernel thật; feature map, receptive field và phân rã tham số; bảng từng chữ số, reliability và giới hạn confidence. Bổ sung ảnh chụp production, không dùng mockup làm bằng chứng.
+- Chương 4: cửa sổ 31 giá/30 log-return thật; mô tả cổng và tensor; sáu learning curve; circular block bootstrap ghép cặp 2.000 lần, khối 5. Không đổi lựa chọn model sau khi xem test.
+- Chương 5: câu hỏi FPT đi qua thứ hạng TF-IDF thật và cạnh KG; phân tích lỗi thiếu RSI trong top-3. Tách prototype notebook khỏi chatbot BM25 trên web và tách các mô hình bổ sung khỏi ba miền gốc.
+- Tạo `PROJECT_REPORT.md` từ cùng nội dung phân tích để người đọc repository có đủ bài toán, dữ liệu, cơ chế, kết quả, lỗi, bằng chứng và link demo; giao diện có link tới đúng phần.
+- Tách Web/GitHub và từng demo thành các paragraph hyperlink căn trái; không ghép nhiều nhãn/link vào một dòng căn đều. Giữ hàng bảng nguyên vẹn khi sang trang, lặp header, cập nhật lại TOC từ PDF.
+- Thêm `src/analysis03.py`, nhúng vào notebook. Tám hình phân tích được tính từ dữ liệu/checkpoint/CSV; bốn sơ đồ ghi rõ là cơ chế. `figure_lineage.json` lưu đầu vào và SHA-256.
+- Sửa API từ chối ảnh toàn 0; parser chuỗi không coi phần tử trống là 0; nhà ở dùng mode train làm mặc định và cảnh báo vượt min–max train. Không tự cắt giá trị hoặc công bố tăng Accuracy khi trọng số không đổi.
+- Thêm URL mở thẳng từng demo và miền vàng; triển khai lại production và kiểm tra API/thao tác thực tế. Trọng số được giữ vì chưa có bằng chứng validation cho một mô hình mới tốt hơn.

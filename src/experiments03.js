@@ -7,7 +7,7 @@
  function render(){
   const kind=el('experiment-kind').value;el('experiment-result').textContent='';el('experiment-error').hidden=true;selectedSample=null;
   if(kind==='housing'){
-   el('experiment-input').innerHTML='<p class="hint">Dự báo giá theo tỷ VND từ tin đăng năm 2024, không phải định giá thị trường trực tiếp. MAE test '+meta.tabular.housing.metrics.MAE.toFixed(3)+' tỷ VND. Trường số trống dùng trung vị train.</p><div class="form-grid">'+Object.entries(meta.housing_defaults).map(([k,v])=>input(k,v)).join('')+Object.entries(meta.housing_categories).map(([k,values])=>`<label>${escape(labels03[k]||k)}<select data-feature="${escape(k)}">${values.map(v=>`<option>${escape(v)}</option>`).join('')}</select></label>`).join('')+'</div>';
+   el('experiment-input').innerHTML='<p class="hint">Dự báo giá theo tỷ VND từ tin đăng năm 2024, không phải định giá thị trường trực tiếp. MAE test '+meta.tabular.housing.metrics.MAE.toFixed(3)+' tỷ VND. Trường số trống dùng trung vị train; nhóm mặc định là mode train, không phải một bất động sản có thật.</p><div class="form-grid">'+Object.entries(meta.housing_defaults).map(([k,v])=>input(k,v)).join('')+Object.entries(meta.housing_categories).map(([k,values])=>`<label>${escape(labels03[k]||k)}<select data-feature="${escape(k)}">${values.map(v=>`<option${v===meta.housing_category_defaults[k]?' selected':''}>${escape(v)}</option>`).join('')}</select></label>`).join('')+'</div>';
   } else if(kind==='diabetes_classifier'){
    el('experiment-input').innerHTML='<p class="hint">Phân loại nhãn của dataset tổng hợp, không phải chẩn đoán hay xác suất mắc bệnh. Mô hình Random Forest · macro-F1 test '+meta.tabular.diabetes_classifier.metrics.F1_macro.toFixed(4)+'.</p><div class="form-grid">'+Object.entries(meta.diabetes_defaults).map(([k,v])=>input(k,v)).join('')+'</div>';
   } else if(kind==='cnn'){
@@ -22,6 +22,9 @@
    el('experiment-input').innerHTML='<div class="form-grid"><label>Chuỗi<select id="sequence-domain"><option value="fpt">FPT.VN</option><option value="gold">Vàng futures GC=F</option></select></label><label>Giá đóng cửa gần nhất<input id="sequence-close" inputmode="decimal"></label></div><label style="display:block;margin-top:14px">30 log-return từ cũ đến mới (phân cách bằng dấu phẩy)<textarea id="sequence-returns" rows="4" style="width:100%;margin-top:8px"></textarea></label><p id="sequence-info" class="hint"></p>';
    function fill(){const m=meta.sequences[el('sequence-domain').value];el('sequence-close').value=m.last_close;el('sequence-returns').value=m.last_returns.join(', ');el('sequence-info').textContent='Snapshot '+m.as_of+' · mô hình chọn trước test: '+m.kind+'. Neural validation winner: '+m.neural_validation_winner+'. Không phải dữ liệu trực tiếp.'}el('sequence-domain').onchange=fill;fill();
   }
+  const notes={housing:'Giá rao bán, không phải giá giao dịch. Địa chỉ được chia theo nhóm; không có địa chỉ trùng giữa train và test.',diabetes_classifier:'High chiếm 73,2%, Low chỉ 0,9% toàn bộ dữ liệu. Macro-F1 phản ánh hạn chế ở lớp ít mẫu rõ hơn Accuracy.',cnn:'Chỉ số test áp dụng cho MNIST. Canvas được thu về 28 × 28 rồi chia 255; ảnh lệch tâm, nhiều chữ số hoặc nét khác MNIST có thể nhận sai.',sequence:'Đầu ra là một bước tiếp theo sau cửa sổ đã nhập, không phải dự báo đến ngày hiện tại. FPT dùng GRU; vàng dùng Persistence do lựa chọn trên validation.'};
+  const detail=document.createElement('p');detail.className='hint';detail.textContent=notes[kind];el('experiment-input').append(detail);
+  const link=document.createElement('a');link.href='https://github.com/jellalaz/HTTM_ThayQue/blob/main/PROJECT_REPORT.md#'+({housing:'gia-nha',diabetes_classifier:'phan-loai-nguy-co',cnn:'cnn-chu-so',sequence:'chuoi-thoi-gian'}[kind]);link.textContent='Xem dữ liệu, cơ chế và phân tích thực nghiệm →';link.target='_blank';link.rel='noopener noreferrer';el('experiment-input').append(link);
  }
  function point(e){const r=canvas.getBoundingClientRect();return [(e.clientX-r.left)*280/r.width,(e.clientY-r.top)*280/r.height]}
  function clear(){selectedSample=null;ctx.fillStyle='#000';ctx.fillRect(0,0,280,280);ctx.strokeStyle='#fff';ctx.lineWidth=20;ctx.lineCap='round';ctx.lineJoin='round';el('sample-label').textContent=''}
@@ -31,7 +34,7 @@
   try{
    const payload={task};
    if(task==='cnn'){payload.pixels=pixels();if(payload.pixels.every(x=>x===0))throw new Error('Hãy vẽ chữ số hoặc chọn một ảnh test.');}
-   else if(task==='sequence'){payload.domain=el('sequence-domain').value;payload.last_close=parseNumber(el('sequence-close').value);payload.returns=el('sequence-returns').value.split(',').map(s=>Number(s.trim()));if(!Number.isFinite(payload.last_close)||payload.last_close<=0||payload.returns.length!==30||payload.returns.some(v=>!Number.isFinite(v)||Math.abs(v)>1))throw new Error('Kiểm tra giá dương và đúng 30 log-return hữu hạn trong [-1, 1].');}
+   else if(task==='sequence'){payload.domain=el('sequence-domain').value;payload.last_close=parseNumber(el('sequence-close').value);const tokens=el('sequence-returns').value.split(',').map(s=>s.trim());payload.returns=tokens.map(Number);if(tokens.some(s=>s==='')||!Number.isFinite(payload.last_close)||payload.last_close<=0||payload.returns.length!==30||payload.returns.some(v=>!Number.isFinite(v)||Math.abs(v)>1))throw new Error('Kiểm tra giá dương và đúng 30 log-return hữu hạn trong [-1, 1]; không để phần tử trống.');}
    else {payload.features={};document.querySelectorAll('#experiment-input [data-feature]').forEach(e=>{const k=e.dataset.feature;if(e.tagName==='SELECT')payload.features[k]=e.value;else{const v=e.value.trim()===''?null:parseNumber(e.value);if(v!==null&&(!Number.isFinite(v)||v<=0))throw new Error((labels03[k]||k)+' phải là số dương.');payload.features[k]=v;}});}
    button.disabled=true;button.textContent='Đang chạy mô hình…';const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),25000);let response;
    try{response=await fetch('/api/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});}finally{clearTimeout(timeout)}
@@ -43,5 +46,8 @@
   }catch(e){error.hidden=false;error.textContent=e.name==='AbortError'?'API phản hồi quá lâu. Vui lòng thử lại.':e.message;}
   finally{button.disabled=false;button.textContent='Chạy mô hình →'}
  };
+ const demo=new URLSearchParams(window.location.search).get('demo');
+ if(['housing','diabetes_classifier','cnn','sequence'].includes(demo))el('experiment-kind').value=demo;
  el('experiment-kind').onchange=render;render();
+ if(demo==='sequence'&&new URLSearchParams(window.location.search).get('domain')==='gold'){el('sequence-domain').value='gold';el('sequence-domain').dispatchEvent(new Event('change'));}
 })();

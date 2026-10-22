@@ -26,7 +26,12 @@ for page in doc:
             return match[1]+content+match[3]
         changed=pattern.sub(recolor,data)
         if changed!=data:doc.update_stream(xref,changed)
-assert count==8,count
+from zipfile import ZipFile
+from lxml import etree
+xml=etree.fromstring(ZipFile(ROOT/f'{NAME}.docx').read('word/document.xml'))
+ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main','m':'http://schemas.openxmlformats.org/officeDocument/2006/math'}
+expected=len(xml.xpath('//w:p[w:pPr/w:pStyle[@w:val="RedEquation"]][.//m:oMath]',namespaces=ns))
+assert count==expected,(count,expected)
 doc.save(target,garbage=4,deflate=True)
 check=pymupdf.open(target)
 assert before==[p.get_text(sort=True) for p in check]

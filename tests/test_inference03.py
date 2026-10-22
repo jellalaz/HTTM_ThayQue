@@ -49,8 +49,12 @@ class ExportTests(unittest.TestCase):
         for p in [{'task':'cnn','pixels':[0]*783},{'task':'cnn','pixels':[float('nan')]*784},{'task':'sequence','returns':[0]*29},{'task':'sequence','domain':'unknown'},{'task':'housing','features':{'Area':'bad'}},{'task':'housing','features':{'Area':float('inf')}},{'task':'unknown'}]:
             with self.assertRaises((ValueError,TypeError)):predict(self.bundle,p)
     def test_blank_and_imputation(self):
+        with self.assertRaisesRegex(ValueError,'Ảnh trống'):
+            predict(self.bundle,{'task':'cnn','pixels':[0]*784})
         result=predict(self.bundle,{'task':'housing','features':{}})
         self.assertTrue(math.isfinite(result['prediction']));self.assertTrue(result['warnings'])
+        result=predict(self.bundle,{'task':'housing','features':{'Area':1e7}})
+        self.assertIn('Area: ngoài phạm vi train',result['warnings'])
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

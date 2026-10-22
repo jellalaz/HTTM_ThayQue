@@ -88,3 +88,15 @@ KG gồm 25 nút, 22 cạnh, corpus 11 tài liệu. Sáu câu hỏi smoke test c
 ## Chưa thực nghiệm và phạm vi kiểm chứng
 
 Chưa train lại ASL, e-commerce hoặc các bản Scratch/TensorFlow/Keras của TL01; không công bố lại số liệu cũ như kết quả mới. Chưa chạy nhiều seed, kiểm thử GPU, đánh giá chuyên gia y tế, benchmark câu trả lời RAG độc lập hoặc backtest có phí. Chế độ full CPU đã chạy và lưu kết quả; quick là cấu hình giảm tải, chưa được coi là một bộ kết quả tương đương full.
+
+## Phân tích bổ sung từ cùng checkpoint và predictions
+
+Không thay trọng số hoặc chọn lại mô hình theo test. `src/analysis03.py` được nhúng và thực thi trong Run All; kết quả tổng hợp ở `extended_analysis.json`, nguồn/hash của từng hình ở `figure_lineage.json`. Tám hình chẩn đoán là kết quả tính thực; bốn sơ đồ cơ chế không phải quan sát thực nghiệm.
+
+- Classifier: Low có 94 mẫu test, precision 0,225681, recall 0,617021 và F1 0,330484. Accuracy tổng không che được hạn chế lớp hiếm.
+- Giá nhà: ba cặp tập có 0 nhóm địa chỉ chung. Trung vị sai số tuyệt đối 1,038402 tỷ; phân vị 90% 2,687903 tỷ. Nhóm giá thực trên 7,56 tỷ có MAE 1,943179 tỷ và lệch trung bình −1,931555 tỷ. Đây không phải khoảng dự báo cá nhân.
+- CNN: patch test[0] ở Conv1/kênh 0, hàng 9/cột 19 cho tổng+bias 2,246352903 và ReLU PyTorch 2,246352911. ECE theo 10 khoảng cố định là 0,002426752; có 5 lỗi confidence ≥99%. Không dùng test để chọn ngưỡng từ chối.
+- Chuỗi: circular block bootstrap ghép cặp, 2.000 lần, khối 5, seed 42. FPT/RNN giảm MAE 1,859570%, khoảng mô tả 95% [−1,251758%; 5,105471%]; Gold/RNN 1,553277%, [0,291162%; 2,731852%]. Kết quả phụ thuộc snapshot/khối và chưa điều chỉnh nhiều so sánh; không đổi deployment theo phân tích này.
+- RAG: câu hỏi FPT/RSI xếp STK01, GLD01, STK03 vào top-3; STK02 chứa chỉ báo chỉ đứng thứ 5. Cạnh RSI14→FPT chỉ biểu diễn quan hệ, không thay giá trị RSI bị thiếu. Phân tích nêu rõ lỗi truy xuất, không biến điểm cosine thành xác suất đúng.
+
+Các bảng đầy đủ nằm trong `diabetes_class_report.csv`, `housing_error_bands.csv`, `sequence_paired_bootstrap.csv`, `retrieval_example.json`. Hướng dẫn chi tiết, ảnh thật và liên kết demo từng bài toán ở `PROJECT_REPORT.md`.
